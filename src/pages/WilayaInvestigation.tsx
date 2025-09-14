@@ -5,6 +5,8 @@ import {
   ValidationError, 
   FormValidationResult 
 } from '../types';
+import { Button } from '@/components/ui/button';
+import ResponsivePageWrapper from '@/components/ResponsivePageWrapper';
 import './WilayaInvestigation.css';
 
 // Constants for business logic
@@ -167,7 +169,7 @@ const validateWilayaRequest = (request: WilayaInvestigationRequest): FormValidat
   };
 };
 
-const formatDocumentNumber = (divisionNumber: string, year: number): string => {
+const formatDocumentNumber = (_divisionNumber: string, year: number): string => {
   return `______ / D / ${year}`;
 };
 
@@ -374,32 +376,30 @@ const WilayaInvestigation: React.FC = () => {
   );
 
   return (
-    <div className="wilaya-investigation-page">
-      <div className="investigation-header">
-        <div className="header-content">
-          <h1>Wilaya Administrative Investigation Request</h1>
-          <h2 className="arabic-title">طلب تحقيق إداري - الولاية</h2>
+    <ResponsivePageWrapper>
+      <div className="wilaya-investigation-page">
+        <div className="page-header">
+          <div>
+            <h1>Wilaya Administrative Investigation Request</h1>
+            <h2 className="arabic-title">طلب تحقيق إداري - الولاية</h2>
+          </div>
+          <div className="button-group">
+            <Button 
+              onClick={handlePrint}
+              variant="outline"
+              disabled={isSubmitting}
+            >
+              طباعة
+            </Button>
+            <Button 
+              onClick={handleExportPDF}
+              variant="secondary"
+              disabled={isSubmitting}
+            >
+              تصدير PDF
+            </Button>
+          </div>
         </div>
-        
-        <div className="investigation-actions">
-          <button 
-            type="button" 
-            onClick={handlePrint}
-            className="print-button"
-            disabled={isSubmitting}
-          >
-            طباعة
-          </button>
-          <button 
-            type="button" 
-            onClick={handleExportPDF}
-            className="export-button"
-            disabled={isSubmitting}
-          >
-            تصدير PDF
-          </button>
-        </div>
-      </div>
 
       {submitSuccess && (
         <div className="success-message" role="alert">
@@ -484,14 +484,13 @@ const WilayaInvestigation: React.FC = () => {
         <div className="employees-section">
           <div className="section-header">
             <h3>قائمة الموظفين المطلوب التحقيق معهم</h3>
-            <button
+            <Button
               type="button"
               onClick={addEmployee}
               disabled={!canAddEmployee || isSubmitting}
-              className="add-employee-button"
             >
               إضافة موظف
-            </button>
+            </Button>
           </div>
 
           <div className="table-container">
@@ -542,29 +541,29 @@ const WilayaInvestigation: React.FC = () => {
         </div>
 
         <div className="form-actions">
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
-            className="submit-button"
           >
             {isSubmitting ? 'جاري الإرسال...' : 'إرسال الطلب'}
-          </button>
+          </Button>
           
-          <button
+          <Button
             type="button"
+            variant="outline"
             onClick={() => {
               if (confirm('هل أنت متأكد من إعادة تعيين النموذج؟')) {
                 window.location.reload();
               }
             }}
             disabled={isSubmitting}
-            className="reset-button"
           >
             إعادة تعيين
-          </button>
+          </Button>
         </div>
       </form>
     </div>
+    </ResponsivePageWrapper>
   );
 };
 
