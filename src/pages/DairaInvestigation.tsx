@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DairaInvestigationRequest, EmployeeInvestigation } from '../types';
+import { Button } from '@/components/ui/button';
+import ResponsivePageWrapper from '@/components/ResponsivePageWrapper';
 import './DairaInvestigation.css';
 
 const DairaInvestigation: React.FC = () => {
@@ -127,24 +129,27 @@ const DairaInvestigation: React.FC = () => {
   };
 
   return (
-    <div className="daira-investigation-page">
-      <div className="investigation-header">
-        <h1>Administrative Investigation Request</h1>
-        <h2 className="arabic-title">طلب التحقيقات الإدارية</h2>
-        <div className="investigation-actions">
-          <button 
-            className={isEditing ? 'btn-secondary' : 'btn-primary'}
-            onClick={() => setIsEditing(!isEditing)}
-          >
-            {isEditing ? 'Cancel' : 'Edit Request'}
-          </button>
-          {!isEditing && (
-            <button className="btn-success" onClick={downloadDocument}>
-              Download PDF
-            </button>
-          )}
+    <ResponsivePageWrapper>
+      <div className="daira-investigation-page">
+        <div className="page-header">
+          <div>
+            <h1>Administrative Investigation Request</h1>
+            <h2 className="arabic-title">طلب التحقيقات الإدارية</h2>
+          </div>
+          <div className="button-group">
+            <Button 
+              variant={isEditing ? 'outline' : 'default'}
+              onClick={() => setIsEditing(!isEditing)}
+            >
+              {isEditing ? 'Cancel' : 'Edit Request'}
+            </Button>
+            {!isEditing && (
+              <Button variant="secondary" onClick={downloadDocument}>
+                Download PDF
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
 
       <div className="investigation-content">
         <div className="investigation-document">
@@ -201,9 +206,9 @@ const DairaInvestigation: React.FC = () => {
               <h3>الجدول:</h3>
               {isEditing && (
                 <div className="table-actions">
-                  <button className="btn-small" onClick={addEmployee}>
+                  <Button size="sm" onClick={addEmployee}>
                     Add Employee
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>
@@ -292,13 +297,14 @@ const DairaInvestigation: React.FC = () => {
                       </td>
                       {isEditing && (
                         <td>
-                          <button 
-                            className="btn-small btn-danger"
+                          <Button 
+                            variant="destructive"
+                            size="sm"
                             onClick={() => removeEmployee(index)}
                             disabled={investigationRequest.employees.length <= 1}
                           >
                             Remove
-                          </button>
+                          </Button>
                         </td>
                       )}
                     </tr>
@@ -309,9 +315,9 @@ const DairaInvestigation: React.FC = () => {
 
             {isEditing && (
               <div className="submit-section">
-                <button className="btn-primary" onClick={handleSubmit}>
+                <Button onClick={handleSubmit}>
                   Submit Investigation Request
-                </button>
+                </Button>
               </div>
             )}
           </div>
@@ -335,6 +341,7 @@ const DairaInvestigation: React.FC = () => {
         </div>
       </div>
     </div>
+    </ResponsivePageWrapper>
   );
 };
 
