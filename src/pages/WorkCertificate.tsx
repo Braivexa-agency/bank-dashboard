@@ -1,255 +1,328 @@
-import React, { useState } from 'react';
-import { WorkCertificate } from '../types';
+import React, { useState, useEffect } from 'react';
+import { WorkCertificateRequest, WorkPosition } from '../types';
 import './WorkCertificate.css';
 
-const WorkCertificatePage: React.FC = () => {
-  const [certificate, setCertificate] = useState<WorkCertificate>({
+const WorkCertificate: React.FC = () => {
+  const [certificateRequest, setCertificateRequest] = useState<WorkCertificateRequest>({
+    id: '1',
     employeeName: '',
-    birthDate: '',
+    birthDate: new Date(),
     birthPlace: '',
-    hireDate: '',
-    position: '',
-    department: '',
+    employmentStartDate: new Date(),
+    employmentEndDate: new Date(),
+    positions: [
+      { id: '1', position: '', assignment: '', startDate: new Date(), endDate: new Date() },
+      { id: '2', position: '', assignment: '', startDate: new Date(), endDate: new Date() },
+      { id: '3', position: '', assignment: '', startDate: new Date(), endDate: new Date() },
+      { id: '4', position: '', assignment: '', startDate: new Date(), endDate: new Date() },
+    ],
+    totalExperience: '',
+    requestDate: new Date(),
+    status: 'pending',
+    divisionNumber: '012',
     certificateNumber: '',
-    issueDate: new Date().toLocaleDateString('fr-FR'),
-    issueLocation: 'Alger',
   });
 
-  const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const handleInputChange = (field: keyof WorkCertificate, value: string) => {
-    setCertificate(prev => ({
+  useEffect(() => {
+    // Load existing certificate data or set defaults
+    setCertificateRequest(prev => ({
+      ...prev,
+      employeeName: 'John Doe',
+      birthDate: new Date('1985-03-15'),
+      birthPlace: 'Algiers',
+      employmentStartDate: new Date('2020-01-01'),
+      employmentEndDate: new Date('2024-12-31'),
+      totalExperience: '4 years and 11 months',
+      certificateNumber: `${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}/D/2025`,
+      positions: [
+        {
+          id: '1',
+          position: 'Junior Analyst',
+          assignment: 'Credit Department',
+          startDate: new Date('2020-01-01'),
+          endDate: new Date('2021-06-30'),
+        },
+        {
+          id: '2',
+          position: 'Senior Analyst',
+          assignment: 'Risk Management',
+          startDate: new Date('2021-07-01'),
+          endDate: new Date('2023-03-31'),
+        },
+        {
+          id: '3',
+          position: 'Team Lead',
+          assignment: 'Operations',
+          startDate: new Date('2023-04-01'),
+          endDate: new Date('2024-12-31'),
+        },
+        {
+          id: '4',
+          position: '',
+          assignment: '',
+          startDate: new Date(),
+          endDate: new Date(),
+        },
+      ],
+    }));
+  }, []);
+
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    }).format(date);
+  };
+
+  const formatDateForInput = (date: Date) => {
+    return date.toISOString().split('T')[0];
+  };
+
+  const handleInputChange = (field: keyof WorkCertificateRequest, value: string | Date) => {
+    setCertificateRequest(prev => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const generateCertificateNumber = () => {
-    const year = new Date().getFullYear();
-    const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-    return `${randomNum}/${year}`;
-  };
-
-  const handleGenerateNumber = () => {
-    setCertificate(prev => ({
+  const handlePositionChange = (index: number, field: keyof WorkPosition, value: string | Date) => {
+    setCertificateRequest(prev => ({
       ...prev,
-      certificateNumber: generateCertificateNumber(),
+      positions: prev.positions.map((position, i) => 
+        i === index ? { ...position, [field]: value } : position
+      ),
     }));
   };
 
-  const isFormComplete = () => {
-    return certificate.employeeName &&
-           certificate.birthDate &&
-           certificate.birthPlace &&
-           certificate.hireDate &&
-           certificate.position &&
-           certificate.department &&
-           certificate.certificateNumber;
+  const handleSubmit = () => {
+    // In a real app, this would make an API call
+    console.log('Submitting certificate request:', certificateRequest);
+    setCertificateRequest(prev => ({ ...prev, status: 'pending' }));
+    setIsEditing(false);
+    alert('Certificate request submitted successfully!');
   };
 
-  if (isPreviewMode) {
-    return (
-      <div className="certificate-preview">
-        <div className="preview-controls no-print">
-          <button onClick={() => setIsPreviewMode(false)} className="btn-secondary">
-            ← Retour à l'édition
-          </button>
-          <button onClick={handlePrint} className="btn-primary">
-            🖨️ Imprimer
-          </button>
-        </div>
-        
-        <div className="certificate-document">
-          <div className="document-header">
-            <div className="header-left">
-              DIRECTION DES<br />
-              DEPARTEMENT ADMINISTRATION<br />
-              N° {certificate.certificateNumber}/2025
-            </div>
-            <div className="header-right">
-              {certificate.issueLocation}, le {certificate.issueDate}
-            </div>
-          </div>
-
-          <div className="document-title">ATTESTATION DE TRAVAIL</div>
-
-          <div className="document-content">
-            NOUS SOUSSIGNÉS, Banque<br />
-            <strong>BANQUE</strong> ATTESTONS QUE :<br /><br />
-
-            MONSIEUR : <strong>{certificate.employeeName}</strong><br />
-            NÉ LE : <strong>{certificate.birthDate}</strong> à <strong>{certificate.birthPlace}</strong><br /><br />
-
-            FAIT PARTIE DE NOTRE PERSONNEL DEPUIS LE : <strong>{certificate.hireDate}</strong><br /><br />
-
-            ET OCCUPE LA FONCTION PERMANENTE SUIVANTE : <strong>{certificate.position}</strong><br /><br />
-
-            STRUCTURE : <strong>{certificate.department}</strong><br /><br />
-
-            LA PRÉSENTE ATTESTATION EST DÉLIVRÉE POUR SERVIR ET VALOIR CE QUE DE DROIT.
-          </div>
-
-          <div className="document-signature">
-            <div className="signature-block">
-              <p>Le Directeur</p>
-              <div className="signature-line"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const downloadCertificate = () => {
+    // In a real app, this would generate and download a PDF
+    alert('Certificate downloaded!');
+  };
 
   return (
     <div className="work-certificate-page">
       <div className="certificate-header">
-        <h1>Attestation de Travail</h1>
-        <p className="page-description">Générer une attestation de travail pour un employé</p>
+        <h1>Work Certificate Request</h1>
+        <div className="certificate-actions">
+          <button 
+            className={isEditing ? 'btn-secondary' : 'btn-primary'}
+            onClick={() => setIsEditing(!isEditing)}
+          >
+            {isEditing ? 'Cancel' : 'Edit Request'}
+          </button>
+          {!isEditing && (
+            <button className="btn-success" onClick={downloadCertificate}>
+              Download PDF
+            </button>
+          )}
+        </div>
       </div>
 
-      <div className="certificate-form">
-        <div className="form-section">
-          <h2>Informations sur l'employé</h2>
-          
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="employeeName">Nom complet de l'employé *</label>
-              <input
-                type="text"
-                id="employeeName"
-                value={certificate.employeeName}
-                onChange={(e) => handleInputChange('employeeName', e.target.value)}
-                placeholder="Ex: DUPONT Jean"
-              />
+      <div className="certificate-content">
+        <div className="certificate-document">
+          <div className="document-header">
+            <div className="division-info">
+              <p>Division<br />
+                « {certificateRequest.divisionNumber} »<br />
+                N° {certificateRequest.certificateNumber}
+              </p>
+            </div>
+            <div className="date-info">
+              <p>Alger le : {formatDate(certificateRequest.requestDate)}</p>
             </div>
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="birthDate">Date de naissance *</label>
-              <input
-                type="date"
-                id="birthDate"
-                value={certificate.birthDate}
-                onChange={(e) => handleInputChange('birthDate', e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="birthPlace">Lieu de naissance *</label>
-              <input
-                type="text"
-                id="birthPlace"
-                value={certificate.birthPlace}
-                onChange={(e) => handleInputChange('birthPlace', e.target.value)}
-                placeholder="Ex: Paris"
-              />
-            </div>
-          </div>
-        </div>
+          <h2 className="document-title">CERTIFICAT DE TRAVAIL</h2>
 
-        <div className="form-section">
-          <h2>Informations professionnelles</h2>
-          
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="hireDate">Date d'embauche *</label>
-              <input
-                type="date"
-                id="hireDate"
-                value={certificate.hireDate}
-                onChange={(e) => handleInputChange('hireDate', e.target.value)}
-              />
-            </div>
-          </div>
+          <div className="certificate-body">
+            <p>Nous, <strong>Banque</strong> certifions que :</p>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="position">Fonction/Poste *</label>
-              <input
-                type="text"
-                id="position"
-                value={certificate.position}
-                onChange={(e) => handleInputChange('position', e.target.value)}
-                placeholder="Ex: Conseiller Clientèle"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="department">Département/Structure *</label>
-              <input
-                type="text"
-                id="department"
-                value={certificate.department}
-                onChange={(e) => handleInputChange('department', e.target.value)}
-                placeholder="Ex: Service Commercial"
-              />
-            </div>
-          </div>
-        </div>
+            <div className="employee-info">
+              <div className="form-row">
+                <label><strong>Monsieur/Madame :</strong></label>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    value={certificateRequest.employeeName}
+                    onChange={(e) => handleInputChange('employeeName', e.target.value)}
+                    className="form-input"
+                  />
+                ) : (
+                  <span className="form-value">{certificateRequest.employeeName}</span>
+                )}
+              </div>
 
-        <div className="form-section">
-          <h2>Informations du document</h2>
-          
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="certificateNumber">Numéro d'attestation *</label>
-              <div className="input-with-button">
-                <input
-                  type="text"
-                  id="certificateNumber"
-                  value={certificate.certificateNumber}
-                  onChange={(e) => handleInputChange('certificateNumber', e.target.value)}
-                  placeholder="Ex: 001/2025"
-                />
-                <button 
-                  type="button" 
-                  onClick={handleGenerateNumber}
-                  className="btn-generate"
-                >
-                  Générer
-                </button>
+              <div className="form-row">
+                <label><strong>Né(e) le :</strong></label>
+                {isEditing ? (
+                  <input
+                    type="date"
+                    value={formatDateForInput(certificateRequest.birthDate)}
+                    onChange={(e) => handleInputChange('birthDate', new Date(e.target.value))}
+                    className="form-input"
+                  />
+                ) : (
+                  <span className="form-value">{formatDate(certificateRequest.birthDate)}</span>
+                )}
+                <label><strong>à</strong></label>
+                {isEditing ? (
+                  <input
+                    type="text"
+                    value={certificateRequest.birthPlace}
+                    onChange={(e) => handleInputChange('birthPlace', e.target.value)}
+                    className="form-input"
+                  />
+                ) : (
+                  <span className="form-value">{certificateRequest.birthPlace}</span>
+                )}
+              </div>
+
+              <div className="employment-period">
+                <p>A fait partie des effectifs de la Banque du : 
+                  {isEditing ? (
+                    <input
+                      type="date"
+                      value={formatDateForInput(certificateRequest.employmentStartDate)}
+                      onChange={(e) => handleInputChange('employmentStartDate', new Date(e.target.value))}
+                      className="form-input inline"
+                    />
+                  ) : (
+                    <span className="form-value">{formatDate(certificateRequest.employmentStartDate)}</span>
+                  )}
+                  {' '}au{' '}
+                  {isEditing ? (
+                    <input
+                      type="date"
+                      value={formatDateForInput(certificateRequest.employmentEndDate)}
+                      onChange={(e) => handleInputChange('employmentEndDate', new Date(e.target.value))}
+                      className="form-input inline"
+                    />
+                  ) : (
+                    <span className="form-value">{formatDate(certificateRequest.employmentEndDate)}</span>
+                  )}
+                </p>
               </div>
             </div>
-          </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="issueDate">Date d'émission</label>
-              <input
-                type="date"
-                id="issueDate"
-                value={certificate.issueDate}
-                onChange={(e) => handleInputChange('issueDate', e.target.value)}
-              />
+            <p>et a occupé les fonctions suivantes :</p>
+
+            <div className="positions-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Postes Occupé</th>
+                    <th>Affectation</th>
+                    <th>Du</th>
+                    <th>Au</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {certificateRequest.positions.map((position, index) => (
+                    <tr key={position.id}>
+                      <td>
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={position.position}
+                            onChange={(e) => handlePositionChange(index, 'position', e.target.value)}
+                            className="table-input"
+                          />
+                        ) : (
+                          position.position
+                        )}
+                      </td>
+                      <td>
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            value={position.assignment}
+                            onChange={(e) => handlePositionChange(index, 'assignment', e.target.value)}
+                            className="table-input"
+                          />
+                        ) : (
+                          position.assignment
+                        )}
+                      </td>
+                      <td>
+                        {isEditing ? (
+                          <input
+                            type="date"
+                            value={formatDateForInput(position.startDate)}
+                            onChange={(e) => handlePositionChange(index, 'startDate', new Date(e.target.value))}
+                            className="table-input"
+                          />
+                        ) : (
+                          position.position ? formatDate(position.startDate) : ''
+                        )}
+                      </td>
+                      <td>
+                        {isEditing ? (
+                          <input
+                            type="date"
+                            value={formatDateForInput(position.endDate)}
+                            onChange={(e) => handlePositionChange(index, 'endDate', new Date(e.target.value))}
+                            className="table-input"
+                          />
+                        ) : (
+                          position.position ? formatDate(position.endDate) : ''
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <div className="form-group">
-              <label htmlFor="issueLocation">Lieu d'émission</label>
-              <input
-                type="text"
-                id="issueLocation"
-                value={certificate.issueLocation}
-                onChange={(e) => handleInputChange('issueLocation', e.target.value)}
-                placeholder="Ex: Alger"
-              />
+
+            <div className="total-experience">
+              <p><strong>Total Expérience à la Banque :</strong> 
+                {isEditing ? (
+                  <input
+                    type="text"
+                    value={certificateRequest.totalExperience}
+                    onChange={(e) => handleInputChange('totalExperience', e.target.value)}
+                    className="form-input inline"
+                  />
+                ) : (
+                  <span className="form-value">{certificateRequest.totalExperience}</span>
+                )}
+              </p>
             </div>
+
+            <p className="certificate-footer">
+              Le présent certificat est établi pour servir et valoir ce que de droit.
+            </p>
+
+            {isEditing && (
+              <div className="submit-section">
+                <button className="btn-primary" onClick={handleSubmit}>
+                  Submit Certificate Request
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="form-actions">
-          <button
-            onClick={() => setIsPreviewMode(true)}
-            disabled={!isFormComplete()}
-            className="btn-primary"
-          >
-            Aperçu de l'attestation
-          </button>
+        <div className="request-status">
+          <h3>Request Status</h3>
+          <div className={`status-badge ${certificateRequest.status}`}>
+            {certificateRequest.status.charAt(0).toUpperCase() + certificateRequest.status.slice(1)}
+          </div>
+          <p>Request submitted on: {formatDate(certificateRequest.requestDate)}</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default WorkCertificatePage;
+export default WorkCertificate;
