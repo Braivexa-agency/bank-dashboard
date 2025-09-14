@@ -119,26 +119,40 @@ input, select, textarea {
   border: 0;
 }
 
-/* Ensure proper sidebar display */
-.sidebar-provider {
-  width: 100%;
-  height: 100vh;
-}
-
-/* Remove conflicting layout styles that interfere with shadcn/ui sidebar */
-[data-sidebar] {
-  /* Ensure sidebar components have proper z-index */
-  position: relative;
-}
-
-/* Fix any potential z-index issues */
+/* Enhanced shadcn/ui sidebar support */
 [data-sidebar="sidebar"] {
-  z-index: 40;
+  --sidebar-width: 16rem;
+  --sidebar-width-mobile: 18rem;
+  --sidebar-width-icon: 3rem;
 }
 
-/* Ensure proper flex layout */
-.flex.h-screen.w-full {
-  min-height: 100vh;
+/* Ensure proper visibility */
+[data-sidebar="sidebar"][data-mobile="false"] {
+  display: flex !important;
+  visibility: visible !important;
+}
+
+/* Mobile sidebar sheet fixes */
+[data-sidebar="sidebar"][data-mobile="true"] {
+  display: flex !important;
+}
+
+/* Fix for collapsed state */
+[data-sidebar="sidebar"][data-state="collapsed"] {
+  width: var(--sidebar-width-icon);
+  min-width: var(--sidebar-width-icon);
+}
+
+[data-sidebar="sidebar"][data-state="expanded"] {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+}
+
+/* Sidebar trigger button fixes */
+[data-sidebar="trigger"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Enhanced print styles for documents */
