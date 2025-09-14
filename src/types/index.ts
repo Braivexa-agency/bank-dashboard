@@ -32,6 +32,29 @@ export interface DashboardStats {
   savingsGoal: number;
 }
 
+export interface WorkPosition {
+  id: string;
+  position: string;
+  assignment: string;
+  startDate: Date;
+  endDate: Date;
+}
+
+export interface WorkCertificateRequest {
+  id: string;
+  employeeName: string;
+  birthDate: Date;
+  birthPlace: string;
+  employmentStartDate: Date;
+  employmentEndDate: Date;
+  positions: WorkPosition[];
+  totalExperience: string;
+  requestDate: Date;
+  status: 'pending' | 'approved' | 'rejected';
+  divisionNumber: string;
+  certificateNumber: string;
+}
+
 export interface WorkCertificate {
   employeeName: string;
   birthDate: string;
