@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainLayout from './layouts/MainLayout';
+import SidebarLayout from './layouts/SidebarLayout';
 import Settings from './pages/Settings';
 import WorkCertificate from './pages/WorkCertificate';
 import DairaInvestigation from './pages/DairaInvestigation';
@@ -10,7 +10,7 @@ function App(): React.JSX.Element {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
+        <Route path="/" element={<SidebarLayout />}>
           <Route index element={<WorkCertificate />} />
           <Route path="work-certificate" element={<WorkCertificate />} />
           <Route path="daira-investigation" element={<DairaInvestigation />} />
