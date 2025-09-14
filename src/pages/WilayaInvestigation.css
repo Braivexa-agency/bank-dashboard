@@ -41,10 +41,11 @@
 .wilaya-investigation-page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-xl);
+  padding: var(--spacing-lg);
   font-family: var(--font-english);
   background-color: white;
-  min-height: 100vh;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
   direction: ltr;
 }
 
