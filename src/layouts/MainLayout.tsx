@@ -6,6 +6,9 @@ const MainLayout: React.FC = () => {
   const location = useLocation();
 
   const isActiveRoute = (path: string) => {
+    if (path === '/work-certificate' && (location.pathname === '/' || location.pathname === '/work-certificate')) {
+      return 'nav-link active';
+    }
     return location.pathname === path ? 'nav-link active' : 'nav-link';
   };
 
@@ -15,20 +18,14 @@ const MainLayout: React.FC = () => {
         <div className="header-content">
           <h1 className="logo">🏦 Bank Dashboard</h1>
           <nav className="nav">
-            <Link to="/" className={isActiveRoute('/')}>
-              Dashboard
-            </Link>
-            <Link to="/accounts" className={isActiveRoute('/accounts')}>
-              Accounts
-            </Link>
-            <Link to="/transactions" className={isActiveRoute('/transactions')}>
-              Transactions
-            </Link>
             <Link to="/work-certificate" className={isActiveRoute('/work-certificate')}>
               Attestation
             </Link>
             <Link to="/daira-investigation" className={isActiveRoute('/daira-investigation')}>
-              Investigation
+              Daira Investigation
+            </Link>
+            <Link to="/wilaya-investigation" className={isActiveRoute('/wilaya-investigation')}>
+              Wilaya Investigation
             </Link>
             <Link to="/settings" className={isActiveRoute('/settings')}>
               Settings
