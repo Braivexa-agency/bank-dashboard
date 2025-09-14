@@ -25,6 +25,7 @@ import {
   LogOut,
   Home,
 } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 // Menu items with icons
 const menuItems = [
@@ -65,7 +66,7 @@ const AppSidebar: React.FC = () => {
   };
 
   return (
-    <Sidebar variant="inset">
+    <Sidebar variant="sidebar" side="left" collapsible="offcanvas">
       <SidebarHeader>
         <div className="flex items-center gap-2 px-4 py-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
@@ -118,11 +119,12 @@ const AppSidebar: React.FC = () => {
           </SidebarMenuItem>
         </SidebarMenu>
         <Separator />
-        <div className="p-2">
-          <Button variant="ghost" size="sm" className="w-full justify-start">
+        <div className="p-2 flex items-center justify-between">
+          <Button variant="ghost" size="sm" className="justify-start flex-1">
             <LogOut className="h-4 w-4 mr-2" />
             Sign Out
           </Button>
+          <ThemeToggle />
         </div>
       </SidebarFooter>
     </Sidebar>
@@ -132,40 +134,39 @@ const AppSidebar: React.FC = () => {
 const SidebarLayout: React.FC = () => {
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-full">
-        <AppSidebar />
-        <SidebarInset>
-          {/* Header */}
-          <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="flex h-14 items-center gap-4 px-4">
-              <SidebarTrigger />
-              <Separator orientation="vertical" className="h-6" />
-              <div className="flex items-center gap-2">
-                <Home className="h-4 w-4" />
-                <span className="font-medium">Bank Administrative System</span>
-              </div>
-              <div className="ml-auto flex items-center gap-4">
-                <span className="text-sm text-muted-foreground">
-                  Welcome back, Admin
-                </span>
-              </div>
+      <AppSidebar />
+      <SidebarInset>
+        {/* Header */}
+        <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="flex h-14 items-center gap-4 px-4">
+            <SidebarTrigger />
+            <Separator orientation="vertical" className="h-6" />
+            <div className="flex items-center gap-2">
+              <Home className="h-4 w-4" />
+              <span className="font-medium">Bank Administrative System</span>
             </div>
-          </header>
-          
-          {/* Main Content */}
-          <main className="flex-1 overflow-auto p-6">
-            <Outlet />
-          </main>
-          
-          {/* Footer */}
-          <footer className="border-t bg-muted/10 p-4">
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>&copy; 2024 Bank Administrative System. All rights reserved.</span>
-              <span>v1.0.0</span>
+            <div className="ml-auto flex items-center gap-4">
+              <ThemeToggle />
+              <span className="text-sm text-muted-foreground">
+                Welcome back, Admin
+              </span>
             </div>
-          </footer>
-        </SidebarInset>
-      </div>
+          </div>
+        </header>
+        
+        {/* Main Content */}
+        <main className="flex-1 overflow-auto p-6">
+          <Outlet />
+        </main>
+        
+        {/* Footer */}
+        <footer className="border-t bg-muted/10 p-4">
+          <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <span>&copy; 2024 Bank Administrative System. All rights reserved.</span>
+            <span>v1.0.0</span>
+          </div>
+        </footer>
+      </SidebarInset>
     </SidebarProvider>
   );
 };
