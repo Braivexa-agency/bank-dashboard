@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { WorkCertificateRequest, WorkPosition } from '../types';
+import { Button } from '@/components/ui/button';
+import ResponsivePageWrapper from '@/components/ResponsivePageWrapper';
 import './WorkCertificate.css';
 
 const WorkCertificate: React.FC = () => {
@@ -111,23 +113,27 @@ const WorkCertificate: React.FC = () => {
   };
 
   return (
-    <div className="work-certificate-page">
-      <div className="certificate-header">
-        <h1>Work Certificate Request</h1>
-        <div className="certificate-actions">
-          <button 
-            className={isEditing ? 'btn-secondary' : 'btn-primary'}
-            onClick={() => setIsEditing(!isEditing)}
-          >
-            {isEditing ? 'Cancel' : 'Edit Request'}
-          </button>
-          {!isEditing && (
-            <button className="btn-success" onClick={downloadCertificate}>
-              Download PDF
-            </button>
-          )}
+    <ResponsivePageWrapper>
+      <div className="work-certificate-page">
+        <div className="page-header">
+          <div>
+            <h1>Work Certificate Request</h1>
+            <p className="text-muted-foreground">Generate and manage employee work certificates</p>
+          </div>
+          <div className="button-group">
+            <Button 
+              variant={isEditing ? 'outline' : 'default'}
+              onClick={() => setIsEditing(!isEditing)}
+            >
+              {isEditing ? 'Cancel' : 'Edit Request'}
+            </Button>
+            {!isEditing && (
+              <Button variant="secondary" onClick={downloadCertificate}>
+                Download PDF
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
 
       <div className="certificate-content">
         <div className="certificate-document">
@@ -322,6 +328,7 @@ const WorkCertificate: React.FC = () => {
         </div>
       </div>
     </div>
+    </ResponsivePageWrapper>
   );
 };
 
