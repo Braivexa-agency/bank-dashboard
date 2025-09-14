@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
 .daira-investigation-page {
   padding: 0;
   background: white;
@@ -368,9 +370,6 @@
 [dir="rtl"] .table-input {
   text-align: right;
 }
-
-/* Arabic Font Support */
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
 .arabic-text {
   font-family: 'Amiri', 'Arabic Typesetting', 'Times New Roman', serif;
