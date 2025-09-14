@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import ResponsivePageWrapper from '@/components/ResponsivePageWrapper';
 import './Settings.css';
 
 interface UserSettings {
@@ -70,155 +72,171 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <div className="settings-page">
-      <div className="settings-header">
-        <h1>Settings</h1>
-        <p className="page-description">Manage your account settings and preferences</p>
-      </div>
-
-      <div className="settings-content">
-        <div className="settings-section">
-          <div className="section-header">
-            <h2>Profile Information</h2>
-            <button 
-              className="edit-btn"
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              {isEditing ? 'Cancel' : 'Edit'}
-            </button>
+    <ResponsivePageWrapper>
+      <div className="settings-page">
+        <div className="page-header">
+          <div>
+            <h1>Settings</h1>
+            <p className="text-muted-foreground">Manage your account settings and preferences</p>
           </div>
-          
-          <div className="form-group">
-            <label>Full Name</label>
-            <input
-              type="text"
-              value={settings.name}
-              onChange={(e) => handleInputChange('name', e.target.value)}
-              disabled={!isEditing}
-            />
-          </div>
-          
-          <div className="form-group">
-            <label>Email Address</label>
-            <input
-              type="email"
-              value={settings.email}
-              onChange={(e) => handleInputChange('email', e.target.value)}
-              disabled={!isEditing}
-            />
-          </div>
-          
-          <div className="form-group">
-            <label>Phone Number</label>
-            <input
-              type="tel"
-              value={settings.phone}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
-              disabled={!isEditing}
-            />
-          </div>
-          
-          {isEditing && (
-            <button className="save-btn" onClick={handleSave}>
-              Save Changes
-            </button>
-          )}
         </div>
 
-        <div className="settings-section">
-          <h2>Notification Preferences</h2>
-          
-          <div className="notification-group">
-            <div className="notification-item">
-              <div>
-                <h4>Email Notifications</h4>
-                <p>Receive account updates via email</p>
-              </div>
-              <label className="toggle">
-                <input
-                  type="checkbox"
-                  checked={settings.notifications.email}
-                  onChange={() => handleNotificationChange('email')}
-                />
-                <span className="toggle-slider"></span>
-              </label>
+        <div className="settings-content">
+          <div className="settings-section responsive-card">
+            <div className="section-header">
+              <h2>Profile Information</h2>
+              <Button 
+                variant={isEditing ? 'outline' : 'default'}
+                onClick={() => setIsEditing(!isEditing)}
+              >
+                {isEditing ? 'Cancel' : 'Edit'}
+              </Button>
             </div>
             
-            <div className="notification-item">
-              <div>
-                <h4>SMS Notifications</h4>
-                <p>Receive transaction alerts via SMS</p>
-              </div>
-              <label className="toggle">
+            <div className="responsive-form">
+              <div className="form-group">
+                <label>Full Name</label>
                 <input
-                  type="checkbox"
-                  checked={settings.notifications.sms}
-                  onChange={() => handleNotificationChange('sms')}
+                  type="text"
+                  value={settings.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  disabled={!isEditing}
+                  className="form-input"
                 />
-                <span className="toggle-slider"></span>
-              </label>
+              </div>
+              
+              <div className="form-group">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  value={settings.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  disabled={!isEditing}
+                  className="form-input"
+                />
+              </div>
+              
+              <div className="form-group">
+                <label>Phone Number</label>
+                <input
+                  type="tel"
+                  value={settings.phone}
+                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  disabled={!isEditing}
+                  className="form-input"
+                />
+              </div>
             </div>
             
-            <div className="notification-item">
-              <div>
-                <h4>Push Notifications</h4>
-                <p>Receive in-app notifications</p>
+            {isEditing && (
+              <div className="mt-4">
+                <Button onClick={handleSave}>
+                  Save Changes
+                </Button>
               </div>
-              <label className="toggle">
-                <input
-                  type="checkbox"
-                  checked={settings.notifications.push}
-                  onChange={() => handleNotificationChange('push')}
-                />
-                <span className="toggle-slider"></span>
-              </label>
+            )}
+          </div>
+
+          <div className="settings-section responsive-card">
+            <h2>Notification Preferences</h2>
+            
+            <div className="notification-group">
+              <div className="notification-item">
+                <div>
+                  <h4>Email Notifications</h4>
+                  <p>Receive account updates via email</p>
+                </div>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={settings.notifications.email}
+                    onChange={() => handleNotificationChange('email')}
+                  />
+                  <span className="toggle-slider"></span>
+                </label>
+              </div>
+              
+              <div className="notification-item">
+                <div>
+                  <h4>SMS Notifications</h4>
+                  <p>Receive transaction alerts via SMS</p>
+                </div>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={settings.notifications.sms}
+                    onChange={() => handleNotificationChange('sms')}
+                  />
+                  <span className="toggle-slider"></span>
+                </label>
+              </div>
+              
+              <div className="notification-item">
+                <div>
+                  <h4>Push Notifications</h4>
+                  <p>Receive in-app notifications</p>
+                </div>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={settings.notifications.push}
+                    onChange={() => handleNotificationChange('push')}
+                  />
+                  <span className="toggle-slider"></span>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="settings-section">
-          <h2>Display Preferences</h2>
-          
-          <div className="form-group">
-            <label>Currency</label>
-            <select
-              value={settings.preferences.currency}
-              onChange={(e) => handlePreferenceChange('currency', e.target.value)}
-            >
-              <option value="USD">USD - US Dollar</option>
-              <option value="EUR">EUR - Euro</option>
-              <option value="GBP">GBP - British Pound</option>
-              <option value="CAD">CAD - Canadian Dollar</option>
-            </select>
-          </div>
-          
-          <div className="form-group">
-            <label>Language</label>
-            <select
-              value={settings.preferences.language}
-              onChange={(e) => handlePreferenceChange('language', e.target.value)}
-            >
-              <option value="en">English</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-              <option value="de">Deutsch</option>
-            </select>
-          </div>
-          
-          <div className="form-group">
-            <label>Theme</label>
-            <select
-              value={settings.preferences.theme}
-              onChange={(e) => handlePreferenceChange('theme', e.target.value)}
-            >
-              <option value="light">Light</option>
-              <option value="dark">Dark</option>
-              <option value="auto">Auto</option>
-            </select>
+          <div className="settings-section responsive-card">
+            <h2>Display Preferences</h2>
+            
+            <div className="responsive-form">
+              <div className="form-group">
+                <label>Currency</label>
+                <select
+                  value={settings.preferences.currency}
+                  onChange={(e) => handlePreferenceChange('currency', e.target.value)}
+                  className="form-input"
+                >
+                  <option value="USD">USD - US Dollar</option>
+                  <option value="EUR">EUR - Euro</option>
+                  <option value="GBP">GBP - British Pound</option>
+                  <option value="CAD">CAD - Canadian Dollar</option>
+                </select>
+              </div>
+              
+              <div className="form-group">
+                <label>Language</label>
+                <select
+                  value={settings.preferences.language}
+                  onChange={(e) => handlePreferenceChange('language', e.target.value)}
+                  className="form-input"
+                >
+                  <option value="en">English</option>
+                  <option value="es">Español</option>
+                  <option value="fr">Français</option>
+                  <option value="de">Deutsch</option>
+                </select>
+              </div>
+              
+              <div className="form-group">
+                <label>Theme</label>
+                <select
+                  value={settings.preferences.theme}
+                  onChange={(e) => handlePreferenceChange('theme', e.target.value)}
+                  className="form-input"
+                >
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
+                  <option value="auto">Auto</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </ResponsivePageWrapper>
   );
 };
 
