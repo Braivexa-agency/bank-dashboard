@@ -6,6 +6,7 @@ import Accounts from './pages/Accounts';
 import Transactions from './pages/Transactions';
 import Settings from './pages/Settings';
 import WorkCertificate from './pages/WorkCertificate';
+import DairaInvestigation from './pages/DairaInvestigation';
 
 function App(): React.JSX.Element {
   return (
@@ -16,6 +17,7 @@ function App(): React.JSX.Element {
           <Route path="accounts" element={<Accounts />} />
           <Route path="transactions" element={<Transactions />} />
           <Route path="work-certificate" element={<WorkCertificate />} />
+          <Route path="daira-investigation" element={<DairaInvestigation />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
