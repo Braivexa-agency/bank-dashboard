@@ -134,7 +134,7 @@ const SidebarLayout: React.FC = () => {
     <SidebarProvider>
       <div className="flex h-screen w-full">
         <AppSidebar />
-        <div className="flex flex-1 flex-col">
+        <SidebarInset>
           {/* Header */}
           <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="flex h-14 items-center gap-4 px-4">
@@ -164,7 +164,7 @@ const SidebarLayout: React.FC = () => {
               <span>v1.0.0</span>
             </div>
           </footer>
-        </div>
+        </SidebarInset>
       </div>
     </SidebarProvider>
   );
