@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useTheme } from '@/contexts/ThemeContext';
 import ResponsivePageWrapper from '@/components/ResponsivePageWrapper';
 import './Settings.css';
 
@@ -20,6 +21,7 @@ interface UserSettings {
 }
 
 const Settings: React.FC = () => {
+  const { theme, setTheme } = useTheme();
   const [settings, setSettings] = useState<UserSettings>({
     name: 'John Doe',
     email: 'john.doe@email.com',
@@ -32,7 +34,7 @@ const Settings: React.FC = () => {
     preferences: {
       currency: 'USD',
       language: 'en',
-      theme: 'light',
+      theme: theme,
     },
   });
 
@@ -56,6 +58,9 @@ const Settings: React.FC = () => {
   };
 
   const handlePreferenceChange = (type: keyof UserSettings['preferences'], value: string) => {
+    if (type === 'theme' && (value === 'light' || value === 'dark' || value === 'system')) {
+      setTheme(value as 'light' | 'dark' | 'system');
+    }
     setSettings(prev => ({
       ...prev,
       preferences: {
@@ -229,7 +234,7 @@ const Settings: React.FC = () => {
                 >
                   <option value="light">Light</option>
                   <option value="dark">Dark</option>
-                  <option value="auto">Auto</option>
+                  <option value="system">System</option>
                 </select>
               </div>
             </div>
