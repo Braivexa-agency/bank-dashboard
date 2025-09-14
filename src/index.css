@@ -173,6 +173,24 @@ input, select, textarea {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
+/* Ensure shadcn/ui sidebar components work properly */
+.group\/sidebar-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Force sidebar visibility on desktop */
+@media (min-width: 768px) {
+  .group.peer.hidden.md\:block {
+    display: block !important;
+  }
+  
+  [data-sidebar="sidebar"] {
+    display: flex !important;
+  }
+}
+
 /* Theme transition for all interactive elements */
 *, *::before, *::after {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
@@ -181,63 +199,6 @@ input, select, textarea {
 /* Disable transitions on theme change to prevent flash */
 .theme-transitioning * {
   transition: none !important;
-}
-
-/* Ensure proper visibility and positioning */
-[data-sidebar="sidebar"][data-mobile="false"] {
-  display: flex !important;
-  visibility: visible !important;
-  position: fixed !important;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  z-index: 40;
-}
-
-/* Mobile sidebar sheet fixes */
-[data-sidebar="sidebar"][data-mobile="true"] {
-  display: flex !important;
-  z-index: 100;
-}
-
-/* Fix for collapsed state */
-[data-sidebar="sidebar"][data-state="collapsed"] {
-  width: var(--sidebar-width-icon);
-  min-width: var(--sidebar-width-icon);
-}
-
-[data-sidebar="sidebar"][data-state="expanded"] {
-  width: var(--sidebar-width);
-  min-width: var(--sidebar-width);
-}
-
-/* Main content positioning to avoid sidebar overlap */
-.group\/sidebar-wrapper {
-  position: relative;
-}
-
-/* Sidebar inset content positioning */
-[data-sidebar="inset"],
-main[data-sidebar="inset"] {
-  margin-left: var(--sidebar-width);
-  width: calc(100% - var(--sidebar-width));
-  min-height: 100vh;
-  transition: margin-left 0.3s ease, width 0.3s ease;
-}
-
-/* Collapsed sidebar state for main content */
-.group\/sidebar-wrapper[data-state="collapsed"] [data-sidebar="inset"] {
-  margin-left: var(--sidebar-width-icon);
-  width: calc(100% - var(--sidebar-width-icon));
-}
-
-/* Mobile responsive - no margin when sidebar is hidden */
-@media (max-width: 768px) {
-  [data-sidebar="inset"],
-  main[data-sidebar="inset"] {
-    margin-left: 0 !important;
-    width: 100% !important;
-  }
 }
 
 /* Sidebar trigger button fixes */
