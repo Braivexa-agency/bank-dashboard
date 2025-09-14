@@ -5,33 +5,6 @@ export interface User {
   avatar?: string;
 }
 
-export interface Account {
-  id: string;
-  name: string;
-  type: 'checking' | 'savings' | 'credit' | 'investment';
-  balance: number;
-  currency: string;
-  accountNumber: string;
-}
-
-export interface Transaction {
-  id: string;
-  accountId: string;
-  amount: number;
-  type: 'debit' | 'credit';
-  description: string;
-  date: Date;
-  category: string;
-  status: 'pending' | 'completed' | 'failed';
-}
-
-export interface DashboardStats {
-  totalBalance: number;
-  monthlyIncome: number;
-  monthlyExpenses: number;
-  savingsGoal: number;
-}
-
 export interface WorkPosition {
   id: string;
   position: string;
@@ -87,4 +60,45 @@ export interface WorkCertificate {
   certificateNumber: string;
   issueDate: string;
   issueLocation: string;
+}
+
+// Wilaya Investigation interfaces
+export interface WilayaEmployeeInvestigation {
+  id: string;
+  serialNumber: number;
+  fullName: string; // الاسم واللقب
+  birthDatePlace: string; // تاريخ و مكان الميلاد
+  parentage: string; // النسب (الأبوين)
+  address: string; // العنوان
+  phoneNumber: string; // الهاتف
+  employmentStatus?: 'hired' | 'pending' | 'rejected';
+  position?: string;
+  department?: string;
+}
+
+export interface WilayaInvestigationRequest {
+  id: string;
+  divisionNumber: string;
+  documentNumber: string;
+  requestDate: Date;
+  employees: WilayaEmployeeInvestigation[];
+  status: 'pending' | 'submitted' | 'in-progress' | 'completed' | 'cancelled';
+  securityDirectorate: string; 
+  wilayaName: string; 
+  submittedBy: string;
+  purpose: string;
+  remarks?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Form validation interfaces
+export interface ValidationError {
+  field: string;
+  message: string;
+}
+
+export interface FormValidationResult {
+  isValid: boolean;
+  errors: ValidationError[];
 }
