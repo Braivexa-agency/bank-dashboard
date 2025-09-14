@@ -55,6 +55,28 @@ export interface WorkCertificateRequest {
   certificateNumber: string;
 }
 
+export interface EmployeeInvestigation {
+  id: string;
+  serialNumber: number;
+  fullName: string;
+  birthDatePlace: string; 
+  parentage: string;
+  address: string;
+  phoneNumber: string; 
+}
+
+export interface DairaInvestigationRequest {
+  id: string;
+  divisionNumber: string;
+  documentNumber: string;
+  requestDate: Date;
+  employees: EmployeeInvestigation[];
+  status: 'pending' | 'submitted' | 'in-progress' | 'completed';
+  recipient: string; 
+  submittedBy: string;
+  remarks?: string;
+}
+
 export interface WorkCertificate {
   employeeName: string;
   birthDate: string;
