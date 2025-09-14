@@ -1,36 +1,58 @@
 @import "tailwindcss";
 
+/* Base root configuration */
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
-  /* shadcn/ui CSS variables */
+}
+
+/* Light mode (default) */
+:root {
   --radius: 0.625rem;
+  
+  /* Background colors */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
+  
+  /* Primary colors */
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
+  
+  /* Secondary colors */
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
+  
+  /* Muted colors */
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
+  
+  /* Accent colors */
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
+  
+  /* Destructive colors */
   --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  
+  /* Border and input colors */
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+  
+  /* Chart colors */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
+  
+  /* Sidebar colors */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -41,30 +63,49 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* Dark mode */
 .dark {
+  /* Background colors */
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
+  
+  /* Primary colors */
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
+  
+  /* Secondary colors */
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
+  
+  /* Muted colors */
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
+  
+  /* Accent colors */
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
+  
+  /* Destructive colors */
   --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  
+  /* Border and input colors */
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+  
+  /* Chart colors */
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
+  
+  /* Sidebar colors */
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -74,6 +115,8 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+
 
 /* Base styles */
 * {
@@ -87,10 +130,13 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #root {
   min-height: 100vh;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -119,11 +165,22 @@ input, select, textarea {
   border: 0;
 }
 
-/* Enhanced shadcn/ui sidebar support */
+/* Enhanced shadcn/ui sidebar support with theme transitions */
 [data-sidebar="sidebar"] {
   --sidebar-width: 16rem;
   --sidebar-width-mobile: 18rem;
   --sidebar-width-icon: 3rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Theme transition for all interactive elements */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Disable transitions on theme change to prevent flash */
+.theme-transitioning * {
+  transition: none !important;
 }
 
 /* Ensure proper visibility */
