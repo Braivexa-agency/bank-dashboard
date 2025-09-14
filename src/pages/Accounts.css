@@ -1,0 +1,153 @@
+.accounts-page {
+  padding: 0;
+}
+
+.accounts-page h1 {
+  font-size: 2rem;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.page-description {
+  color: #718096;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.accounts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.account-card-detailed {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.account-card-detailed:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.account-card-detailed.checking {
+  border-left: 4px solid #3182ce;
+}
+
+.account-card-detailed.savings {
+  border-left: 4px solid #38a169;
+}
+
+.account-card-detailed.credit {
+  border-left: 4px solid #e53e3e;
+}
+
+.account-card-detailed.investment {
+  border-left: 4px solid #805ad5;
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.account-icon {
+  font-size: 2rem;
+  background: #f7fafc;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.account-title h3 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1.25rem;
+}
+
+.account-title .account-number {
+  margin: 0.25rem 0 0 0;
+  color: #718096;
+  font-size: 0.875rem;
+}
+
+.account-details {
+  margin-bottom: 2rem;
+}
+
+.account-type-badge {
+  display: inline-block;
+  background: #edf2f7;
+  color: #4a5568;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.account-balance-large {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.account-balance-large.negative {
+  color: #e53e3e;
+}
+
+.account-balance-large.positive {
+  color: #38a169;
+}
+
+.account-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-primary {
+  flex: 1;
+  background: #3182ce;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background: #2c5282;
+}
+
+.btn-secondary {
+  flex: 1;
+  background: transparent;
+  color: #3182ce;
+  border: 1px solid #3182ce;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #3182ce;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .accounts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .account-actions {
+    flex-direction: column;
+  }
+}
