@@ -27,6 +27,9 @@ const MainLayout: React.FC = () => {
             <Link to="/work-certificate" className={isActiveRoute('/work-certificate')}>
               Attestation
             </Link>
+            <Link to="/daira-investigation" className={isActiveRoute('/daira-investigation')}>
+              Investigation
+            </Link>
             <Link to="/settings" className={isActiveRoute('/settings')}>
               Settings
             </Link>
