@@ -16,6 +16,9 @@ import {
   IconUserCog,
   IconUserOff,
   IconUsers,
+  IconBook,
+  IconFileDescription,
+  IconId,
 } from '@tabler/icons-react'
 import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
 import { type SidebarData } from '../types'
@@ -62,35 +65,44 @@ export const sidebarData: SidebarData = {
           url: '/users',
           icon: IconUsers,
         },
-        
       ],
     },
     {
-      title: 'Pages',
+      title: 'Backoffice',
       items: [
         {
-          title: 'Auth',
+          title: 'Bank',
           icon: IconLockAccess,
           items: [
             {
-              title: 'Sign In',
-              url: '/sign-in',
+              title: 'Banking Experience',
+              url: '/bank-experience',
+              icon: IconId,
             },
             {
-              title: 'Sign In (2 Col)',
-              url: '/sign-in-2',
+              title: 'Non-Banking Experience',
+              url: '/non-bank-experience',
+              icon: IconId,
             },
             {
-              title: 'Sign Up',
-              url: '/sign-up',
+              title: 'Professional Training',
+              url: '/professional-training',
+              icon: IconBook,
             },
             {
-              title: 'Forgot Password',
-              url: '/forgot-password',
+              title: 'Information Sheet',
+              url: '/information-sheet',
+              icon: IconFileDescription,
             },
             {
-              title: 'OTP',
-              url: '/otp',
+              title: 'Disciplinary Actions',
+              url: '/disciplinary-actions',
+              icon: IconBarrierBlock,
+            },
+            {
+              title: 'Print Reports',
+              url: '/print-reports',
+              icon: IconBrowserCheck,
             },
           ],
         },
