@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/table'
 import { NonBankExperience } from '../context/non-bank-experience-context'
 import { DataTablePagination } from '@/features/bank-experience/components/data-table-pagination'
-import { DataTableToolbar } from '@/features/bank-experience/components/data-table-toolbar'
+import { DataTableToolbar } from './data-table-toolbar'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
