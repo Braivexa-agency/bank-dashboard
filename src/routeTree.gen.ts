@@ -30,7 +30,6 @@ import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings/index'
 import { Route as AuthenticatedProfessionalTrainingIndexRouteImport } from './routes/_authenticated/professional-training/index'
 import { Route as AuthenticatedPrintReportsIndexRouteImport } from './routes/_authenticated/print-reports/index'
-import { Route as AuthenticatedNonBankExperienceIndexRouteImport } from './routes/_authenticated/non-bank-experience/index'
 import { Route as AuthenticatedInformationSheetIndexRouteImport } from './routes/_authenticated/information-sheet/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedDisciplinaryActionsIndexRouteImport } from './routes/_authenticated/disciplinary-actions/index'
@@ -150,12 +149,6 @@ const AuthenticatedPrintReportsIndexRoute =
     path: '/print-reports/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedNonBankExperienceIndexRoute =
-  AuthenticatedNonBankExperienceIndexRouteImport.update({
-    id: '/non-bank-experience/',
-    path: '/non-bank-experience/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
 const AuthenticatedInformationSheetIndexRoute =
   AuthenticatedInformationSheetIndexRouteImport.update({
     id: '/information-sheet/',
@@ -252,7 +245,6 @@ export interface FileRoutesByFullPath {
   '/disciplinary-actions': typeof AuthenticatedDisciplinaryActionsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/information-sheet': typeof AuthenticatedInformationSheetIndexRoute
-  '/non-bank-experience': typeof AuthenticatedNonBankExperienceIndexRoute
   '/print-reports': typeof AuthenticatedPrintReportsIndexRoute
   '/professional-training': typeof AuthenticatedProfessionalTrainingIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
@@ -284,7 +276,6 @@ export interface FileRoutesByTo {
   '/disciplinary-actions': typeof AuthenticatedDisciplinaryActionsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/information-sheet': typeof AuthenticatedInformationSheetIndexRoute
-  '/non-bank-experience': typeof AuthenticatedNonBankExperienceIndexRoute
   '/print-reports': typeof AuthenticatedPrintReportsIndexRoute
   '/professional-training': typeof AuthenticatedProfessionalTrainingIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
@@ -321,7 +312,6 @@ export interface FileRoutesById {
   '/_authenticated/disciplinary-actions/': typeof AuthenticatedDisciplinaryActionsIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/_authenticated/information-sheet/': typeof AuthenticatedInformationSheetIndexRoute
-  '/_authenticated/non-bank-experience/': typeof AuthenticatedNonBankExperienceIndexRoute
   '/_authenticated/print-reports/': typeof AuthenticatedPrintReportsIndexRoute
   '/_authenticated/professional-training/': typeof AuthenticatedProfessionalTrainingIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
@@ -357,7 +347,6 @@ export interface FileRouteTypes {
     | '/disciplinary-actions'
     | '/help-center'
     | '/information-sheet'
-    | '/non-bank-experience'
     | '/print-reports'
     | '/professional-training'
     | '/settings/'
@@ -389,7 +378,6 @@ export interface FileRouteTypes {
     | '/disciplinary-actions'
     | '/help-center'
     | '/information-sheet'
-    | '/non-bank-experience'
     | '/print-reports'
     | '/professional-training'
     | '/settings'
@@ -425,7 +413,6 @@ export interface FileRouteTypes {
     | '/_authenticated/disciplinary-actions/'
     | '/_authenticated/help-center/'
     | '/_authenticated/information-sheet/'
-    | '/_authenticated/non-bank-experience/'
     | '/_authenticated/print-reports/'
     | '/_authenticated/professional-training/'
     | '/_authenticated/settings/'
@@ -597,13 +584,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPrintReportsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/non-bank-experience/': {
-      id: '/_authenticated/non-bank-experience/'
-      path: '/non-bank-experience'
-      fullPath: '/non-bank-experience'
-      preLoaderRoute: typeof AuthenticatedNonBankExperienceIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/information-sheet/': {
       id: '/_authenticated/information-sheet/'
       path: '/information-sheet'
@@ -722,7 +702,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDisciplinaryActionsIndexRoute: typeof AuthenticatedDisciplinaryActionsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedInformationSheetIndexRoute: typeof AuthenticatedInformationSheetIndexRoute
-  AuthenticatedNonBankExperienceIndexRoute: typeof AuthenticatedNonBankExperienceIndexRoute
   AuthenticatedPrintReportsIndexRoute: typeof AuthenticatedPrintReportsIndexRoute
   AuthenticatedProfessionalTrainingIndexRoute: typeof AuthenticatedProfessionalTrainingIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
@@ -739,8 +718,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedInformationSheetIndexRoute:
     AuthenticatedInformationSheetIndexRoute,
-  AuthenticatedNonBankExperienceIndexRoute:
-    AuthenticatedNonBankExperienceIndexRoute,
   AuthenticatedPrintReportsIndexRoute: AuthenticatedPrintReportsIndexRoute,
   AuthenticatedProfessionalTrainingIndexRoute:
     AuthenticatedProfessionalTrainingIndexRoute,
