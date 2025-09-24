@@ -8,6 +8,7 @@ export interface InformationSheet {
   prenom: string
   nationalId: string
   fatherName: string
+  motherName: string
   spouseName: string
   dateOfBirth: string
   address: string
@@ -42,6 +43,15 @@ export interface InformationSheet {
   suspensionFrom: string
   suspensionTo: string
   lastDecision: string
+  // Banking Experience specific fields
+  affectation: string
+  poste: string
+  activite: string
+  natureDecision: string
+  refDecision: string
+  dateDecision: string
+  dateEffet: string
+  chargeInterim: string
 }
 
 type InformationSheetDialogType = 'add' | 'edit' | 'delete'
@@ -72,6 +82,7 @@ export default function InformationSheetProvider({ children }: Props) {
       prenom: "Ahmed",
       nationalId: "1234567890123",
       fatherName: "Mohamed Benali",
+      motherName: "Aicha Benali",
       spouseName: "Fatima Benali",
       dateOfBirth: "1985-03-15",
       address: "123 Rue de la République, Algiers",
@@ -106,6 +117,15 @@ export default function InformationSheetProvider({ children }: Props) {
       suspensionFrom: "",
       suspensionTo: "",
       lastDecision: "Promotion to Senior Credit Officer",
+      // Banking Experience fields
+      affectation: "Regional Directorate Algiers",
+      poste: "Senior Credit Officer",
+      activite: "Credit analysis and approval",
+      natureDecision: "Promotion",
+      refDecision: "DR-2023-001",
+      dateDecision: "2023-01-15",
+      dateEffet: "2023-02-01",
+      chargeInterim: "No",
     },
     {
       id: 2,
@@ -114,6 +134,7 @@ export default function InformationSheetProvider({ children }: Props) {
       prenom: "Sara",
       nationalId: "9876543210987",
       fatherName: "Ali Kadri",
+      motherName: "Fatima Kadri",
       spouseName: "",
       dateOfBirth: "1990-07-22",
       address: "456 Avenue des Martyrs, Oran",
@@ -148,6 +169,15 @@ export default function InformationSheetProvider({ children }: Props) {
       suspensionFrom: "",
       suspensionTo: "",
       lastDecision: "Annual performance review",
+      // Banking Experience fields
+      affectation: "Downtown Branch",
+      poste: "Customer Service Representative",
+      activite: "Customer service and support",
+      natureDecision: "Recruitment",
+      refDecision: "DR-2015-012",
+      dateDecision: "2015-08-15",
+      dateEffet: "2015-09-01",
+      chargeInterim: "No",
     },
     {
       id: 3,
@@ -156,6 +186,7 @@ export default function InformationSheetProvider({ children }: Props) {
       prenom: "Omar",
       nationalId: "4567891234567",
       fatherName: "Hassan Boumediene",
+      motherName: "Fatima Boumediene",
       spouseName: "Aicha Boumediene",
       dateOfBirth: "1978-12-10",
       address: "789 Boulevard de la Victoire, Constantine",
@@ -190,6 +221,15 @@ export default function InformationSheetProvider({ children }: Props) {
       suspensionFrom: "",
       suspensionTo: "",
       lastDecision: "Promotion to Branch Manager",
+      // Banking Experience fields
+      affectation: "Hydra Branch",
+      poste: "Branch Manager",
+      activite: "Branch management and operations",
+      natureDecision: "Promotion",
+      refDecision: "DR-2023-012",
+      dateDecision: "2023-03-01",
+      dateEffet: "2023-04-01",
+      chargeInterim: "No",
     },
   ])
 
