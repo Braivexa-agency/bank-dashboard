@@ -38,6 +38,7 @@ const informationSheetSchema = z.object({
   prenom: z.string().min(1, { message: 'First Name is required.' }),
   nationalId: z.string().min(1, { message: 'National ID is required.' }),
   fatherName: z.string().min(1, { message: 'Father Name is required.' }),
+  motherName: z.string().min(1, { message: 'Mother Name is required.' }),
   spouseName: z.string().optional(),
   dateOfBirth: z.string().min(1, { message: 'Date of Birth is required.' }),
   address: z.string().optional(),
@@ -72,6 +73,15 @@ const informationSheetSchema = z.object({
   suspensionFrom: z.string().optional(),
   suspensionTo: z.string().optional(),
   lastDecision: z.string().optional(),
+  // Banking Experience fields
+  affectation: z.string().optional(),
+  poste: z.string().optional(),
+  activite: z.string().optional(),
+  natureDecision: z.string().optional(),
+  refDecision: z.string().optional(),
+  dateDecision: z.string().optional(),
+  dateEffet: z.string().optional(),
+  chargeInterim: z.string().optional(),
 })
 
 type InformationSheetForm = z.infer<typeof informationSheetSchema>
@@ -97,6 +107,7 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
           prenom: '',
           nationalId: '',
           fatherName: '',
+          motherName: '',
           spouseName: '',
           dateOfBirth: '',
           address: '',
@@ -131,6 +142,15 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
           suspensionFrom: '',
           suspensionTo: '',
           lastDecision: '',
+          // Banking Experience fields
+          affectation: '',
+          poste: '',
+          activite: '',
+          natureDecision: '',
+          refDecision: '',
+          dateDecision: '',
+          dateEffet: '',
+          chargeInterim: '',
         },
   })
 
@@ -229,6 +249,19 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                         <FormLabel>Father Name</FormLabel>
                         <FormControl>
                           <Input placeholder='Father name' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='motherName'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mother Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Mother name' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -840,6 +873,132 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                         <FormControl>
                           <Input placeholder='Last decision' {...field} />
                         </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Banking Experience Section */}
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
+                  <div className="w-1 h-6 bg-primary rounded-full"></div>
+                  Banking Experience Details
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
+                  <FormField
+                    control={form.control}
+                    name='affectation'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Assignment</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Assignment' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='poste'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Position</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Position' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='activite'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Activity</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Activity' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='natureDecision'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Decision Type</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Decision type' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='refDecision'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Decision Reference</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Decision reference' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='dateDecision'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Decision Date</FormLabel>
+                        <FormControl>
+                          <Input type='date' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='dateEffet'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Effective Date</FormLabel>
+                        <FormControl>
+                          <Input type='date' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='chargeInterim'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Interim Charge</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder='Select' />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value='Yes'>Yes</SelectItem>
+                            <SelectItem value='No'>No</SelectItem>
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}
