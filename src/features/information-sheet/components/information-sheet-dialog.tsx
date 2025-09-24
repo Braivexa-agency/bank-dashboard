@@ -73,6 +73,8 @@ const informationSheetSchema = z.object({
   suspensionFrom: z.string().optional(),
   suspensionTo: z.string().optional(),
   lastDecision: z.string().optional(),
+  // Experience Type selector
+  experienceType: z.enum(['bank', 'non-bank']).optional(),
   // Banking Experience fields
   affectation: z.string().optional(),
   poste: z.string().optional(),
@@ -149,6 +151,7 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
           suspensionFrom: '',
           suspensionTo: '',
           lastDecision: '',
+          experienceType: 'bank',
           // Banking Experience fields
           affectation: '',
           poste: '',
@@ -192,7 +195,7 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
         </DialogHeader>
         
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+          <form id='information-sheet-form' onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             {/* Identification Section */}
             <Card>
               <CardHeader className="border-b">
@@ -378,6 +381,41 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                             onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                           />
                         </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Experience Type Selector */}
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
+                  <div className="w-1 h-6 bg-primary rounded-full"></div>
+                  Experience Type
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
+                  <FormField
+                    control={form.control}
+                    name='experienceType'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Select type</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder='Choose type' />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value='bank'>Banking Experience</SelectItem>
+                            <SelectItem value='non-bank'>Non-Banking Experience</SelectItem>
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -896,7 +934,7 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
             </Card>
 
             {/* Non-Banking Experience Section */}
-            <Card>
+            <Card className={form.watch('experienceType') === 'non-bank' ? '' : 'hidden'}>
               <CardHeader className="border-b">
                 <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
                   <div className="w-1 h-6 bg-primary rounded-full"></div>
@@ -988,7 +1026,7 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
             </Card>
 
             {/* Banking Experience Section */}
-            <Card>
+            <Card className={form.watch('experienceType') === 'bank' ? '' : 'hidden'}>
               <CardHeader className="border-b">
                 <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
                   <div className="w-1 h-6 bg-primary rounded-full"></div>
