@@ -52,6 +52,13 @@ export interface InformationSheet {
   dateDecision: string
   dateEffet: string
   chargeInterim: string
+  // Non-Banking Experience specific fields
+  entreprise: string
+  lieuTravail: string
+  posteOccupe: string
+  du: string
+  au: string
+  duree: string
 }
 
 type InformationSheetDialogType = 'add' | 'edit' | 'delete'
@@ -126,6 +133,13 @@ export default function InformationSheetProvider({ children }: Props) {
       dateDecision: "2023-01-15",
       dateEffet: "2023-02-01",
       chargeInterim: "No",
+      // Non-Banking Experience fields
+      entreprise: "ABC Services SARL",
+      lieuTravail: "Algiers",
+      posteOccupe: "Analyst",
+      du: "2008-01-01",
+      au: "2010-05-01",
+      duree: "2 years 4 months",
     },
     {
       id: 2,
@@ -178,6 +192,13 @@ export default function InformationSheetProvider({ children }: Props) {
       dateDecision: "2015-08-15",
       dateEffet: "2015-09-01",
       chargeInterim: "No",
+      // Non-Banking Experience fields
+      entreprise: "Oran Tech",
+      lieuTravail: "Oran",
+      posteOccupe: "Support Agent",
+      du: "2013-06-01",
+      au: "2015-08-31",
+      duree: "2 years 3 months",
     },
     {
       id: 3,
@@ -230,6 +251,13 @@ export default function InformationSheetProvider({ children }: Props) {
       dateDecision: "2023-03-01",
       dateEffet: "2023-04-01",
       chargeInterim: "No",
+      // Non-Banking Experience fields
+      entreprise: "Hydra Logistics",
+      lieuTravail: "Hydra",
+      posteOccupe: "Operations Lead",
+      du: "2002-04-01",
+      au: "2005-02-28",
+      duree: "2 years 11 months",
     },
   ])
 
