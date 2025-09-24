@@ -32,7 +32,7 @@ function InformationSheetContent() {
               Employee Information Sheet
             </h2>
             <p className="text-muted-foreground">
-              Manage comprehensive employee information and records.
+              Manage comprehensive employee information, records, and banking experience.
             </p>
           </div>
           <div className="flex gap-2">
