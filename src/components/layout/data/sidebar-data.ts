@@ -18,7 +18,6 @@ import {
   IconUsers,
   IconBook,
   IconFileDescription,
-  IconId,
 } from '@tabler/icons-react'
 import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
 import { type SidebarData } from '../types'
@@ -74,11 +73,6 @@ export const sidebarData: SidebarData = {
           title: 'Bank',
           icon: IconLockAccess,
           items: [
-            {
-              title: 'Non-Banking Experience',
-              url: '/non-bank-experience',
-              icon: IconId,
-            },
             {
               title: 'Professional Training',
               url: '/professional-training',
