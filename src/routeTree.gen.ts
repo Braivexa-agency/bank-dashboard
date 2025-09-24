@@ -35,7 +35,6 @@ import { Route as AuthenticatedInformationSheetIndexRouteImport } from './routes
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedDisciplinaryActionsIndexRouteImport } from './routes/_authenticated/disciplinary-actions/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
-import { Route as AuthenticatedBankExperienceIndexRouteImport } from './routes/_authenticated/bank-experience/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
 import { Route as ClerkAuthenticatedUserManagementRouteImport } from './routes/clerk/_authenticated/user-management'
 import { Route as ClerkauthSignUpRouteImport } from './routes/clerk/(auth)/sign-up'
@@ -180,12 +179,6 @@ const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   path: '/chats/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedBankExperienceIndexRoute =
-  AuthenticatedBankExperienceIndexRouteImport.update({
-    id: '/bank-experience/',
-    path: '/bank-experience/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
 const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexRouteImport.update({
   id: '/apps/',
   path: '/apps/',
@@ -255,7 +248,6 @@ export interface FileRoutesByFullPath {
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
-  '/bank-experience': typeof AuthenticatedBankExperienceIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/disciplinary-actions': typeof AuthenticatedDisciplinaryActionsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
@@ -288,7 +280,6 @@ export interface FileRoutesByTo {
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
-  '/bank-experience': typeof AuthenticatedBankExperienceIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/disciplinary-actions': typeof AuthenticatedDisciplinaryActionsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
@@ -326,7 +317,6 @@ export interface FileRoutesById {
   '/clerk/(auth)/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/_authenticated/user-management': typeof ClerkAuthenticatedUserManagementRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
-  '/_authenticated/bank-experience/': typeof AuthenticatedBankExperienceIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/disciplinary-actions/': typeof AuthenticatedDisciplinaryActionsIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
@@ -363,7 +353,6 @@ export interface FileRouteTypes {
     | '/clerk/sign-up'
     | '/clerk/user-management'
     | '/apps'
-    | '/bank-experience'
     | '/chats'
     | '/disciplinary-actions'
     | '/help-center'
@@ -396,7 +385,6 @@ export interface FileRouteTypes {
     | '/clerk/sign-up'
     | '/clerk/user-management'
     | '/apps'
-    | '/bank-experience'
     | '/chats'
     | '/disciplinary-actions'
     | '/help-center'
@@ -433,7 +421,6 @@ export interface FileRouteTypes {
     | '/clerk/(auth)/sign-up'
     | '/clerk/_authenticated/user-management'
     | '/_authenticated/apps/'
-    | '/_authenticated/bank-experience/'
     | '/_authenticated/chats/'
     | '/_authenticated/disciplinary-actions/'
     | '/_authenticated/help-center/'
@@ -645,13 +632,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedChatsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/bank-experience/': {
-      id: '/_authenticated/bank-experience/'
-      path: '/bank-experience'
-      fullPath: '/bank-experience'
-      preLoaderRoute: typeof AuthenticatedBankExperienceIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/apps/': {
       id: '/_authenticated/apps/'
       path: '/apps'
@@ -738,7 +718,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
-  AuthenticatedBankExperienceIndexRoute: typeof AuthenticatedBankExperienceIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedDisciplinaryActionsIndexRoute: typeof AuthenticatedDisciplinaryActionsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
@@ -754,7 +733,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
-  AuthenticatedBankExperienceIndexRoute: AuthenticatedBankExperienceIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedDisciplinaryActionsIndexRoute:
     AuthenticatedDisciplinaryActionsIndexRoute,
