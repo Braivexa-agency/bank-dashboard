@@ -184,6 +184,59 @@ export const columns: ColumnDef<InformationSheet>[] = [
     ),
   },
   {
+    accessorKey: 'affectation',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Assignment' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-36'>{row.getValue('affectation')}</LongText>
+    ),
+  },
+  {
+    accessorKey: 'poste',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Banking Position' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-32'>{row.getValue('poste')}</LongText>
+    ),
+  },
+  {
+    accessorKey: 'natureDecision',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Decision Type' />
+    ),
+    cell: ({ row }) => {
+      const { natureDecision } = row.original
+      let badgeColor = ''
+      switch (natureDecision) {
+        case 'Promotion':
+          badgeColor = 'bg-green-500 text-white'
+          break
+        case 'Appointment':
+          badgeColor = 'bg-blue-500 text-white'
+          break
+        case 'Recruitment':
+          badgeColor = 'bg-purple-500 text-white'
+          break
+        default:
+          badgeColor = 'bg-gray-500 text-white'
+      }
+      return (
+        <div className='flex space-x-2'>
+          <Badge variant='outline' className={cn('capitalize', badgeColor)}>
+            {row.getValue('natureDecision')}
+          </Badge>
+        </div>
+      )
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+    enableHiding: false,
+    enableSorting: false,
+  },
+  {
     accessorKey: 'maritalStatus',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Status' />
