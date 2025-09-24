@@ -82,6 +82,13 @@ const informationSheetSchema = z.object({
   dateDecision: z.string().optional(),
   dateEffet: z.string().optional(),
   chargeInterim: z.string().optional(),
+  // Non-Banking Experience fields
+  entreprise: z.string().optional(),
+  lieuTravail: z.string().optional(),
+  posteOccupe: z.string().optional(),
+  du: z.string().optional(),
+  au: z.string().optional(),
+  duree: z.string().optional(),
 })
 
 type InformationSheetForm = z.infer<typeof informationSheetSchema>
@@ -151,6 +158,13 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
           dateDecision: '',
           dateEffet: '',
           chargeInterim: '',
+          // Non-Banking Experience fields
+          entreprise: '',
+          lieuTravail: '',
+          posteOccupe: '',
+          du: '',
+          au: '',
+          duree: '',
         },
   })
 
@@ -872,6 +886,98 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                         <FormLabel>Last Decision</FormLabel>
                         <FormControl>
                           <Input placeholder='Last decision' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Non-Banking Experience Section */}
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
+                  <div className="w-1 h-6 bg-primary rounded-full"></div>
+                  Non-Banking Experience Details
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
+                  <FormField
+                    control={form.control}
+                    name='entreprise'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Company</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Company name' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='lieuTravail'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Work Location</FormLabel>
+                        <FormControl>
+                          <Input placeholder='City / Location' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='posteOccupe'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Position</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Position held' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='du'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>From</FormLabel>
+                        <FormControl>
+                          <Input type='date' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='au'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>To</FormLabel>
+                        <FormControl>
+                          <Input type='date' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='duree'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Duration</FormLabel>
+                        <FormControl>
+                          <Input placeholder='e.g., 2 years 3 months' {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
