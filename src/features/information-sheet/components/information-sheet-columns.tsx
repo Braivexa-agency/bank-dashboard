@@ -40,6 +40,24 @@ export const columns: ColumnDef<InformationSheet>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: 'entreprise',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Company' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-36'>{row.getValue('entreprise')}</LongText>
+    ),
+  },
+  {
+    accessorKey: 'lieuTravail',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Work Location' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-28'>{row.getValue('lieuTravail')}</LongText>
+    ),
+  },
+  {
     accessorKey: 'matricule',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Employee ID' />
