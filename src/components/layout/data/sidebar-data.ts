@@ -75,11 +75,6 @@ export const sidebarData: SidebarData = {
           icon: IconLockAccess,
           items: [
             {
-              title: 'Banking Experience',
-              url: '/bank-experience',
-              icon: IconId,
-            },
-            {
               title: 'Non-Banking Experience',
               url: '/non-bank-experience',
               icon: IconId,
