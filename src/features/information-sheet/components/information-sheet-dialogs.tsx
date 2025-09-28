@@ -1,15 +1,17 @@
-import { useInformationSheet } from '../context/information-sheet-context'
+import { useUiStore, useUiActions } from '@/stores/useUiStore'
 import { InformationSheetDialog } from './information-sheet-dialog'
 
 export function InformationSheetDialogs() {
-  const { open, setOpen, currentRow, setCurrentRow } = useInformationSheet()
+  const open = useUiStore((state) => state.informationSheetDialog)
+  const currentRow = useUiStore((state) => state.informationSheetCurrentRow)
+  const { openInformationSheet, closeInformationSheet, setInformationSheetCurrentRow } = useUiActions()
   
   return (
     <>
       <InformationSheetDialog
         key='information-sheet-add'
         open={open === 'add'}
-        onOpenChange={(isOpen) => setOpen(isOpen ? 'add' : null)}
+        onOpenChange={(isOpen) => isOpen ? openInformationSheet('add') : closeInformationSheet()}
       />
 
       {currentRow && (
@@ -18,9 +20,11 @@ export function InformationSheetDialogs() {
             key={`information-sheet-edit-${currentRow.id}`}
             open={open === 'edit'}
             onOpenChange={(isOpen) => {
-              setOpen(isOpen ? 'edit' : null)
-              if (!isOpen) {
-                setCurrentRow(null)
+              if (isOpen) {
+                openInformationSheet('edit', currentRow.id)
+              } else {
+                closeInformationSheet()
+                setInformationSheetCurrentRow(null)
               }
             }}
             currentRow={currentRow}
