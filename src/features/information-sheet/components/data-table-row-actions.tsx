@@ -50,7 +50,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
           {(() => {
             const r = row.original
             const hasBank = !!(
-              r.affectation || r.poste || r.activite || r.decisionDate || r.dateEffet
+              r.affectation || r.poste || r.activite || r.natureDecision || r.refDecision || r.dateDecision || r.dateEffet
             )
             return hasBank ? (
               <DropdownMenuItem
@@ -82,7 +82,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
           {(() => {
             const r = row.original
             const hasNonBank = !!(
-              r.entreprise || r.posteOccupe || r.du || r.au || r.duree
+              r.entreprise || r.lieuTravail || r.posteOccupe || r.du || r.au || r.duree
             )
             return hasNonBank ? (
               <DropdownMenuItem
