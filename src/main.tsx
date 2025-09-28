@@ -6,6 +6,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { toast } from 'sonner'
 import { useAuthStore } from '@/stores/authStore'
@@ -94,6 +95,7 @@ if (!rootElement.innerHTML) {
             <RouterProvider router={router} />
           </FontProvider>
         </ThemeProvider>
+        {import.meta.env.DEV ? <ReactQueryDevtools initialIsOpen={false} /> : null}
       </QueryClientProvider>
     </StrictMode>
   )
