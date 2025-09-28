@@ -12,12 +12,12 @@ import NonBankExperienceProvider from "@/features/non-bank-experience/context/no
 import { NonBankExperienceDialogs } from "@/features/non-bank-experience/components/non-bank-experience-dialogs";
 import { InformationSheetTable } from "./components/information-sheet-table";
 import { columns } from "./components/information-sheet-columns";
-import InformationSheetProvider, {
-  useInformationSheet,
-} from "./context/information-sheet-context";
+import { useUiActions } from "@/stores/useUiStore";
+import { useDataStore } from "@/stores/useDataStore";
 
 function InformationSheetContent() {
-  const { informationSheets, setOpen } = useInformationSheet();
+  const informationSheets = useDataStore((state) => state.informationSheets);
+  const { openInformationSheet } = useUiActions();
 
   return (
     <>
@@ -40,7 +40,7 @@ function InformationSheetContent() {
             </p>
           </div>
           <div className="flex gap-2">
-            <Button className="space-x-1" onClick={() => setOpen("add")}>
+            <Button className="space-x-1" onClick={() => openInformationSheet("add")}>
               <span>Add </span> <IconPlus size={18} />
             </Button>
           </div>
@@ -60,12 +60,10 @@ export default function InformationSheet() {
   return (
     <BankExperienceProvider>
       <NonBankExperienceProvider>
-        <InformationSheetProvider>
-          <InformationSheetContent />
-          {/* Cross-feature dialogs to edit experiences from Information Sheet */}
-          <BankExperienceDialogs />
-          <NonBankExperienceDialogs />
-        </InformationSheetProvider>
+        <InformationSheetContent />
+        {/* Cross-feature dialogs to edit experiences from Information Sheet */}
+        <BankExperienceDialogs />
+        <NonBankExperienceDialogs />
       </NonBankExperienceProvider>
     </BankExperienceProvider>
   );
