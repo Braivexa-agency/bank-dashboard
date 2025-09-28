@@ -10,16 +10,17 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useInformationSheet, InformationSheet } from '../context/information-sheet-context'
+import { InformationSheet } from '@/stores/dataStore'
 import { useBankExperience } from '@/features/bank-experience/context/bank-experience-context'
 import { useNonBankExperience } from '@/features/non-bank-experience/context/non-bank-experience-context'
+import { useUiActions } from '@/stores/useUiStore'
 
 interface DataTableRowActionsProps {
   row: Row<InformationSheet>
 }
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
-  const { setOpen, setCurrentRow } = useInformationSheet()
+  const { openInformationSheet, setInformationSheetCurrentRow } = useUiActions()
   const { setOpen: setBankOpen, setCurrentRow: setBankCurrentRow } = useBankExperience()
   const { setOpen: setNonBankOpen, setCurrentRow: setNonBankCurrentRow } = useNonBankExperience()
   return (
@@ -37,8 +38,8 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         <DropdownMenuContent align='end' className='w-[200px]'>
           <DropdownMenuItem
             onClick={() => {
-              setCurrentRow(row.original)
-              setOpen('edit')
+              setInformationSheetCurrentRow(row.original)
+              openInformationSheet('edit', row.original.id)
             }}
           >
             Edit
@@ -108,8 +109,8 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
-              setCurrentRow(row.original)
-              setOpen('delete')
+              setInformationSheetCurrentRow(row.original)
+              openInformationSheet('delete', row.original.id)
             }}
             className='text-red-500!'
           >
