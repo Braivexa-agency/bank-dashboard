@@ -6,6 +6,10 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { Button } from "@/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
 import { InformationSheetDialogs } from "./components/information-sheet-dialogs";
+import BankExperienceProvider from "@/features/bank-experience/context/bank-experience-context";
+import { BankExperienceDialogs } from "@/features/bank-experience/components/bank-experience-dialogs";
+import NonBankExperienceProvider from "@/features/non-bank-experience/context/non-bank-experience-context";
+import { NonBankExperienceDialogs } from "@/features/non-bank-experience/components/non-bank-experience-dialogs";
 import { InformationSheetTable } from "./components/information-sheet-table";
 import { columns } from "./components/information-sheet-columns";
 import InformationSheetProvider, {
@@ -54,8 +58,15 @@ function InformationSheetContent() {
 
 export default function InformationSheet() {
   return (
-    <InformationSheetProvider>
-      <InformationSheetContent />
-    </InformationSheetProvider>
+    <BankExperienceProvider>
+      <NonBankExperienceProvider>
+        <InformationSheetProvider>
+          <InformationSheetContent />
+          {/* Cross-feature dialogs to edit experiences from Information Sheet */}
+          <BankExperienceDialogs />
+          <NonBankExperienceDialogs />
+        </InformationSheetProvider>
+      </NonBankExperienceProvider>
+    </BankExperienceProvider>
   );
 }
