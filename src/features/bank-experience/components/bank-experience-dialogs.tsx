@@ -9,7 +9,7 @@ export function BankExperienceDialogs() {
       <BankExperienceDialog
         key='bank-experience-add'
         open={open === 'add'}
-        onOpenChange={() => setOpen('add')}
+        onOpenChange={(isOpen) => setOpen(isOpen ? 'add' : null)}
       />
 
       {currentRow && (
@@ -17,11 +17,11 @@ export function BankExperienceDialogs() {
           <BankExperienceDialog
             key={`bank-experience-edit-${currentRow.id}`}
             open={open === 'edit'}
-            onOpenChange={() => {
-              setOpen('edit')
-              setTimeout(() => {
+            onOpenChange={(isOpen) => {
+              setOpen(isOpen ? 'edit' : null)
+              if (!isOpen) {
                 setCurrentRow(null)
-              }, 500)
+              }
             }}
             currentRow={currentRow}
           />
