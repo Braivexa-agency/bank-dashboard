@@ -1,4 +1,5 @@
 import { Store } from '@tanstack/store'
+import { InformationSheet } from './dataStore'
 
 type DialogKind = 'add' | 'edit' | 'delete' | null
 
@@ -9,6 +10,7 @@ export interface UiState {
   bankCurrentId: number | null
   nonBankDialog: DialogKind
   nonBankCurrentId: number | null
+  informationSheetCurrentRow: InformationSheet | null
 }
 
 const initialState: UiState = {
@@ -18,6 +20,7 @@ const initialState: UiState = {
   bankCurrentId: null,
   nonBankDialog: null,
   nonBankCurrentId: null,
+  informationSheetCurrentRow: null,
 }
 
 export const uiStore = new Store<UiState>(initialState)
@@ -63,6 +66,12 @@ export const uiActions = {
       ...s,
       nonBankDialog: null,
       nonBankCurrentId: null,
+    }))
+  },
+  setInformationSheetCurrentRow(row: InformationSheet | null) {
+    uiStore.setState((s: UiState) => ({
+      ...s,
+      informationSheetCurrentRow: row,
     }))
   },
 }
