@@ -11,6 +11,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useInformationSheet, InformationSheet } from '../context/information-sheet-context'
+import { useBankExperience } from '@/features/bank-experience/context/bank-experience-context'
+import { useNonBankExperience } from '@/features/non-bank-experience/context/non-bank-experience-context'
 
 interface DataTableRowActionsProps {
   row: Row<InformationSheet>
@@ -18,6 +20,8 @@ interface DataTableRowActionsProps {
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const { setOpen, setCurrentRow } = useInformationSheet()
+  const { setOpen: setBankOpen, setCurrentRow: setBankCurrentRow } = useBankExperience()
+  const { setOpen: setNonBankOpen, setCurrentRow: setNonBankCurrentRow } = useNonBankExperience()
   return (
     <>
       <DropdownMenu modal={false}>
@@ -30,7 +34,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             <span className='sr-only'>Open menu</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='w-[160px]'>
+        <DropdownMenuContent align='end' className='w-[200px]'>
           <DropdownMenuItem
             onClick={() => {
               setCurrentRow(row.original)
@@ -42,6 +46,65 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               <IconEdit size={16} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
+          {(() => {
+            const r = row.original
+            const hasBank = !!(
+              r.affectation || r.poste || r.activite || r.decisionDate || r.dateEffet
+            )
+            return hasBank ? (
+              <DropdownMenuItem
+                onClick={() => {
+                  setBankCurrentRow({
+                    id: r.id ?? 0,
+                    affectation: r.affectation ?? '',
+                    poste: r.poste ?? '',
+                    activite: r.activite ?? '',
+                    classe: r.classe ?? '',
+                    echelon: r.echelon ?? '',
+                    pbi: r.pbi ?? '',
+                    natureDecision: r.decisionType ?? r.natureDecision ?? '',
+                    refDecision: r.decisionNumber ?? r.refDecision ?? '',
+                    dateDecision: r.decisionDate ?? r.dateDecision ?? '',
+                    dateEffet: r.effectiveDate ?? r.dateEffet ?? '',
+                    chargeInterim: r.chargeInterim ?? '',
+                  })
+                  setBankOpen('edit')
+                }}
+              >
+                Edit Banking Exp.
+                <DropdownMenuShortcut>
+                  <IconEdit size={16} />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            ) : null
+          })()}
+          {(() => {
+            const r = row.original
+            const hasNonBank = !!(
+              r.entreprise || r.posteOccupe || r.du || r.au || r.duree
+            )
+            return hasNonBank ? (
+              <DropdownMenuItem
+                onClick={() => {
+                  setNonBankCurrentRow({
+                    id: r.id ?? 0,
+                    entreprise: r.entreprise ?? '',
+                    lieuTravail: r.lieuTravail ?? '',
+                    posteOccupe: r.posteOccupe ?? '',
+                    du: r.du ?? '',
+                    au: r.au ?? '',
+                    duree: r.duree ?? '',
+                  })
+                  setNonBankOpen('edit')
+                }}
+              >
+                Edit Non-Banking Exp.
+                <DropdownMenuShortcut>
+                  <IconEdit size={16} />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            ) : null
+          })()}
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
