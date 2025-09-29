@@ -30,7 +30,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { InformationSheet } from '../context/information-sheet-context'
+import { InformationSheet } from '@/stores/dataStore'
 
 const informationSheetSchema = z.object({
   matricule: z.string().min(1, { message: 'Employee ID is required.' }),
