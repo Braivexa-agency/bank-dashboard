@@ -24,25 +24,25 @@ import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
   user: {
-    name: 'satnaing',
-    email: 'satnaingdev@gmail.com',
-    avatar: '/avatars/shadcn.jpg',
+    name: 'Ahmed Benali',
+    email: 'ahmed.benali@bank-dz.com',
+    avatar: '/avatars/ahmed-benali.jpg',
   },
   teams: [
     {
-      name: 'Shadcn Admin',
+      name: 'Bank Dashboard',
       logo: Command,
-      plan: 'Vite + ShadcnUI',
+      plan: 'HR Management System',
     },
     {
-      name: 'Acme Inc',
+      name: 'Regional Directorate',
       logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
+      plan: 'Algiers Branch',
     },
     {
-      name: 'Acme Corp.',
+      name: 'Credit Department',
       logo: AudioWaveform,
-      plan: 'Startup',
+      plan: 'Risk Management',
     },
   ],
   navGroups: [
