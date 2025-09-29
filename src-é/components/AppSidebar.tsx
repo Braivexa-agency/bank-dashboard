@@ -90,8 +90,8 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ className }) => {
                   <User className="h-3 w-3" />
                 </div>
                 <div className="grid flex-1 text-left text-xs leading-tight">
-                  <span className="truncate font-medium">Admin User</span>
-                  <span className="truncate text-muted-foreground">Administrator</span>
+                  <span className="truncate font-medium">Ahmed Benali</span>
+                  <span className="truncate text-muted-foreground">Senior Manager</span>
                 </div>
               </div>
             </SidebarMenuButton>
