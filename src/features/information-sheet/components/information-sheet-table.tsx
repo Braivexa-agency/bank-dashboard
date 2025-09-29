@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { InformationSheet } from '../context/information-sheet-context'
+import { InformationSheet } from '@/stores/dataStore'
 import { DataTablePagination } from '@/features/bank-experience/components/data-table-pagination'
 import { DataTableToolbar } from './data-table-toolbar'
 
