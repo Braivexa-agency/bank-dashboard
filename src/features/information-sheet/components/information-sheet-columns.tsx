@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { Checkbox } from '@/components/ui/checkbox'
 import LongText from '@/components/long-text'
 import { Badge } from '@/components/ui/badge'
-import { InformationSheet } from '../context/information-sheet-context'
+import { InformationSheet } from '@/stores/dataStore'
 import { DataTableColumnHeader } from '@/features/bank-experience/components/data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 // import { DataTableRowActions } from './data-table-row-actions'
@@ -38,24 +38,6 @@ export const columns: ColumnDef<InformationSheet>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
-  },
-  {
-    accessorKey: 'entreprise',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Company' />
-    ),
-    cell: ({ row }) => (
-      <LongText className='max-w-36'>{row.getValue('entreprise')}</LongText>
-    ),
-  },
-  {
-    accessorKey: 'lieuTravail',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Work Location' />
-    ),
-    cell: ({ row }) => (
-      <LongText className='max-w-28'>{row.getValue('lieuTravail')}</LongText>
-    ),
   },
   {
     accessorKey: 'matricule',
@@ -291,6 +273,24 @@ export const columns: ColumnDef<InformationSheet>[] = [
     },
     enableHiding: false,
     enableSorting: false,
+  },
+  {
+    accessorKey: 'entreprise',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Company' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-36'>{row.getValue('entreprise')}</LongText>
+    ),
+  },
+  {
+    accessorKey: 'lieuTravail',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Work Location' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-28'>{row.getValue('lieuTravail')}</LongText>
+    ),
   },
   {
     id: 'actions',
