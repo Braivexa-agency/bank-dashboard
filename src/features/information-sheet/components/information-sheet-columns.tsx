@@ -169,7 +169,12 @@ export const columns: ColumnDef<InformationSheet>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Level' />
     ),
-    cell: ({ row }) => <div>{row.getValue('echelon')}</div>,
+    cell: ({ row }) => {
+      const raw = row.getValue('echelon') as string
+      const num = Number.parseInt(raw || '0', 10)
+      const clamped = Math.max(1, Math.min(11, Number.isFinite(num) ? num : 0))
+      return <div>{clamped}</div>
+    },
   },
   {
     accessorKey: 'pbi',
