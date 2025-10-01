@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import ProfessionalTraining from '@/features/professional-training'
+// Removed professional training page; reuse information sheet route or leave placeholder
+const Removed = () => null
 
 export const Route = createFileRoute('/_authenticated/professional-training/')({
-  component: ProfessionalTraining,
+  component: Removed,
 })
