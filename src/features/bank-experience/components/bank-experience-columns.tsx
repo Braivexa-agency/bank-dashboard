@@ -81,9 +81,10 @@ export const columns: ColumnDef<BankExperience>[] = [
     ),
     cell: ({ row }) => {
       const classe = row.getValue('classe') as string
-      const badgeColor = classe === 'Executive' ? 'bg-blue-100 text-blue-800' : 
-                        classe === 'Management' ? 'bg-green-100 text-green-800' :
-                        classe === 'Execution' ? 'bg-yellow-100 text-yellow-800' :
+      const badgeColor = classe === 'cadre' ? 'bg-blue-100 text-blue-800' : 
+                        classe === 'maitrise' ? 'bg-green-100 text-green-800' :
+                        classe === 'execution' ? 'bg-yellow-100 text-yellow-800' :
+                        classe === 'cadre superieur' ? 'bg-purple-100 text-purple-800' :
                         'bg-gray-100 text-gray-800'
       return (
         <div className='flex space-x-2'>
@@ -113,8 +114,8 @@ export const columns: ColumnDef<BankExperience>[] = [
       <DataTableColumnHeader column={column} title='PBI' />
     ),
     cell: ({ row }) => {
-      const pbi = row.getValue('pbi') as string
-      const badgeColor = pbi === 'Yes' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+      const pbi = Number(row.getValue('pbi'))
+      const badgeColor = pbi > 0 ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
       return (
         <div className='flex space-x-2'>
           <Badge variant='outline' className={cn('capitalize', badgeColor)}>
@@ -123,9 +124,7 @@ export const columns: ColumnDef<BankExperience>[] = [
         </div>
       )
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
+    enableColumnFilter: false,
     enableHiding: false,
     enableSorting: false,
   },
