@@ -60,7 +60,7 @@ const informationSheetSchema = z.object({
   classe: z.string().optional(),
   echelon: z.string().optional(),
   indice: z.string().optional(),
-  pbi: z.string().optional(),
+  pbi: z.number().min(0, { message: 'PBI must be a non-negative number.' }).optional(),
   structure: z.string().optional(),
   reporting: z.string().optional(),
   code: z.string().optional(),
@@ -138,7 +138,7 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
           classe: '',
           echelon: '',
           indice: '',
-          pbi: '',
+          pbi: 0,
           structure: '',
           reporting: '',
           code: '',
@@ -625,10 +625,10 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value='Executive'>Executive</SelectItem>
-                            <SelectItem value='Management'>Management</SelectItem>
-                            <SelectItem value='Execution'>Execution</SelectItem>
-                            <SelectItem value='Senior Executive'>Senior Executive</SelectItem>
+                            <SelectItem value='cadre'>cadre</SelectItem>
+                            <SelectItem value='maitrise'>maitrise</SelectItem>
+                            <SelectItem value='execution'>execution</SelectItem>
+                            <SelectItem value='cadre superieur'>cadre superieur</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -707,17 +707,15 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>PBI</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder='Select' />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value='Yes'>Yes</SelectItem>
-                            <SelectItem value='No'>No</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <FormControl>
+                          <Input 
+                            type='number' 
+                            min='0'
+                            {...field}
+                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                            placeholder='Enter PBI (number)'
+                          />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
