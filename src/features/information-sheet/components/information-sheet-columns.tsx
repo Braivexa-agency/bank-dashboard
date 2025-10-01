@@ -334,6 +334,15 @@ export const columns: ColumnDef<InformationSheet>[] = [
     ),
   },
   {
+    accessorKey: 'autreSpecialite',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Other Specialty' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-36'>{row.getValue('autreSpecialite')}</LongText>
+    ),
+  },
+  {
     accessorKey: 'etablissement',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title='Institution' />
@@ -349,6 +358,15 @@ export const columns: ColumnDef<InformationSheet>[] = [
     ),
     cell: ({ row }) => (
       <LongText className='max-w-36'>{row.getValue('diplome')}</LongText>
+    ),
+  },
+  {
+    accessorKey: 'autreDiplome',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Other Diploma' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-36'>{row.getValue('autreDiplome')}</LongText>
     ),
   },
   {
