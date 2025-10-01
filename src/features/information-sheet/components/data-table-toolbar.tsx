@@ -33,10 +33,10 @@ export function DataTableToolbar<TData>({
               column={table.getColumn('group')}
               title='Group'
               options={[
-                { label: 'Executive', value: 'Executive' },
-                { label: 'Senior Executive', value: 'Senior Executive' },
-                { label: 'Execution', value: 'Execution' },
-                { label: 'Management', value: 'Management' },
+                { label: 'cadre', value: 'cadre' },
+                { label: 'maitrise', value: 'maitrise' },
+                { label: 'execution', value: 'execution' },
+                { label: 'cadre superieur', value: 'cadre superieur' },
               ]}
             />
           )}
