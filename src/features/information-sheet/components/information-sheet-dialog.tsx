@@ -91,6 +91,13 @@ const informationSheetSchema = z.object({
   du: z.string().optional(),
   au: z.string().optional(),
   duree: z.string().optional(),
+  // Professional Training fields
+  specialite: z.string().optional(),
+  autreSpecialite: z.string().optional(),
+  etablissement: z.string().optional(),
+  diplome: z.string().optional(),
+  autreDiplome: z.string().optional(),
+  observations: z.string().optional(),
 })
 
 type InformationSheetForm = z.infer<typeof informationSheetSchema>
@@ -168,6 +175,13 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
           du: '',
           au: '',
           duree: '',
+          // Professional Training fields
+          specialite: '',
+          autreSpecialite: '',
+          etablissement: '',
+          diplome: '',
+          autreDiplome: '',
+          observations: '',
         },
   })
 
@@ -1141,6 +1155,124 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                             <SelectItem value='No'>No</SelectItem>
                           </SelectContent>
                         </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Professional Training Section */}
+            <Card>
+              <CardHeader className="border-b">
+                <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
+                  <div className="w-1 h-6 bg-primary rounded-full"></div>
+                  Professional Training
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
+                  <FormField
+                    control={form.control}
+                    name='specialite'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Specialty</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Main specialty' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='autreSpecialite'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Other Specialty</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Additional specialty' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='etablissement'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Institution</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Training institution' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='du'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Start Date</FormLabel>
+                        <FormControl>
+                          <Input type='date' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='au'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>End Date</FormLabel>
+                        <FormControl>
+                          <Input type='date' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='diplome'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Diploma</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Main diploma' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='autreDiplome'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Other Diploma</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Additional diploma' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='observations'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Observations</FormLabel>
+                        <FormControl>
+                          <Input placeholder='Additional notes' {...field} />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
