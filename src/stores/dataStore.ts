@@ -162,7 +162,7 @@ const initialDataState: DataState = {
       autreSpecialite: "Conformité bancaire",
       etablissement: "Institut National de Finance",
       diplome: "Certificat en Gestion des Risques",
-      autreDiplome: "",
+      autreDiplome: "Atelier conformité",
       observations: "Cycle certifiant 40h",
     },
     {
@@ -227,7 +227,7 @@ const initialDataState: DataState = {
       autreSpecialite: "Notations internes",
       etablissement: "Académie de la Banque",
       diplome: "Attestation d'analyse du crédit",
-      autreDiplome: "",
+      autreDiplome: "Cours notation interne",
       observations: "Stage pratique de 2 semaines",
     },
     {
@@ -292,7 +292,7 @@ const initialDataState: DataState = {
       autreSpecialite: "Excel avancé",
       etablissement: "Centre de Formation Constantine",
       diplome: "Certificat Excel avancé",
-      autreDiplome: "",
+      autreDiplome: "Module Power BI",
       observations: "PowerQuery et tableaux croisés",
     },
     {
@@ -357,7 +357,7 @@ const initialDataState: DataState = {
       autreSpecialite: "IFRS 9",
       etablissement: "Institut Supérieur de Banque",
       diplome: "Diplôme court en Risk Management",
-      autreDiplome: "",
+      autreDiplome: "IFRS – approfondissement",
       observations: "Mise à jour 2024",
     },
     {
@@ -422,7 +422,7 @@ const initialDataState: DataState = {
       autreSpecialite: "Relation client",
       etablissement: "Ecole de Management Bancaire",
       diplome: "Certificat Management d'unité",
-      autreDiplome: "",
+      autreDiplome: "Coaching leadership",
       observations: "Coaching 3 mois",
     },
     {
@@ -487,7 +487,7 @@ const initialDataState: DataState = {
       autreSpecialite: "Sécurité SI",
       etablissement: "Centre IT Constantine",
       diplome: "Certification réseau niveau 1",
-      autreDiplome: "",
+      autreDiplome: "Atelier sécurité SI",
       observations: "Intro à la sécurité",
     },
     {
@@ -552,7 +552,7 @@ const initialDataState: DataState = {
       autreSpecialite: "Tableaux de bord",
       etablissement: "Institut Financier Oran",
       diplome: "Certificat d'analyse financière",
-      autreDiplome: "",
+      autreDiplome: "Excel financier",
       observations: "Cas pratiques secteur banque",
     },
     {
@@ -617,7 +617,7 @@ const initialDataState: DataState = {
       autreSpecialite: "Lean process",
       etablissement: "Centre Opérations Alger",
       diplome: "Attestation d'optimisation des processus",
-      autreDiplome: "",
+      autreDiplome: "Lean – avancé",
       observations: "Projet pilote agence",
     },
   ],
