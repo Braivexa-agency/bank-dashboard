@@ -33,23 +33,14 @@ export function DataTableToolbar<TData>({
               column={table.getColumn('classe')}
               title='Class'
               options={[
-                { label: 'Executive', value: 'Executive' },
-                { label: 'Management', value: 'Management' },
-                { label: 'Execution', value: 'Execution' },
-                { label: 'Senior Executive', value: 'Senior Executive' },
+                { label: 'cadre', value: 'cadre' },
+                { label: 'maitrise', value: 'maitrise' },
+                { label: 'execution', value: 'execution' },
+                { label: 'cadre superieur', value: 'cadre superieur' },
               ]}
             />
           )}
-          {table.getColumn('pbi') && (
-            <DataTableFacetedFilter
-              column={table.getColumn('pbi')}
-              title='PBI'
-              options={[
-                { label: 'Yes', value: 'Yes' },
-                { label: 'No', value: 'No' },
-              ]}
-            />
-          )}
+          {/* PBI is numeric now; remove categorical filter */}
           {table.getColumn('chargeInterim') && (
             <DataTableFacetedFilter
               column={table.getColumn('chargeInterim')}
