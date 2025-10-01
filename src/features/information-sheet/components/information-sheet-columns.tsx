@@ -318,6 +318,63 @@ export const columns: ColumnDef<InformationSheet>[] = [
       <LongText className='max-w-36'>{row.getValue('entreprise')}</LongText>
     ),
   },
+  // Professional Training columns
+  {
+    accessorKey: 'specialite',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Specialty' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-36'>{row.getValue('specialite')}</LongText>
+    ),
+  },
+  {
+    accessorKey: 'etablissement',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Institution' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-36'>{row.getValue('etablissement')}</LongText>
+    ),
+  },
+  {
+    accessorKey: 'diplome',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Diploma' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-36'>{row.getValue('diplome')}</LongText>
+    ),
+  },
+  {
+    accessorKey: 'du',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Training From' />
+    ),
+    cell: ({ row }) => {
+      const date = row.getValue('du') as string
+      return <div>{date ? new Date(date).toLocaleDateString('en-US') : ''}</div>
+    },
+  },
+  {
+    accessorKey: 'au',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Training To' />
+    ),
+    cell: ({ row }) => {
+      const date = row.getValue('au') as string
+      return <div>{date ? new Date(date).toLocaleDateString('en-US') : ''}</div>
+    },
+  },
+  {
+    accessorKey: 'observations',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Observations' />
+    ),
+    cell: ({ row }) => (
+      <LongText className='max-w-48'>{row.getValue('observations')}</LongText>
+    ),
+  },
   {
     accessorKey: 'lieuTravail',
     header: ({ column }) => (
