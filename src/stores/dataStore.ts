@@ -58,6 +58,13 @@ export interface InformationSheet {
   du: string
   au: string
   duree: string
+  // Professional Training fields
+  specialite: string
+  autreSpecialite: string
+  etablissement: string
+  diplome: string
+  autreDiplome: string
+  observations: string
 }
 
 export interface BankExperience {
@@ -151,6 +158,12 @@ const initialDataState: DataState = {
       du: "2008-06-01",
       au: "2010-05-31",
       duree: "2 years",
+      specialite: "",
+      autreSpecialite: "",
+      etablissement: "",
+      diplome: "",
+      autreDiplome: "",
+      observations: "",
     },
     {
       id: 2,
@@ -210,6 +223,12 @@ const initialDataState: DataState = {
       du: "2013-06-01",
       au: "2015-08-31",
       duree: "2 years 3 months",
+      specialite: "",
+      autreSpecialite: "",
+      etablissement: "",
+      diplome: "",
+      autreDiplome: "",
+      observations: "",
     },
     {
       id: 3,
@@ -269,6 +288,12 @@ const initialDataState: DataState = {
       du: "2018-06-01",
       au: "2019-12-31",
       duree: "1 year 6 months",
+      specialite: "",
+      autreSpecialite: "",
+      etablissement: "",
+      diplome: "",
+      autreDiplome: "",
+      observations: "",
     },
     {
       id: 4,
@@ -328,6 +353,12 @@ const initialDataState: DataState = {
       du: "2015-03-01",
       au: "2018-02-28",
       duree: "2 years 11 months",
+      specialite: "",
+      autreSpecialite: "",
+      etablissement: "",
+      diplome: "",
+      autreDiplome: "",
+      observations: "",
     },
     {
       id: 5,
@@ -387,6 +418,12 @@ const initialDataState: DataState = {
       du: "2010-01-01",
       au: "2012-03-31",
       duree: "2 years 3 months",
+      specialite: "",
+      autreSpecialite: "",
+      etablissement: "",
+      diplome: "",
+      autreDiplome: "",
+      observations: "",
     },
     {
       id: 6,
@@ -446,6 +483,12 @@ const initialDataState: DataState = {
       du: "2017-01-01",
       au: "2019-06-30",
       duree: "2 years 6 months",
+      specialite: "",
+      autreSpecialite: "",
+      etablissement: "",
+      diplome: "",
+      autreDiplome: "",
+      observations: "",
     },
     {
       id: 7,
@@ -505,6 +548,12 @@ const initialDataState: DataState = {
       du: "2014-09-01",
       au: "2016-08-31",
       duree: "2 years",
+      specialite: "",
+      autreSpecialite: "",
+      etablissement: "",
+      diplome: "",
+      autreDiplome: "",
+      observations: "",
     },
     {
       id: 8,
@@ -564,6 +613,12 @@ const initialDataState: DataState = {
       du: "2009-06-01",
       au: "2011-01-31",
       duree: "1 year 8 months",
+      specialite: "",
+      autreSpecialite: "",
+      etablissement: "",
+      diplome: "",
+      autreDiplome: "",
+      observations: "",
     },
   ],
   bankExperiences: [
