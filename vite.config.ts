@@ -10,4 +10,21 @@ export default defineConfig({
       "@": path.resolve(process.cwd(), "./src"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 5000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'vendor-react'
+            if (id.includes('@tanstack')) return 'vendor-tanstack'
+            if (id.includes('@radix-ui')) return 'vendor-radix'
+            if (id.includes('lucide-react')) return 'vendor-icons'
+            if (id.includes('clerk')) return 'vendor-clerk'
+            return 'vendor'
+          }
+        },
+      },
+    },
+  },
 })
