@@ -370,10 +370,10 @@ export function PrintReportsDialog({ open, onOpenChange }: Props) {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value='executive'>Executive</SelectItem>
-                              <SelectItem value='management'>Management</SelectItem>
-                              <SelectItem value='execution'>Execution</SelectItem>
-                              <SelectItem value='senior-executive'>Senior Executive</SelectItem>
+                              <SelectItem value='cadre'>cadre</SelectItem>
+                              <SelectItem value='maitrise'>maitrise</SelectItem>
+                              <SelectItem value='execution'>execution</SelectItem>
+                              <SelectItem value='cadre superieur'>cadre superieur</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
