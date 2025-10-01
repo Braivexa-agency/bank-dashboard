@@ -74,11 +74,6 @@ export const sidebarData: SidebarData = {
           icon: IconLockAccess,
           items: [
             {
-              title: 'Professional Training',
-              url: '/professional-training',
-              icon: IconBook,
-            },
-            {
               title: 'Information Sheet',
               url: '/information-sheet',
               icon: IconFileDescription,
