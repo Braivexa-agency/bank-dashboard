@@ -16,7 +16,6 @@ import {
   IconUserCog,
   IconUserOff,
   IconUsers,
-  IconBook,
   IconFileDescription,
 } from '@tabler/icons-react'
 import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
