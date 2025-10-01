@@ -92,16 +92,37 @@ export const columns: ColumnDef<InformationSheet>[] = [
     ),
     cell: ({ row }) => {
       const { group } = row.original
+
+      const mapGroupToFr = (g: string) => {
+        switch (g) {
+          case 'Executive':
+            return 'cadre'
+          case 'Senior Executive':
+            return 'cadre superieur'
+          case 'Execution':
+            return 'execution'
+          case 'Management':
+            return 'maitrise'
+          default:
+            return g
+        }
+      }
+
+      const groupFr = mapGroupToFr(group)
+
       let badgeColor = ''
-      switch (group) {
-        case 'Executive':
+      switch (groupFr) {
+        case 'cadre':
           badgeColor = 'bg-blue-500 text-white'
           break
-        case 'Senior Executive':
+        case 'cadre superieur':
           badgeColor = 'bg-purple-500 text-white'
           break
-        case 'Execution':
+        case 'execution':
           badgeColor = 'bg-green-500 text-white'
+          break
+        case 'maitrise':
+          badgeColor = 'bg-orange-500 text-white'
           break
         default:
           badgeColor = 'bg-gray-500 text-white'
@@ -109,13 +130,29 @@ export const columns: ColumnDef<InformationSheet>[] = [
       return (
         <div className='flex space-x-2'>
           <Badge variant='outline' className={cn('capitalize', badgeColor)}>
-            {row.getValue('group')}
+            {groupFr}
           </Badge>
         </div>
       )
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      const raw = row.getValue(id) as string
+      const map = (g: string) => {
+        switch (g) {
+          case 'Executive':
+            return 'cadre'
+          case 'Senior Executive':
+            return 'cadre superieur'
+          case 'Execution':
+            return 'execution'
+          case 'Management':
+            return 'maitrise'
+          default:
+            return g
+        }
+      }
+      const mapped = map(raw)
+      return value.includes(mapped)
     },
     enableHiding: false,
     enableSorting: false,
@@ -141,7 +178,7 @@ export const columns: ColumnDef<InformationSheet>[] = [
     ),
     cell: ({ row }) => {
       const { pbi } = row.original
-      const badgeColor = pbi === 'Yes' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+      const badgeColor = Number(pbi) > 0 ? 'bg-green-500 text-white' : 'bg-gray-500 text-white'
       return (
         <div className='flex space-x-2'>
           <Badge variant='outline' className={cn('capitalize', badgeColor)}>
@@ -150,9 +187,7 @@ export const columns: ColumnDef<InformationSheet>[] = [
         </div>
       )
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
+    enableColumnFilter: false,
     enableHiding: false,
     enableSorting: false,
   },
