@@ -8,7 +8,7 @@ export interface BankExperience {
   activite: string
   classe: string
   echelon: string
-  pbi: string
+  pbi: number
   natureDecision: string
   refDecision: string
   dateDecision: string
@@ -71,7 +71,7 @@ export default function BankExperienceProvider({ children }: Props) {
       activite: "Customer portfolio management",
       classe: "Executive",
       echelon: "12",
-      pbi: "Yes",
+      pbi: 1,
       natureDecision: "Appointment",
       refDecision: "DR-2023-001",
       dateDecision: "2023-01-15",
@@ -85,7 +85,7 @@ export default function BankExperienceProvider({ children }: Props) {
       activite: "Credit analysis and approval",
       classe: "Executive",
       echelon: "10",
-      pbi: "Yes",
+      pbi: 1,
       natureDecision: "Promotion",
       refDecision: "DR-2022-045",
       dateDecision: "2022-06-01",
@@ -99,7 +99,7 @@ export default function BankExperienceProvider({ children }: Props) {
       activite: "Daily banking operations",
       classe: "Execution",
       echelon: "8",
-      pbi: "No",
+      pbi: 0,
       natureDecision: "Recruitment",
       refDecision: "DR-2020-012",
       dateDecision: "2020-03-01",
