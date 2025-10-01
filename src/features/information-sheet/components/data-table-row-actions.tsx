@@ -62,7 +62,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
                     activite: r.activite ?? '',
                     classe: r.classe ?? '',
                     echelon: r.echelon ?? '',
-                    pbi: r.pbi ?? '',
+                    pbi: typeof r.pbi === 'number' ? r.pbi : (r.pbi === 'Yes' ? 1 : 0),
                     natureDecision: r.decisionType ?? r.natureDecision ?? '',
                     refDecision: r.decisionNumber ?? r.refDecision ?? '',
                     dateDecision: r.decisionDate ?? r.dateDecision ?? '',
