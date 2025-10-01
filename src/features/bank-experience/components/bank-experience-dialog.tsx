@@ -61,7 +61,7 @@ const experienceFormSchema = z.object({
   activite: z.string().min(1, { message: 'Activity is required.' }),
   classe: z.string().min(1, { message: 'Class is required.' }),
   echelon: z.string().min(1, { message: 'Level is required.' }),
-  pbi: z.string().min(1, { message: 'PBI is required.' }),
+  pbi: z.number().min(0, { message: 'PBI must be a non-negative number.' }),
   natureDecision: z.string().min(1, { message: 'Decision Type is required.' }),
   refDecision: z.string().min(1, { message: 'Decision Reference is required.' }),
   dateDecision: z.string().min(1, { message: 'Decision Date is required.' }),
@@ -120,7 +120,7 @@ export function BankExperienceDialog({ currentRow, open, onOpenChange }: Props) 
           activite: '',
           classe: '',
           echelon: '',
-          pbi: '',
+          pbi: 0,
           natureDecision: '',
           refDecision: '',
           dateDecision: '',
@@ -331,10 +331,10 @@ export function BankExperienceDialog({ currentRow, open, onOpenChange }: Props) 
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value='executive'>Executive</SelectItem>
-                            <SelectItem value='management'>Management</SelectItem>
-                            <SelectItem value='execution'>Execution</SelectItem>
-                            <SelectItem value='senior-executive'>Senior Executive</SelectItem>
+                            <SelectItem value='cadre'>cadre</SelectItem>
+                            <SelectItem value='maitrise'>maitrise</SelectItem>
+                            <SelectItem value='execution'>execution</SelectItem>
+                            <SelectItem value='cadre superieur'>cadre superieur</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -565,17 +565,15 @@ export function BankExperienceDialog({ currentRow, open, onOpenChange }: Props) 
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>PBI</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder='Select' />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value='Yes'>Yes</SelectItem>
-                            <SelectItem value='No'>No</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <FormControl>
+                          <Input 
+                            type='number' 
+                            min='0'
+                            {...field}
+                            onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
+                            placeholder='Enter PBI (number)'
+                          />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
