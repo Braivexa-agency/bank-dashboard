@@ -34,7 +34,7 @@ export default defineConfig({
       },
     },
     // Increase chunk size warning limit (optional)
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 100000,
     
     // Enable minification (default is 'esbuild', which is faster)
     minify: 'esbuild',
