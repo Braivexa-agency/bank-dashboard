@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <style> 
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    *{
+        font-family: "Montserrat", sans-serif;
+    }
+        body {
+            background-color: #e3e3e3;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .login-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #999;
+            text-align: center;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 300px;
+            height: 270px;
+        }
+        input[type="password"] {
+            width: 95%;
+            padding: 12px;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: crimson;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 20px 10px 10px 10px;
+        }
+        .error {
+            color: red;
+            margin-top: 15px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        body {
+         <!-- background-image: url(); -->
+         background-repeat: no-repeat;
+         background-size: cover;
+         }
+         div{
+            margin: 10px 40px 30px 90px;
+         }
+         
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <h2>Entrer le mot de passe</h2>
+        <input type="password" id="password" placeholder="Mot de passe">
+        <br>
+        <button onclick="verifierMotDePasse()">Valider</button>
+        <div class="error" id="error"></div>
+    </div>
+
+    <script>
+        function verifierMotDePasse() {
+            const motDePasse = document.getElementById('password').value;
+            const motDePasseCorrect = '2025';
+
+            if (motDePasse === motDePasseCorrect) {
+                window.location.href = 'Page1.html';
+            } else {
+                document.getElementById('error').textContent = 'Mot de passe incorrect.';
+            }
+        }
+    </script>
+
+</body>
+</html>

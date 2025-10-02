@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Impressions des États</title>
+    <link rel="stylesheet" href="fiche_renseign.css">
+</head>
+<body>
+    <div class="container">
+        <img src="" width="80" height="80">
+        <h1 align="center">BANQUE</h1>
+        <h2 align="center">Division</h2>
+        <h2 align="center">Direction des</h2>
+        <h1 align="center">Impressions des États</h1>
+    </div>
+
+    <fieldset>
+        <form>
+            <h3>Informations de l'employé</h3>
+            <div class="section">
+                <div><label>Matricule :</label><input type="text"></div>
+                <div><label>Nom :</label><input type="text"></div>
+                <div><label>Prénom :</label><input type="text"></div>
+                <div><label>Fils (fille) de :</label><input type="text"></div>
+                <div><label>Et de :</label><input type="text"></div>
+                <div><label>Date de Naissance :</label><input type="date"></div>
+                <div><label>Situation Familiale :</label><input type="text"></div>
+                <div><label>Sexe :</label><input type="text"></div>
+                <div><label>Nom du Conjoint :</label><input type="text"></div>
+                <div><label>Date Recrutement :</label><input type="date"></div>
+                <div><label>Nature du Contrat :</label><input type="text"></div>
+                <div><label>Poste Occupé :</label><input type="text"></div>
+                <div><label>Groupe :</label><input type="text"></div>
+                <div><label>Chargé de l'intérim de :</label><input type="text"></div>
+                <div><label>Structure :</label><input type="text"></div>
+                <div><label>Rattachement :</label><input type="text"></div>
+                <div><label>Code :</label><input type="text"></div>
+                <div><label>Type Structure :</label><input type="text"></div>
+                <div><label>Activité :</label><input type="text"></div>
+                <div><label>Expérience à la Banque :</label><input type="text"></div>
+                <div><label>Positionnement :</label><input type="text"></div>
+                <div><label>Affectation :</label><input type="text"></div>
+            </div>
+
+            <h3>Déclaration CNAS & Enquête Administrative</h3>
+            <div style="display: flex; gap: 50px;">
+                <div style="flex: 1;">
+                    <fieldset>
+                       <legend class="cnas">Déclaration C.N.A.S</legend>
+                        <label>N° d'Adhérent :</label><input type="text"><br><br>
+                        <label>Adresse Adhérent :</label><input type="text" style="width: 95%;"><br><br>
+                    </fieldset>
+                </div>
+                <div style="flex: 1;">
+                    <fieldset>
+                        <legend class="enquete">Enquête Administrative et Bulletin N°02</legend>
+                        <label>(W) Naissance :</label><input type="text"><br><br>
+                        <label>(W) Résidence :</label><input type="text"><br><br>
+                        <label>N° Téléphone :</label><input type="number"><br><br>
+                        <button type="button" onclick="window.location.href='enquete_wilaya.html'">Enquête Wilaya</button>
+                        <button type="button" onclick="window.location.href='enquete_daira.html'">Enquête Daira</button>
+                    </fieldset>
+                </div>
+            </div>
+
+            <br><br>
+            <div class="buttons" style="text-align: center;">
+                
+                 <button type="button" onclick="window.location.href='attestation_travail.html'">Attestation de Travail</button>
+                 <button type="button" onclick="window.location.href='certificat_travail.html'">Certificat de Travail</button>
+                <button type="button" onclick="window.location.href='fiche_carriere.html'">Fiche de Carrière</button>
+                <button type="button">Fiche de Renseignement</button>
+            </div>
+        </form>
+    </fieldset>
+</body>
+</html>
