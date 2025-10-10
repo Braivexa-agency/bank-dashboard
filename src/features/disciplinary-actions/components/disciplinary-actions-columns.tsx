@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { Checkbox } from '@/components/ui/checkbox'
 import LongText from '@/components/long-text'
 import { Badge } from '@/components/ui/badge'
-import { DisciplinaryAction } from '../context/disciplinary-actions-context'
+import { DisciplinaryAction } from '@/stores/dataStore'
 import { DataTableColumnHeader } from '@/features/bank-experience/components/data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 
