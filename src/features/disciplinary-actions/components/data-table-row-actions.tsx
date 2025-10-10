@@ -10,7 +10,8 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useDisciplinaryAction, DisciplinaryAction } from '../context/disciplinary-actions-context'
+import { useDisciplinaryAction } from '../context/disciplinary-actions-context'
+import { DisciplinaryAction } from '@/stores/dataStore'
 
 interface DataTableRowActionsProps {
   row: Row<DisciplinaryAction>
