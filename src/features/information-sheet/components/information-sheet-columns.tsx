@@ -407,6 +407,67 @@ export const columns: ColumnDef<InformationSheet>[] = [
       <LongText className='max-w-28'>{row.getValue('lieuTravail')}</LongText>
     ),
   },
+  // Disciplinary Actions columns
+  {
+    accessorKey: 'disciplinaryActions',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Disciplinary Actions' />
+    ),
+    cell: ({ row }) => {
+      const actions = row.getValue('disciplinaryActions') as any[]
+      if (!actions || actions.length === 0) {
+        return <div className='text-muted-foreground'>None</div>
+      }
+      return (
+        <div className='flex flex-wrap gap-1'>
+          {actions.slice(0, 2).map((action, index) => (
+            <Badge 
+              key={index} 
+              variant='outline' 
+              className={cn(
+                'text-xs',
+                action.classification === 'Minor' ? 'bg-yellow-100 text-yellow-800' :
+                action.classification === 'Major' ? 'bg-orange-100 text-orange-800' :
+                'bg-red-100 text-red-800'
+              )}
+            >
+              {action.typeSanction}
+            </Badge>
+          ))}
+          {actions.length > 2 && (
+            <Badge variant='outline' className='text-xs bg-gray-100 text-gray-600'>
+              +{actions.length - 2} more
+            </Badge>
+          )}
+        </div>
+      )
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: 'lastDisciplinaryAction',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Last Disciplinary Action' />
+    ),
+    cell: ({ row }) => {
+      const actions = row.getValue('disciplinaryActions') as any[]
+      if (!actions || actions.length === 0) {
+        return <div className='text-muted-foreground'>None</div>
+      }
+      const lastAction = actions[actions.length - 1]
+      return (
+        <div className='space-y-1'>
+          <div className='text-sm font-medium'>{lastAction.typeSanction}</div>
+          <div className='text-xs text-muted-foreground'>
+            {new Date(lastAction.dateDecision).toLocaleDateString('en-US')}
+          </div>
+        </div>
+      )
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     id: 'actions',
     cell: DataTableRowActions,
