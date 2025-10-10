@@ -1,5 +1,15 @@
 import { Store } from '@tanstack/store'
 
+export interface DisciplinaryAction {
+  id: number
+  typeSanction: string
+  classification: string
+  numeroDecision: string
+  dateDecision: string
+  dateEffet: string
+  motifSanction: string
+}
+
 export interface InformationSheet {
   id: number
   matricule: string
@@ -65,6 +75,8 @@ export interface InformationSheet {
   diplome: string
   autreDiplome: string
   observations: string
+  // Disciplinary Actions
+  disciplinaryActions: DisciplinaryAction[]
 }
 
 export interface BankExperience {
@@ -96,6 +108,7 @@ export interface DataState {
   informationSheets: InformationSheet[]
   bankExperiences: BankExperience[]
   nonBankExperiences: NonBankExperience[]
+  disciplinaryActions: DisciplinaryAction[]
 }
 
 const initialDataState: DataState = {
@@ -164,6 +177,18 @@ const initialDataState: DataState = {
       diplome: "Certificat en Gestion des Risques",
       autreDiplome: "Atelier conformité",
       observations: "Cycle certifiant 40h",
+      // Disciplinary Actions
+      disciplinaryActions: [
+        {
+          id: 1,
+          typeSanction: "Warning",
+          classification: "Minor",
+          numeroDecision: "DEC-2023-001",
+          dateDecision: "2023-01-15",
+          dateEffet: "2023-01-16",
+          motifSanction: "Late arrival to work on multiple occasions",
+        },
+      ],
     },
     {
       id: 2,
@@ -229,6 +254,18 @@ const initialDataState: DataState = {
       diplome: "Attestation d'analyse du crédit",
       autreDiplome: "Cours notation interne",
       observations: "Stage pratique de 2 semaines",
+      // Disciplinary Actions
+      disciplinaryActions: [
+        {
+          id: 2,
+          typeSanction: "Suspension",
+          classification: "Major",
+          numeroDecision: "DEC-2022-045",
+          dateDecision: "2022-06-01",
+          dateEffet: "2022-06-02",
+          motifSanction: "Violation of company policy regarding client confidentiality",
+        },
+      ],
     },
     {
       id: 3,
@@ -294,6 +331,18 @@ const initialDataState: DataState = {
       diplome: "Certificat Excel avancé",
       autreDiplome: "Module Power BI",
       observations: "PowerQuery et tableaux croisés",
+      // Disciplinary Actions
+      disciplinaryActions: [
+        {
+          id: 3,
+          typeSanction: "Reprimand",
+          classification: "Minor",
+          numeroDecision: "DEC-2021-012",
+          dateDecision: "2021-03-01",
+          dateEffet: "2021-03-02",
+          motifSanction: "Inappropriate behavior towards colleagues",
+        },
+      ],
     },
     {
       id: 4,
@@ -359,6 +408,8 @@ const initialDataState: DataState = {
       diplome: "Diplôme court en Risk Management",
       autreDiplome: "IFRS – approfondissement",
       observations: "Mise à jour 2024",
+      // Disciplinary Actions
+      disciplinaryActions: [],
     },
     {
       id: 5,
@@ -424,6 +475,8 @@ const initialDataState: DataState = {
       diplome: "Certificat Management d'unité",
       autreDiplome: "Coaching leadership",
       observations: "Coaching 3 mois",
+      // Disciplinary Actions
+      disciplinaryActions: [],
     },
     {
       id: 6,
@@ -489,6 +542,8 @@ const initialDataState: DataState = {
       diplome: "Certification réseau niveau 1",
       autreDiplome: "Atelier sécurité SI",
       observations: "Intro à la sécurité",
+      // Disciplinary Actions
+      disciplinaryActions: [],
     },
     {
       id: 7,
@@ -554,6 +609,8 @@ const initialDataState: DataState = {
       diplome: "Certificat d'analyse financière",
       autreDiplome: "Excel financier",
       observations: "Cas pratiques secteur banque",
+      // Disciplinary Actions
+      disciplinaryActions: [],
     },
     {
       id: 8,
@@ -619,6 +676,8 @@ const initialDataState: DataState = {
       diplome: "Attestation d'optimisation des processus",
       autreDiplome: "Lean – avancé",
       observations: "Projet pilote agence",
+      // Disciplinary Actions
+      disciplinaryActions: [],
     },
   ],
   bankExperiences: [
@@ -708,6 +767,35 @@ const initialDataState: DataState = {
       duree: "1 year 6 months",
     },
   ],
+  disciplinaryActions: [
+    {
+      id: 1,
+      typeSanction: "Warning",
+      classification: "Minor",
+      numeroDecision: "DEC-2023-001",
+      dateDecision: "2023-01-15",
+      dateEffet: "2023-01-16",
+      motifSanction: "Late arrival to work on multiple occasions",
+    },
+    {
+      id: 2,
+      typeSanction: "Suspension",
+      classification: "Major",
+      numeroDecision: "DEC-2022-045",
+      dateDecision: "2022-06-01",
+      dateEffet: "2022-06-02",
+      motifSanction: "Violation of company policy regarding client confidentiality",
+    },
+    {
+      id: 3,
+      typeSanction: "Reprimand",
+      classification: "Minor",
+      numeroDecision: "DEC-2021-012",
+      dateDecision: "2021-03-01",
+      dateEffet: "2021-03-02",
+      motifSanction: "Inappropriate behavior towards colleagues",
+    },
+  ],
 }
 
 export const dataStore = new Store<DataState>(initialDataState)
@@ -789,6 +877,32 @@ export const dataActions = {
     dataStore.setState((s: DataState) => ({
       ...s,
       nonBankExperiences: s.nonBankExperiences.filter(item => item.id !== id),
+    }))
+  },
+  setDisciplinaryActions(actions: DisciplinaryAction[]) {
+    dataStore.setState((s: DataState) => ({
+      ...s,
+      disciplinaryActions: actions,
+    }))
+  },
+  addDisciplinaryAction(action: DisciplinaryAction) {
+    dataStore.setState((s: DataState) => ({
+      ...s,
+      disciplinaryActions: [...s.disciplinaryActions, action],
+    }))
+  },
+  updateDisciplinaryAction(id: number, action: Partial<DisciplinaryAction>) {
+    dataStore.setState((s: DataState) => ({
+      ...s,
+      disciplinaryActions: s.disciplinaryActions.map(item => 
+        item.id === id ? { ...item, ...action } : item
+      ),
+    }))
+  },
+  deleteDisciplinaryAction(id: number) {
+    dataStore.setState((s: DataState) => ({
+      ...s,
+      disciplinaryActions: s.disciplinaryActions.filter(item => item.id !== id),
     }))
   },
 }
