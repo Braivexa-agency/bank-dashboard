@@ -1,15 +1,6 @@
 import React, { useState } from 'react'
 import useDialogState from '@/hooks/use-dialog-state'
-
-export interface DisciplinaryAction {
-  id: number
-  typeSanction: string
-  classification: string
-  numeroDecision: string
-  dateDecision: string
-  dateEffet: string
-  motifSanction: string
-}
+import { DisciplinaryAction } from '@/stores/dataStore'
 
 export interface EmployeeInfo {
   employeeId: string
