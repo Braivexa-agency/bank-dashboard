@@ -30,7 +30,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { DisciplinaryAction } from '../context/disciplinary-actions-context'
+import { DisciplinaryAction } from '@/stores/dataStore'
 
 const employeeFormSchema = z.object({
   employeeId: z.string().min(1, { message: 'Employee ID is required.' }),
