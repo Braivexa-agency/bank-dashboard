@@ -73,6 +73,13 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
     onSave(values)
     form.reset()
     onOpenChange(false)
+    
+    // Show success message
+    toast.success(
+      isEdit 
+        ? 'Disciplinary action updated successfully!' 
+        : 'Disciplinary action added successfully!'
+    )
   }
 
   return (
