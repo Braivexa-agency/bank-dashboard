@@ -1,5 +1,5 @@
 import { Store } from '@tanstack/store'
-import { InformationSheet } from './dataStore'
+import { InformationSheet, DisciplinaryAction } from './dataStore'
 
 type DialogKind = 'add' | 'edit' | 'delete' | null
 
@@ -11,6 +11,8 @@ export interface UiState {
   nonBankDialog: DialogKind
   nonBankCurrentId: number | null
   informationSheetCurrentRow: InformationSheet | null
+  disciplinaryActionDialog: DialogKind
+  disciplinaryActionCurrentRow: DisciplinaryAction | null
 }
 
 const initialState: UiState = {
@@ -21,6 +23,8 @@ const initialState: UiState = {
   nonBankDialog: null,
   nonBankCurrentId: null,
   informationSheetCurrentRow: null,
+  disciplinaryActionDialog: null,
+  disciplinaryActionCurrentRow: null,
 }
 
 export const uiStore = new Store<UiState>(initialState)
@@ -72,6 +76,26 @@ export const uiActions = {
     uiStore.setState((s: UiState) => ({
       ...s,
       informationSheetCurrentRow: row,
+    }))
+  },
+  openDisciplinaryAction(dialog: Exclude<DialogKind, null>, row?: DisciplinaryAction) {
+    uiStore.setState((s: UiState) => ({
+      ...s,
+      disciplinaryActionDialog: dialog,
+      disciplinaryActionCurrentRow: row ?? null,
+    }))
+  },
+  closeDisciplinaryAction() {
+    uiStore.setState((s: UiState) => ({
+      ...s,
+      disciplinaryActionDialog: null,
+      disciplinaryActionCurrentRow: null,
+    }))
+  },
+  setDisciplinaryActionCurrentRow(row: DisciplinaryAction | null) {
+    uiStore.setState((s: UiState) => ({
+      ...s,
+      disciplinaryActionCurrentRow: row,
     }))
   },
 }
