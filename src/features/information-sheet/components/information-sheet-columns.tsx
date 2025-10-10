@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { Checkbox } from '@/components/ui/checkbox'
 import LongText from '@/components/long-text'
 import { Badge } from '@/components/ui/badge'
-import { InformationSheet } from '@/stores/dataStore'
+import { InformationSheet, DisciplinaryAction } from '@/stores/dataStore'
 import { DataTableColumnHeader } from '@/features/bank-experience/components/data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 // import { DataTableRowActions } from './data-table-row-actions'
@@ -414,7 +414,7 @@ export const columns: ColumnDef<InformationSheet>[] = [
       <DataTableColumnHeader column={column} title='Disciplinary Actions' />
     ),
     cell: ({ row }) => {
-      const actions = row.getValue('disciplinaryActions') as any[]
+      const actions = row.getValue('disciplinaryActions') as DisciplinaryAction[]
       if (!actions || actions.length === 0) {
         return <div className='text-muted-foreground'>None</div>
       }
@@ -451,7 +451,7 @@ export const columns: ColumnDef<InformationSheet>[] = [
       <DataTableColumnHeader column={column} title='Last Disciplinary Action' />
     ),
     cell: ({ row }) => {
-      const actions = row.getValue('disciplinaryActions') as any[]
+      const actions = row.getValue('disciplinaryActions') as DisciplinaryAction[]
       if (!actions || actions.length === 0) {
         return <div className='text-muted-foreground'>None</div>
       }
