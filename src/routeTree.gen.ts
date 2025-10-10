@@ -32,7 +32,6 @@ import { Route as AuthenticatedProfessionalTrainingIndexRouteImport } from './ro
 import { Route as AuthenticatedPrintReportsIndexRouteImport } from './routes/_authenticated/print-reports/index'
 import { Route as AuthenticatedInformationSheetIndexRouteImport } from './routes/_authenticated/information-sheet/index'
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
-import { Route as AuthenticatedDisciplinaryActionsIndexRouteImport } from './routes/_authenticated/disciplinary-actions/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
 import { Route as ClerkAuthenticatedUserManagementRouteImport } from './routes/clerk/_authenticated/user-management'
@@ -161,12 +160,7 @@ const AuthenticatedHelpCenterIndexRoute =
     path: '/help-center/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedDisciplinaryActionsIndexRoute =
-  AuthenticatedDisciplinaryActionsIndexRouteImport.update({
-    id: '/disciplinary-actions/',
-    path: '/disciplinary-actions/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
+
 const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexRouteImport.update({
   id: '/chats/',
   path: '/chats/',
@@ -242,7 +236,6 @@ export interface FileRoutesByFullPath {
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
-  '/disciplinary-actions': typeof AuthenticatedDisciplinaryActionsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/information-sheet': typeof AuthenticatedInformationSheetIndexRoute
   '/print-reports': typeof AuthenticatedPrintReportsIndexRoute
@@ -273,7 +266,6 @@ export interface FileRoutesByTo {
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
-  '/disciplinary-actions': typeof AuthenticatedDisciplinaryActionsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/information-sheet': typeof AuthenticatedInformationSheetIndexRoute
   '/print-reports': typeof AuthenticatedPrintReportsIndexRoute
@@ -309,7 +301,6 @@ export interface FileRoutesById {
   '/clerk/_authenticated/user-management': typeof ClerkAuthenticatedUserManagementRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
-  '/_authenticated/disciplinary-actions/': typeof AuthenticatedDisciplinaryActionsIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/_authenticated/information-sheet/': typeof AuthenticatedInformationSheetIndexRoute
   '/_authenticated/print-reports/': typeof AuthenticatedPrintReportsIndexRoute
@@ -598,13 +589,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHelpCenterIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/disciplinary-actions/': {
-      id: '/_authenticated/disciplinary-actions/'
-      path: '/disciplinary-actions'
-      fullPath: '/disciplinary-actions'
-      preLoaderRoute: typeof AuthenticatedDisciplinaryActionsIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
+  
     '/_authenticated/chats/': {
       id: '/_authenticated/chats/'
       path: '/chats'
@@ -699,7 +684,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
-  AuthenticatedDisciplinaryActionsIndexRoute: typeof AuthenticatedDisciplinaryActionsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedInformationSheetIndexRoute: typeof AuthenticatedInformationSheetIndexRoute
   AuthenticatedPrintReportsIndexRoute: typeof AuthenticatedPrintReportsIndexRoute
@@ -713,8 +697,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
-  AuthenticatedDisciplinaryActionsIndexRoute:
-    AuthenticatedDisciplinaryActionsIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedInformationSheetIndexRoute:
     AuthenticatedInformationSheetIndexRoute,
