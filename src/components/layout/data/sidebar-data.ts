@@ -78,11 +78,6 @@ export const sidebarData: SidebarData = {
               icon: IconFileDescription,
             },
             {
-              title: 'Disciplinary Actions',
-              url: '/disciplinary-actions',
-              icon: IconBarrierBlock,
-            },
-            {
               title: 'Print Reports',
               url: '/print-reports',
               icon: IconBrowserCheck,
