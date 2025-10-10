@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { DisciplinaryAction } from '../context/disciplinary-actions-context'
+import { DisciplinaryAction } from '@/stores/dataStore'
 import { DataTablePagination } from '@/features/bank-experience/components/data-table-pagination'
 import { DataTableToolbar } from './data-table-toolbar'
 
