@@ -17,7 +17,7 @@ import { useDataStore } from "@/stores/useDataStore";
 
 function InformationSheetContent() {
   const informationSheets = useDataStore((state) => state.informationSheets);
-  const { openInformationSheet } = useUiActions();
+  const { openInformationSheet, openDisciplinaryAction } = useUiActions();
 
   return (
     <>
@@ -36,12 +36,15 @@ function InformationSheetContent() {
               Employee Information Sheet
             </h2>
             <p className="text-muted-foreground">
-              Manage comprehensive employee information, records, and banking experience.
+              Manage comprehensive employee information, records, banking experience, and disciplinary actions.
             </p>
           </div>
           <div className="flex gap-2">
             <Button className="space-x-1" onClick={() => openInformationSheet("add")}>
-              <span>Add </span> <IconPlus size={18} />
+              <span>Add Employee </span> <IconPlus size={18} />
+            </Button>
+            <Button variant="outline" className="space-x-1" onClick={() => openDisciplinaryAction("add")}>
+              <span>Add Disciplinary Action </span> <IconPlus size={18} />
             </Button>
           </div>
         </div>
