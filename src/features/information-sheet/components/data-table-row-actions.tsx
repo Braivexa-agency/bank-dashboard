@@ -14,15 +14,43 @@ import { InformationSheet } from '@/stores/dataStore'
 import { useBankExperience } from '@/features/bank-experience/context/bank-experience-context'
 import { useNonBankExperience } from '@/features/non-bank-experience/context/non-bank-experience-context'
 import { useUiActions } from '@/stores/useUiStore'
-
+import { dataActions } from '@/stores/dataStore'
+import { toast } from 'sonner'
 interface DataTableRowActionsProps {
   row: Row<InformationSheet>
 }
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
-  const { openInformationSheet, setInformationSheetCurrentRow } = useUiActions()
+  const { openInformationSheet, setInformationSheetCurrentRow, openDisciplinaryAction } = useUiActions()
   const { setOpen: setBankOpen, setCurrentRow: setBankCurrentRow } = useBankExperience()
   const { setOpen: setNonBankOpen, setCurrentRow: setNonBankCurrentRow } = useNonBankExperience()
+  
+  const handleDeleteDisciplinaryAction = (actionId: number) => {
+    // Find the action to get its details for the confirmation and toast message
+    const actionToDelete = row.original.disciplinaryActions.find(action => action.id === actionId)
+    
+    // Show confirmation dialog
+    if (window.confirm(`Are you sure you want to delete the disciplinary action "${actionToDelete?.typeSanction}"?`)) {
+      // Delete from global store
+      dataActions.deleteDisciplinaryAction(actionId)
+      
+      // Remove from the current employee's disciplinary actions
+      const updatedEmployee = {
+        ...row.original,
+        disciplinaryActions: row.original.disciplinaryActions.filter(action => action.id !== actionId)
+      }
+      
+      // Update the information sheets by updating the specific employee
+      dataActions.updateInformationSheet(row.original.id, {
+        disciplinaryActions: updatedEmployee.disciplinaryActions
+      })
+      
+      // Show success message
+      toast.success(
+        `Disciplinary action "${actionToDelete?.typeSanction}" deleted successfully!`
+      )
+    }
+  }
   return (
     <>
       <DropdownMenu modal={false}>
@@ -105,6 +133,66 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
                 </DropdownMenuShortcut>
               </DropdownMenuItem>
             ) : null
+          })()}
+          {(() => {
+            const r = row.original
+            const hasDisciplinaryActions = r.disciplinaryActions && r.disciplinaryActions.length > 0
+            return hasDisciplinaryActions ? (
+              <>
+                <DropdownMenuItem
+                  onClick={() => {
+                    // Store the current employee info for the disciplinary action dialog
+                    setInformationSheetCurrentRow(r)
+                    openDisciplinaryAction('add')
+                  }}
+                >
+                  Add Disciplinary Action
+                  <DropdownMenuShortcut>
+                    <IconEdit size={16} />
+                  </DropdownMenuShortcut>
+                </DropdownMenuItem>
+                {r.disciplinaryActions.map((action) => (
+                  <DropdownMenuItem
+                    key={action.id}
+                    onClick={() => {
+                      // Store the current employee info and the specific disciplinary action
+                      setInformationSheetCurrentRow(r)
+                      openDisciplinaryAction('edit', action)
+                    }}
+                  >
+                    Edit: {action.typeSanction} ({action.classification})
+                    <DropdownMenuShortcut>
+                      <IconEdit size={16} />
+                    </DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                ))}
+                {r.disciplinaryActions.map((action) => (
+                  <DropdownMenuItem
+                    key={`delete-${action.id}`}
+                    onClick={() => handleDeleteDisciplinaryAction(action.id)}
+                    className='text-red-500'
+                  >
+                    Delete: {action.typeSanction} ({action.classification})
+                    <DropdownMenuShortcut>
+                      <IconTrash size={16} />
+                    </DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                ))}
+              </>
+            ) : (
+              <DropdownMenuItem
+                onClick={() => {
+                  // Store the current employee info for the disciplinary action dialog
+                  setInformationSheetCurrentRow(r)
+                  openDisciplinaryAction('add')
+                }}
+              >
+                Add Disciplinary Action
+                <DropdownMenuShortcut>
+                  <IconEdit size={16} />
+                </DropdownMenuShortcut>
+              </DropdownMenuItem>
+            )
           })()}
           <DropdownMenuSeparator />
           <DropdownMenuItem
