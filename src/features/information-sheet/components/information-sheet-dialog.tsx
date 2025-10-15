@@ -3,7 +3,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { showSubmittedData } from '@/utils/show-submitted-data'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -31,6 +31,7 @@ import {
 } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { InformationSheet } from '@/stores/dataStore'
+import { dataActions, dataStore } from '@/stores/dataStore'
 
 const informationSheetSchema = z.object({
   matricule: z.string().min(1, { message: 'Employee ID is required.' }),
@@ -186,9 +187,165 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
   })
 
   const onSubmit = (values: InformationSheetForm) => {
-    showSubmittedData(values)
+    // Get the current max ID from the store to generate a new ID
+    const currentSheets = dataStore.state.informationSheets
+    const newId = currentSheets.length > 0 
+      ? Math.max(...currentSheets.map(sheet => sheet.id)) + 1 
+      : 1
+
+    // Create a new information sheet object with all the form values
+    const newSheet: InformationSheet = {
+      id: newId,
+      // Required fields
+      matricule: values.matricule,
+      nom: values.nom,
+      prenom: values.prenom,
+      nationalId: values.nationalId,
+      fatherName: values.fatherName,
+      motherName: values.motherName,
+      spouseName: values.spouseName || '',
+      dateOfBirth: values.dateOfBirth,
+      address: values.address || '',
+      gender: values.gender,
+      maritalStatus: values.maritalStatus,
+      numberOfChildren: Number(values.numberOfChildren) || 0,
+      hireDate: values.hireDate,
+      bankingExperience: values.bankingExperience || '',
+      contractType: values.contractType,
+      socialSecurityNumber: values.socialSecurityNumber,
+      educationLevel: values.educationLevel,
+      diplomaType: values.diplomaType || '',
+      academicDiploma: values.academicDiploma || '',
+      otherDiplomas: values.otherDiplomas || '',
+      currentPosition: values.currentPosition || '',
+      positionCode: values.positionCode || '',
+      group: values.group,
+      activity: values.activity || '',
+      classe: values.classe || '',
+      echelon: values.echelon || '',
+      indice: values.indice || '',
+      pbi: Number(values.pbi) || 0,
+      structure: values.structure || '',
+      reporting: values.reporting || '',
+      code: values.code || '',
+      structureType: values.structureType || '',
+      decisionType: values.decisionType || '',
+      decisionNumber: values.decisionNumber || '',
+      decisionDate: values.decisionDate || '',
+      effectiveDate: values.effectiveDate || '',
+      positioning: values.positioning || '',
+      suspensionFrom: values.suspensionFrom || '',
+      suspensionTo: values.suspensionTo || '',
+      lastDecision: values.lastDecision || '',
+      // Banking Experience specific fields
+      affectation: values.affectation || '',
+      poste: values.poste || '',
+      activite: values.activite || '',
+      natureDecision: values.natureDecision || '',
+      refDecision: values.refDecision || '',
+      dateDecision: values.dateDecision || '',
+      dateEffet: values.dateEffet || '',
+      chargeInterim: values.chargeInterim || '',
+      // Non-Banking Experience specific fields
+      entreprise: values.entreprise || '',
+      lieuTravail: values.lieuTravail || '',
+      posteOccupe: values.posteOccupe || '',
+      du: values.du || '',
+      au: values.au || '',
+      duree: values.duree || '',
+      // Professional Training fields
+      specialite: values.specialite || '',
+      autreSpecialite: values.autreSpecialite || '',
+      etablissement: values.etablissement || '',
+      diplome: values.diplome || '',
+      autreDiplome: values.autreDiplome || '',
+      observations: values.observations || '',
+      // Initialize with empty disciplinary actions array
+      disciplinaryActions: []
+    }
+
+    if (isEdit && currentRow) {
+      // Update existing sheet
+      dataActions.updateInformationSheet(currentRow.id, newSheet)
+      toast.success('Employee information updated successfully')
+    } else {
+      // Add new sheet
+      dataActions.addInformationSheet(newSheet)
+      toast.success('New employee added successfully')
+    }
+    
     form.reset()
     onOpenChange(false)
+  }
+
+  // Function to populate form with predefined data
+  const fillWithSampleData = () => {
+    form.reset({
+      matricule: 'EMP' + Math.floor(1000 + Math.random() * 9000),
+      nom: 'Benali',
+      prenom: 'Ahmed',
+      nationalId: '1234567890123',
+      fatherName: 'Mohamed Benali',
+      motherName: 'Aicha Benali',
+      spouseName: 'Fatima Benali',
+      dateOfBirth: '1985-03-15',
+      address: '123 Rue de la République, Algiers',
+      gender: 'M',
+      maritalStatus: 'Married',
+      numberOfChildren: 2,
+      hireDate: '2010-06-01',
+      bankingExperience: '14 years',
+      contractType: 'CDI',
+      socialSecurityNumber: 'SS123456789',
+      educationLevel: 'University',
+      diplomaType: 'Bachelor',
+      academicDiploma: 'Computer Science',
+      otherDiplomas: 'Project Management',
+      currentPosition: 'Senior Manager',
+      positionCode: 'SM001',
+      group: 'cadre',
+      activity: 'Operations',
+      classe: 'Executive',
+      echelon: '12',
+      indice: '850',
+      pbi: 1,
+      structure: 'Head Office',
+      reporting: 'CEO',
+      code: 'HO001',
+      structureType: 'Administrative',
+      decisionType: 'Promotion',
+      decisionNumber: 'DEC-2023-001',
+      decisionDate: '2023-01-15',
+      effectiveDate: '2023-02-01',
+      positioning: 'Strategic',
+      suspensionFrom: '',
+      suspensionTo: '',
+      lastDecision: 'Promotion to Senior Manager',
+      experienceType: 'bank',
+      // Banking Experience fields
+      affectation: 'Regional Directorate Algiers',
+      poste: 'Customer Advisor',
+      activite: 'Customer portfolio management',
+      natureDecision: 'Appointment',
+      refDecision: 'DR-2023-001',
+      dateDecision: '2023-01-15',
+      dateEffet: '2023-02-01',
+      chargeInterim: 'No',
+      // Non-Banking Experience fields
+      entreprise: 'Tech Solutions Inc.',
+      lieuTravail: 'Algiers, Algeria',
+      posteOccupe: 'Software Developer',
+      du: '2008-06-01',
+      au: '2010-05-31',
+      duree: '2 years',
+      // Professional Training fields
+      specialite: 'Gestion des risques',
+      autreSpecialite: 'Conformité bancaire',
+      etablissement: 'Institut National de Finance',
+      diplome: 'Certificat en Gestion des Risques',
+      autreDiplome: 'Atelier conformité',
+      observations: 'Cycle certifiant 40h',
+    })
   }
 
   return (
@@ -208,6 +365,17 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
           </DialogDescription>
         </DialogHeader>
         
+        <div className="flex justify-end mb-2">
+          <Button 
+            type="button" 
+            variant="secondary" 
+            onClick={fillWithSampleData}
+            className="text-sm"
+          >
+            Fill with Sample Data
+          </Button>
+        </div>
+
         <Form {...form}>
           <form id='information-sheet-form' onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
             {/* Identification Section */}
