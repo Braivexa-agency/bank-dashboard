@@ -13,6 +13,7 @@ export interface UiState {
   informationSheetCurrentRow: InformationSheet | null
   disciplinaryActionDialog: DialogKind
   disciplinaryActionCurrentRow: DisciplinaryAction | null
+  workCertificateDialog: boolean
 }
 
 const initialState: UiState = {
@@ -25,6 +26,7 @@ const initialState: UiState = {
   informationSheetCurrentRow: null,
   disciplinaryActionDialog: null,
   disciplinaryActionCurrentRow: null,
+  workCertificateDialog: false,
 }
 
 export const uiStore = new Store<UiState>(initialState)
@@ -98,6 +100,10 @@ export const uiActions = {
       disciplinaryActionCurrentRow: row,
     }))
   },
+  setWorkCertificateDialog(open: boolean) {
+    uiStore.setState((s: UiState) => ({
+      ...s,
+      workCertificateDialog: open,
+    }))
+  },
 }
-
-
