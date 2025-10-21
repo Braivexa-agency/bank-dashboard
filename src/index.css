@@ -134,6 +134,52 @@
       font-size: 16px !important;
     }
   }
+  
+  /* Print styles - hide all elements except those with print-only class */
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    
+    .print-only,
+    .print-only * {
+      visibility: visible;
+    }
+    
+    .print-only {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+    
+    @page {
+      margin: 0;
+    }
+    
+    .print-only .font-serif {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .print-only .bg-white,
+    .print-only .dark\:bg-black {
+      background-color: white !important;
+    }
+    
+    .print-only .text-black,
+    .print-only .dark\:text-white {
+      color: black !important;
+    }
+    
+    .print-only .border,
+    .print-only .border-black,
+    .print-only .dark\:border-white {
+      border-color: black !important;
+    }
+  }
 }
 
 @utility container {
