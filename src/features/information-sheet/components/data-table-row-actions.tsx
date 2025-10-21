@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Row } from '@tanstack/react-table'
-import { IconEdit, IconTrash, IconFileCertificate } from '@tabler/icons-react'
+import { IconEdit, IconTrash, IconFileCertificate, IconFileSpreadsheet } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -80,18 +80,33 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           
-          {/* New Work Certificate Action - Navigate to full page */}
+          {/* Work Certificate Action - Navigate to print reports page with query parameter */}
           <DropdownMenuItem
             onClick={() => {
               // Store the current employee info for the work certificate
               setInformationSheetCurrentRow(row.original)
-              // Navigate to the work certificate page
-              navigate({ to: '/print-reports' })
+              // Navigate to the print reports page with certificate view
+              navigate({ to: '/print-reports', search: { view: 'certificate' } })
             }}
           >
             View Work Certificate
             <DropdownMenuShortcut>
               <IconFileCertificate size={16} />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+          
+          {/* Detailed Work Certificate Action - Navigate to print reports page with query parameter */}
+          <DropdownMenuItem
+            onClick={() => {
+              // Store the current employee info for the detailed work certificate
+              setInformationSheetCurrentRow(row.original)
+              // Navigate to the print reports page with detailed certificate view
+              navigate({ to: '/print-reports', search: { view: 'detailed' } })
+            }}
+          >
+            View Detailed Certificate
+            <DropdownMenuShortcut>
+              <IconFileSpreadsheet size={16} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           
