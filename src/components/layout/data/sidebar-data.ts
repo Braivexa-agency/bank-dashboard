@@ -1,27 +1,56 @@
 import {
-  IconBarrierBlock,
-  IconBrowserCheck,
   IconBug,
+  IconBuildingBank,
+  IconBuildingBridge,
+  IconBuildingLighthouse,
+  IconBuildingStore,
+  IconBuildingWarehouse,
+  IconBusinessplan,
+  IconCalendarStats,
+  IconCertificate,
+  IconChartInfographic,
   IconChecklist,
+  IconCircleCheck,
+  IconCircleDashed,
+  IconCircleX,
+  IconClock,
+  IconDeviceLaptop,
   IconError404,
+  IconFileDescription,
+  IconFileText,
   IconHelp,
+  IconHierarchy,
   IconLayoutDashboard,
+  IconLetterCase,
+  IconLicense,
+  IconList,
+  IconListDetails,
+  IconListNumbers,
   IconLock,
   IconLockAccess,
+  IconMail,
+  IconMessages,
   IconNotification,
   IconPalette,
+  IconPencil,
+  IconPhone,
+  IconPrinter,
   IconServerOff,
   IconSettings,
+  IconShieldLock,
+  IconSitemap,
   IconTool,
+  IconUser,
+  IconUserCheck,
   IconUserCog,
   IconUserOff,
   IconUsers,
-  IconFileDescription,
+  IconBarrierBlock,
+  IconBrowserCheck,
 } from '@tabler/icons-react'
-import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
-import { type SidebarData } from '../types'
+import { Building2, Command, GalleryVerticalEnd, AudioWaveform } from 'lucide-react'
 
-export const sidebarData: SidebarData = {
+export const sidebarData = {
   user: {
     name: 'Ahmed Benali',
     email: 'ahmed.benali@bank-dz.com',
@@ -77,11 +106,8 @@ export const sidebarData: SidebarData = {
               url: '/information-sheet',
               icon: IconFileDescription,
             },
-            {
-              title: 'Print Reports',
-              url: '/print-reports',
-              icon: IconBrowserCheck,
-            },
+            // Removed Print Reports from sidebar as requested
+            // Users will access it through employee table actions instead
           ],
         },
         {
