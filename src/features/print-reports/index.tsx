@@ -6,15 +6,24 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { IconPlus, IconFileText, IconDownload, IconClock, IconCheck, IconX, IconPrinter } from "@tabler/icons-react";
+import { IconPlus, IconFileText, IconDownload, IconClock, IconCheck, IconX, IconPrinter, IconArrowLeft } from "@tabler/icons-react";
 import PrintReportsProvider, {
   usePrintReports,
 } from "./context/print-reports-context";
 import type { PrintReport } from "./context/print-reports-context";
 import { PrintReportsDialog } from "./components/print-reports-dialog";
+import { useUiStore } from "@/stores/useUiStore";
+import WorkCertificate from "./components/work-certificate";
+import { useNavigate } from "@tanstack/react-router";
 
 function PrintReportsContent() {
   const { printReports, setOpen, open } = usePrintReports();
+  const currentEmployee = useUiStore((state) => state.informationSheetCurrentRow);
+  const navigate = useNavigate();
+
+  // Check if we should show the work certificate view
+  const showWorkCertificate = window.location.hash.includes('#work-certificate') || 
+    (currentEmployee && window.location.pathname === '/print-reports');
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -56,6 +65,56 @@ function PrintReportsContent() {
     console.log(`Downloading report: ${report.title}`)
   }
 
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleExportPDF = () => {
+    // In a real implementation, this would generate and download a PDF
+    alert('PDF export functionality would be implemented here');
+  };
+
+  // If we should show the work certificate, render it as a full page
+  if (showWorkCertificate && currentEmployee) {
+    return (
+      <>
+        <Header fixed>
+          <Search />
+          <div className="ml-auto flex items-center space-x-4">
+            <ThemeSwitch />
+            <ProfileDropdown />
+          </div>
+        </Header>
+
+        <Main>
+          <div className="mb-6">
+            <Button 
+              variant="outline" 
+              onClick={() => navigate({ to: '/information-sheet' })}
+              className="flex items-center"
+            >
+              <IconArrowLeft className="mr-2" />
+              Back to Information Sheet
+            </Button>
+          </div>
+          
+          <div className="flex justify-end gap-2 mb-6">
+            <Button variant="outline" onClick={handlePrint}>
+              <IconPrinter className="mr-2" />
+              Print
+            </Button>
+            <Button variant="secondary" onClick={handleExportPDF}>
+              <IconDownload className="mr-2" />
+              Export PDF
+            </Button>
+          </div>
+          
+          <WorkCertificate employee={currentEmployee} />
+        </Main>
+      </>
+    );
+  }
+
   return (
     <>
       <Header fixed>
@@ -83,216 +142,85 @@ function PrintReportsContent() {
           </div>
         </div>
 
-        <div className="-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12">
-          <div className="space-y-6">
-            {/* Employee Information Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
-                  <div className="w-1 h-6 bg-primary rounded-full"></div>
-                  Employee Information
-                </CardTitle>
-                <CardDescription>
-                  Enter employee details to generate reports
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div>
-                    <label className="text-sm font-medium">Employee ID</label>
-                    <input 
-                      type="text" 
-                      className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Enter employee ID"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium">Last Name</label>
-                    <input 
-                      type="text" 
-                      className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Enter last name"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium">First Name</label>
-                    <input 
-                      type="text" 
-                      className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Enter first name"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium">Position</label>
-                    <input 
-                      type="text" 
-                      className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Current position"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium">Department</label>
-                    <input 
-                      type="text" 
-                      className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Department"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium">Hire Date</label>
-                    <input 
-                      type="date" 
-                      className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* CNAS & Administrative Survey Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
-                    <div className="w-1 h-5 bg-primary rounded-full"></div>
-                    CNAS Declaration
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="text-sm font-medium">Member Number</label>
-                      <input 
-                        type="text" 
-                        className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        placeholder="CNAS member number"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium">Member Address</label>
-                      <input 
-                        type="text" 
-                        className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        placeholder="Full address"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-primary flex items-center gap-2">
-                    <div className="w-1 h-5 bg-primary rounded-full"></div>
-                    Administrative Survey & Bulletin #02
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="text-sm font-medium">Birth Wilaya</label>
-                      <input 
-                        type="text" 
-                        className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        placeholder="Birth wilaya"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium">Residence Wilaya</label>
-                      <input 
-                        type="text" 
-                        className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        placeholder="Residence wilaya"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium">Phone Number</label>
-                      <input 
-                        type="tel" 
-                        className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        placeholder="Phone number"
-                      />
-                    </div>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
-                        Wilaya Survey
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        Daira Survey
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Report Generation Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
-                  <div className="w-1 h-6 bg-primary rounded-full"></div>
-                  Available Reports
-                </CardTitle>
-                <CardDescription>
-                  Generate and download employee reports and certificates
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {printReports.map((report) => (
-                    <Card key={report.id} className="relative">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <IconFileText className="h-5 w-5 text-primary" />
-                            <CardTitle className="text-sm font-medium">
-                              {report.title}
-                            </CardTitle>
-                          </div>
-                          <Badge className={getStatusColor(report.status)}>
-                            <div className="flex items-center gap-1">
-                              {getStatusIcon(report.status)}
-                              {report.status}
-                            </div>
-                          </Badge>
+        {/* Report Generation Section */}
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
+                <div className="w-1 h-6 bg-primary rounded-full"></div>
+                Available Reports
+              </CardTitle>
+              <CardDescription>
+                Generate and download employee reports and certificates
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {printReports.map((report) => (
+                  <Card key={report.id} className="relative">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <IconFileText className="h-5 w-5 text-primary" />
+                          <CardTitle className="text-sm font-medium">
+                            {report.title}
+                          </CardTitle>
                         </div>
-                        <CardDescription className="text-xs">
-                          {report.description}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent className="pt-0">
-                        <div className="flex gap-2">
+                        <Badge className={getStatusColor(report.status)}>
+                          <div className="flex items-center gap-1">
+                            {getStatusIcon(report.status)}
+                            <span className="capitalize">{report.status}</span>
+                          </div>
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <p className="text-xs text-muted-foreground mb-4 line-clamp-2">
+                        {report.description}
+                      </p>
+                      <div className="flex justify-between">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          onClick={() => handleGenerateReport(report.type)}
+                          disabled={report.status === 'generating'}
+                          className="text-xs"
+                        >
+                          {report.status === 'generating' ? (
+                            <>
+                              <IconClock className="h-3 w-3 mr-1" />
+                              Generating...
+                            </>
+                          ) : (
+                            <>
+                              <IconFileText className="h-3 w-3 mr-1" />
+                              Generate
+                            </>
+                          )}
+                        </Button>
+                        {report.status === 'completed' && (
                           <Button 
                             size="sm" 
-                            className="flex-1"
-                            onClick={() => handleGenerateReport(report.type)}
-                            disabled={report.status === 'generating'}
+                            variant="secondary"
+                            onClick={() => handleDownloadReport(report)}
+                            className="text-xs"
                           >
-                            <IconPrinter className="h-4 w-4 mr-1" />
-                            Generate
+                            <IconDownload className="h-3 w-3 mr-1" />
+                            Download
                           </Button>
-                          {report.downloadUrl && (
-                            <Button 
-                              size="sm" 
-                              variant="outline"
-                              onClick={() => handleDownloadReport(report)}
-                            >
-                              <IconDownload className="h-4 w-4" />
-                            </Button>
-                          )}
-                        </div>
-                        {report.generatedAt && (
-                          <p className="text-xs text-muted-foreground mt-2">
-                            Generated: {new Date(report.generatedAt).toLocaleDateString()}
-                          </p>
                         )}
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                      </div>
+                      {report.generatedAt && (
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Generated: {new Date(report.generatedAt).toLocaleDateString()}
+                        </p>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </Main>
 
