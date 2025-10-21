@@ -73,8 +73,10 @@ function PrintReportsContent() {
   };
 
   const handleExportPDF = () => {
-    // In a real implementation, this would generate and download a PDF
-    alert('PDF export functionality would be implemented here');
+    // Create a PDF version of the current certificate
+    // In a real implementation, this would use a library like jsPDF or similar
+    // For now, we'll trigger a print action but with PDF-specific styling
+    window.print();
   };
 
   // If we should show the detailed work certificate, render it directly
@@ -92,7 +94,9 @@ function PrintReportsContent() {
           </Button>
         </div>
         
-        <DetailedWorkCertificate employee={currentEmployee} />
+        <DetailedWorkCertificate 
+          employee={currentEmployee} 
+        />
       </Main>
     );
   }
@@ -112,7 +116,9 @@ function PrintReportsContent() {
           </Button>
         </div>
         
-        <WorkCertificate employee={currentEmployee} />
+        <WorkCertificate 
+          employee={currentEmployee} 
+        />
       </Main>
     );
   }
