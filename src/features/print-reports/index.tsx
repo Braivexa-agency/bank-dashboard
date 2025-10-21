@@ -6,7 +6,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { IconPlus, IconFileText, IconDownload, IconClock, IconCheck, IconX, IconPrinter, IconArrowLeft } from "@tabler/icons-react";
+import { IconPlus, IconFileText, IconDownload, IconClock, IconCheck, IconX, IconPrinter } from "@tabler/icons-react";
 import PrintReportsProvider, {
   usePrintReports,
 } from "./context/print-reports-context";
@@ -14,16 +14,19 @@ import type { PrintReport } from "./context/print-reports-context";
 import { PrintReportsDialog } from "./components/print-reports-dialog";
 import { useUiStore } from "@/stores/useUiStore";
 import WorkCertificate from "./components/work-certificate";
-import { useNavigate } from "@tanstack/react-router";
+import DetailedWorkCertificate from "./components/detailed-work-certificate";
+import { useSearch } from "@tanstack/react-router";
 
 function PrintReportsContent() {
   const { printReports, setOpen, open } = usePrintReports();
   const currentEmployee = useUiStore((state) => state.informationSheetCurrentRow);
-  const navigate = useNavigate();
+  const search = useSearch({ strict: false }) as { view?: string };
 
-  // Check if we should show the work certificate view
-  const showWorkCertificate = window.location.hash.includes('#work-certificate') || 
-    (currentEmployee && window.location.pathname === '/print-reports');
+  // Check if we should show the detailed work certificate view
+  const showDetailedCertificate = search?.view === 'detailed' && currentEmployee;
+
+  // Check if we should show the regular work certificate view
+  const showWorkCertificate = search?.view === 'certificate' && currentEmployee;
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -74,44 +77,43 @@ function PrintReportsContent() {
     alert('PDF export functionality would be implemented here');
   };
 
-  // If we should show the work certificate, render it as a full page
+  // If we should show the detailed work certificate, render it directly
+  if (showDetailedCertificate && currentEmployee) {
+    return (
+      <Main>
+        <div className="flex justify-end gap-2 mb-6">
+          <Button variant="outline" onClick={handlePrint}>
+            <IconPrinter className="mr-2" />
+            Print
+          </Button>
+          <Button variant="secondary" onClick={handleExportPDF}>
+            <IconDownload className="mr-2" />
+            Export PDF
+          </Button>
+        </div>
+        
+        <DetailedWorkCertificate employee={currentEmployee} />
+      </Main>
+    );
+  }
+
+  // If we should show the regular work certificate, render it directly
   if (showWorkCertificate && currentEmployee) {
     return (
-      <>
-        <Header fixed>
-          <Search />
-          <div className="ml-auto flex items-center space-x-4">
-            <ThemeSwitch />
-            <ProfileDropdown />
-          </div>
-        </Header>
-
-        <Main>
-          <div className="mb-6">
-            <Button 
-              variant="outline" 
-              onClick={() => navigate({ to: '/information-sheet' })}
-              className="flex items-center"
-            >
-              <IconArrowLeft className="mr-2" />
-              Back to Information Sheet
-            </Button>
-          </div>
-          
-          <div className="flex justify-end gap-2 mb-6">
-            <Button variant="outline" onClick={handlePrint}>
-              <IconPrinter className="mr-2" />
-              Print
-            </Button>
-            <Button variant="secondary" onClick={handleExportPDF}>
-              <IconDownload className="mr-2" />
-              Export PDF
-            </Button>
-          </div>
-          
-          <WorkCertificate employee={currentEmployee} />
-        </Main>
-      </>
+      <Main>
+        <div className="flex justify-end gap-2 mb-6">
+          <Button variant="outline" onClick={handlePrint}>
+            <IconPrinter className="mr-2" />
+            Print
+          </Button>
+          <Button variant="secondary" onClick={handleExportPDF}>
+            <IconDownload className="mr-2" />
+            Export PDF
+          </Button>
+        </div>
+        
+        <WorkCertificate employee={currentEmployee} />
+      </Main>
     );
   }
 
