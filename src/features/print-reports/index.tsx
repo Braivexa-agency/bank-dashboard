@@ -16,7 +16,7 @@ import { useUiStore } from "@/stores/useUiStore";
 import WorkCertificate from "./components/work-certificate";
 import DetailedWorkCertificate from "./components/detailed-work-certificate";
 import { useSearch } from "@tanstack/react-router";
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 function PrintReportsContent() {
@@ -75,37 +75,59 @@ function PrintReportsContent() {
   };
 
   const handleExportPDF = async () => {
+    console.log('Export PDF button clicked');
+    
+    // Give the DOM a moment to fully render
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     // Get the certificate content element
     const element = document.querySelector('.font-serif');
     
     if (element) {
+      console.log('Found certificate element, generating PDF...');
       try {
         // Use html2canvas to capture the element as canvas
         const canvas = await html2canvas(element as HTMLElement, {
-          width: element.clientWidth * 2,
-          height: element.clientHeight * 2,
           useCORS: true,
-          logging: false
+          logging: false,
+          background: '#ffffff'
         });
         
+        console.log('Canvas generated, creating PDF...');
         const imgData = canvas.toDataURL('image/png');
+        
+        // Create PDF with explicit dimensions
         const pdf = new jsPDF({
           orientation: 'portrait',
-          unit: 'px',
-          format: [canvas.width, canvas.height]
+          unit: 'mm',
+          format: 'a4'
         });
         
-        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+        // Get image dimensions
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        
+        // Calculate dimensions to fit the image in the PDF
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgHeight * pdfWidth) / imgWidth;
+        
+        // Add image to PDF
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        
+        // Generate filename
         const filename = showDetailedCertificate ? 'detailed-work-certificate.pdf' : 'work-certificate.pdf';
+        console.log('Saving PDF as:', filename);
+        
+        // Save the PDF
         pdf.save(filename);
+        console.log('PDF saved successfully');
       } catch (error) {
         console.error('Error generating PDF:', error);
-        // Fallback to print if PDF generation fails
-        window.print();
+        alert('Error generating PDF. Please try again or use the Print option.');
       }
     } else {
-      // Fallback to print if element not found
-      window.print();
+      console.error('Certificate element not found');
+      alert('Unable to find certificate content. Please try refreshing the page.');
     }
   };
 
