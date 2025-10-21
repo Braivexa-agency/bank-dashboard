@@ -15,7 +15,7 @@ const WorkCertificate: React.FC<WorkCertificateProps> = ({ employee }) => {
   };
 
   return (
-    <div className="font-serif leading-relaxed bg-white text-black dark:bg-black dark:text-white print:bg-white print:text-black">
+    <div className="font-serif leading-relaxed bg-white text-black dark:bg-black dark:text-white print:bg-white print:text-black print-only">
       <Card className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 print:bg-white print:border-none">
         <CardContent className="p-8 print:p-4">
           <div className="flex justify-between mb-12 text-sm print:mb-8">
