@@ -16,6 +16,8 @@ import { useUiStore } from "@/stores/useUiStore";
 import WorkCertificate from "./components/work-certificate";
 import DetailedWorkCertificate from "./components/detailed-work-certificate";
 import { useSearch } from "@tanstack/react-router";
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 function PrintReportsContent() {
   const { printReports, setOpen, open } = usePrintReports();
@@ -72,11 +74,39 @@ function PrintReportsContent() {
     window.print();
   };
 
-  const handleExportPDF = () => {
-    // Create a PDF version of the current certificate
-    // In a real implementation, this would use a library like jsPDF or similar
-    // For now, we'll trigger a print action but with PDF-specific styling
-    window.print();
+  const handleExportPDF = async () => {
+    // Get the certificate content element
+    const element = document.querySelector('.font-serif');
+    
+    if (element) {
+      try {
+        // Use html2canvas to capture the element as canvas
+        const canvas = await html2canvas(element as HTMLElement, {
+          width: element.clientWidth * 2,
+          height: element.clientHeight * 2,
+          useCORS: true,
+          logging: false
+        });
+        
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'px',
+          format: [canvas.width, canvas.height]
+        });
+        
+        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+        const filename = showDetailedCertificate ? 'detailed-work-certificate.pdf' : 'work-certificate.pdf';
+        pdf.save(filename);
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+        // Fallback to print if PDF generation fails
+        window.print();
+      }
+    } else {
+      // Fallback to print if element not found
+      window.print();
+    }
   };
 
   // If we should show the detailed work certificate, render it directly
