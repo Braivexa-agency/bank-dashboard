@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Row } from '@tanstack/react-table'
-import { IconEdit, IconTrash } from '@tabler/icons-react'
+import { IconEdit, IconTrash, IconFileCertificate } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -16,6 +16,8 @@ import { useNonBankExperience } from '@/features/non-bank-experience/context/non
 import { useUiActions } from '@/stores/useUiStore'
 import { dataActions } from '@/stores/dataStore'
 import { toast } from 'sonner'
+import { useNavigate } from '@tanstack/react-router'
+
 interface DataTableRowActionsProps {
   row: Row<InformationSheet>
 }
@@ -24,6 +26,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const { openInformationSheet, setInformationSheetCurrentRow, openDisciplinaryAction } = useUiActions()
   const { setOpen: setBankOpen, setCurrentRow: setBankCurrentRow } = useBankExperience()
   const { setOpen: setNonBankOpen, setCurrentRow: setNonBankCurrentRow } = useNonBankExperience()
+  const navigate = useNavigate()
   
   const handleDeleteDisciplinaryAction = (actionId: number) => {
     // Find the action to get its details for the confirmation and toast message
@@ -51,6 +54,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
       )
     }
   }
+  
   return (
     <>
       <DropdownMenu modal={false}>
@@ -75,6 +79,22 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               <IconEdit size={16} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
+          
+          {/* New Work Certificate Action - Navigate to full page */}
+          <DropdownMenuItem
+            onClick={() => {
+              // Store the current employee info for the work certificate
+              setInformationSheetCurrentRow(row.original)
+              // Navigate to the work certificate page
+              navigate({ to: '/print-reports' })
+            }}
+          >
+            View Work Certificate
+            <DropdownMenuShortcut>
+              <IconFileCertificate size={16} />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+          
           {(() => {
             const r = row.original
             const hasBank = !!(
