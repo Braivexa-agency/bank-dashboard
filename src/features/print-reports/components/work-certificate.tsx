@@ -1,15 +1,12 @@
 import React from 'react';
 import { InformationSheet } from '@/stores/dataStore';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
 interface WorkCertificateProps {
   employee: InformationSheet;
-  onPrint?: () => void;
-  onExportPDF?: () => void;
 }
 
-const WorkCertificate: React.FC<WorkCertificateProps> = ({ employee, onPrint, onExportPDF }) => {
+const WorkCertificate: React.FC<WorkCertificateProps> = ({ employee }) => {
   // Format date to French format (DD/MM/YYYY)
   const formatDate = (dateString: string) => {
     if (!dateString) return '';
@@ -19,28 +16,6 @@ const WorkCertificate: React.FC<WorkCertificateProps> = ({ employee, onPrint, on
 
   return (
     <div className="font-serif leading-relaxed bg-white text-black dark:bg-black dark:text-white print:bg-white print:text-black">
-      {/* Only show header actions if onPrint or onExportPDF are provided (not in dialog) */}
-      {(onPrint || onExportPDF) && (
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-2xl font-bold m-0">Attestation de Travail</h1>
-            <p className="text-muted-foreground">Générer et gérer les attestations de travail des employés</p>
-          </div>
-          <div className="flex gap-4">
-            {onPrint && (
-              <Button variant="outline" onClick={onPrint}>
-                Imprimer
-              </Button>
-            )}
-            {onExportPDF && (
-              <Button variant="secondary" onClick={onExportPDF}>
-                Exporter PDF
-              </Button>
-            )}
-          </div>
-        </div>
-      )}
-
       <Card className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 print:bg-white print:border-none">
         <CardContent className="p-8 print:p-4">
           <div className="flex justify-between mb-12 text-sm print:mb-8">
