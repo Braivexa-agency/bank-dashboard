@@ -70,8 +70,32 @@ function PrintReportsContent() {
     console.log(`Downloading report: ${report.title}`)
   }
 
-  const handlePrint = () => {
-    window.print();
+  const handlePrint = async () => {
+    console.log('Print button clicked');
+    
+    // Give the DOM a moment to fully render
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    // Get the certificate content element
+    const element = document.querySelector('.font-serif');
+    
+    if (element) {
+      console.log('Found certificate element, preparing for print...');
+      
+      // Add a temporary class to the element for print styling
+      element.classList.add('print-only');
+      
+      // Trigger print
+      window.print();
+      
+      // Remove the temporary class after a delay
+      setTimeout(() => {
+        element.classList.remove('print-only');
+      }, 1000);
+    } else {
+      console.error('Certificate element not found, printing entire page');
+      window.print();
+    }
   };
 
   const handleExportPDF = async () => {
