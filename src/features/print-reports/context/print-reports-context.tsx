@@ -39,7 +39,7 @@ export interface EnqueteInfo {
 
 export interface PrintReport {
   id: number
-  type: 'attestation' | 'certificat' | 'fiche-carriere' | 'fiche-renseignement'
+  type: 'attestation' | 'certificat' | 'fiche-carriere' | 'fiche-renseignement' | 'enquete-wilaya' | 'enquete-daira'
   title: string
   description: string
   status: 'available' | 'generating' | 'completed' | 'error'
@@ -100,7 +100,7 @@ export default function PrintReportsProvider({ children }: Props) {
       type: 'fiche-carriere',
       title: 'Career Sheet',
       description: 'Complete career progression and experience summary',
-      status: 'generating',
+      status: 'available',
     },
     {
       id: 4,
@@ -110,6 +110,22 @@ export default function PrintReportsProvider({ children }: Props) {
       status: 'available',
       generatedAt: '2024-01-13T09:15:00Z',
       downloadUrl: '/reports/information-sheet-004.pdf'
+    }
+    ,
+    {
+      id: 5,
+      type: 'enquete-wilaya',
+      title: 'Enquête Wilaya',
+      description: 'Administrative survey request for Wilaya (Arabic template)',
+      status: 'available',
+    }
+    ,
+    {
+      id: 6,
+      type: 'enquete-daira',
+      title: 'Enquête Daira',
+      description: 'Administrative survey request for Daira (Arabic template)',
+      status: 'available',
     }
   ])
 
