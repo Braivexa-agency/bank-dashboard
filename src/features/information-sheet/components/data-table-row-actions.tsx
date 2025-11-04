@@ -125,6 +125,21 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             </DropdownMenuShortcut>
           </DropdownMenuItem>
 
+          {/* Enquête Daira - Navigate to print reports page with query parameter */}
+          <DropdownMenuItem
+            onClick={() => {
+              // Store the current employee info for the Enquête Daira
+              setInformationSheetCurrentRow(row.original)
+              // Navigate to the print reports page with Enquête Daira view
+              navigate({ to: '/print-reports', search: { view: 'enquete-daira' } })
+            }}
+          >
+            View Enquête Daira
+            <DropdownMenuShortcut>
+              <IconFileText size={16} />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+
           {/* Career Sheet - Navigate to print reports page with query parameter */}
           <DropdownMenuItem
             onClick={() => {
