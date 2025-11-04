@@ -14,7 +14,9 @@ import type { PrintReport } from "./context/print-reports-context";
 import { PrintReportsDialog } from "./components/print-reports-dialog";
 import { useUiStore } from "@/stores/useUiStore";
 import WorkCertificate from "./components/work-certificate";
+import EnqueteWilaya from "./components/enquete-wilaya";
 import DetailedWorkCertificate from "./components/detailed-work-certificate";
+import CareerSheet from "./components/career-sheet";
 import { useSearch } from "@tanstack/react-router";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -29,6 +31,11 @@ function PrintReportsContent() {
 
   // Check if we should show the regular work certificate view
   const showWorkCertificate = search?.view === 'certificate' && currentEmployee;
+
+  // Check if we should show the Enquête Wilaya view
+  const showEnqueteWilaya = search?.view === 'enquete-wilaya' && currentEmployee;
+  // Check if we should show the Career Sheet view
+  const showCareerSheet = search?.view === 'career' && currentEmployee;
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -61,8 +68,17 @@ function PrintReportsContent() {
   }
 
   const handleGenerateReport = (reportType: string) => {
-    // Handle report generation logic here
-    console.log(`Generating report: ${reportType}`)
+    const viewMap: Record<string, string> = {
+      'attestation': 'certificate',
+      'certificat': 'detailed',
+      'enquete-wilaya': 'enquete-wilaya',
+      'fiche-carriere': 'career',
+    };
+
+    const view = viewMap[reportType];
+    if (view) {
+      window.location.assign(`/_authenticated/print-reports/?view=${view}`)
+    }
   }
 
   const handleDownloadReport = (report: PrintReport) => {
@@ -195,6 +211,44 @@ function PrintReportsContent() {
         <WorkCertificate 
           employee={currentEmployee} 
         />
+      </Main>
+    );
+  }
+
+  // If we should show the Enquête Wilaya, render it directly
+  if (showEnqueteWilaya && currentEmployee) {
+    return (
+      <Main>
+        <div className="flex justify-end gap-2 mb-6">
+          <Button variant="outline" onClick={handlePrint}>
+            <IconPrinter className="mr-2" />
+            Print
+          </Button>
+          <Button variant="secondary" onClick={handleExportPDF}>
+            <IconDownload className="mr-2" />
+            Export PDF
+          </Button>
+        </div>
+        <EnqueteWilaya employee={currentEmployee} />
+      </Main>
+    );
+  }
+
+  // If we should show the career sheet, render it directly
+  if (showCareerSheet && currentEmployee) {
+    return (
+      <Main>
+        <div className="flex justify-end gap-2 mb-6">
+          <Button variant="outline" onClick={handlePrint}>
+            <IconPrinter className="mr-2" />
+            Print
+          </Button>
+          <Button variant="secondary" onClick={handleExportPDF}>
+            <IconDownload className="mr-2" />
+            Export PDF
+          </Button>
+        </div>
+        <CareerSheet employee={currentEmployee} />
       </Main>
     );
   }
