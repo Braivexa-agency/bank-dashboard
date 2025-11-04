@@ -50,7 +50,7 @@ const CareerSheet: React.FC<CareerSheetProps> = ({ employee }) => {
               <tbody>
                 <tr>
                   <td className="border border-black p-2">{employee.poste || employee.currentPosition || ''}</td>
-                  <td className="border border-black p-2">{employee.affectation || employee.assignment || ''}</td>
+                  <td className="border border-black p-2">{employee.affectation || ''}</td>
                   <td className="border border-black p-2">{employee.classe || ''}</td>
                   <td className="border border-black p-2">{employee.echelon || ''}</td>
                   <td className="border border-black p-2">{typeof employee.pbi === 'number' ? employee.pbi : ''}</td>
