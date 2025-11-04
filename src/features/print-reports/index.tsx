@@ -75,6 +75,7 @@ function PrintReportsContent() {
       'attestation': 'certificate',
       'certificat': 'detailed',
       'enquete-wilaya': 'enquete-wilaya',
+      'enquete-daira': 'enquete-daira',
       'fiche-carriere': 'career',
     };
 
