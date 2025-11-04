@@ -15,6 +15,7 @@ import { PrintReportsDialog } from "./components/print-reports-dialog";
 import { useUiStore } from "@/stores/useUiStore";
 import WorkCertificate from "./components/work-certificate";
 import EnqueteWilaya from "./components/enquete-wilaya";
+import EnqueteDaira from "./components/enquete-daira";
 import DetailedWorkCertificate from "./components/detailed-work-certificate";
 import CareerSheet from "./components/career-sheet";
 import { useSearch } from "@tanstack/react-router";
@@ -34,6 +35,8 @@ function PrintReportsContent() {
 
   // Check if we should show the Enquête Wilaya view
   const showEnqueteWilaya = search?.view === 'enquete-wilaya' && currentEmployee;
+  // Check if we should show the Enquête Daira view
+  const showEnqueteDaira = search?.view === 'enquete-daira' && currentEmployee;
   // Check if we should show the Career Sheet view
   const showCareerSheet = search?.view === 'career' && currentEmployee;
 
@@ -230,6 +233,25 @@ function PrintReportsContent() {
           </Button>
         </div>
         <EnqueteWilaya employee={currentEmployee} />
+      </Main>
+    );
+  }
+
+  // If we should show the Enquête Daira, render it directly
+  if (showEnqueteDaira && currentEmployee) {
+    return (
+      <Main>
+        <div className="flex justify-end gap-2 mb-6">
+          <Button variant="outline" onClick={handlePrint}>
+            <IconPrinter className="mr-2" />
+            Print
+          </Button>
+          <Button variant="secondary" onClick={handleExportPDF}>
+            <IconDownload className="mr-2" />
+            Export PDF
+          </Button>
+        </div>
+        <EnqueteDaira employee={currentEmployee} />
       </Main>
     );
   }
