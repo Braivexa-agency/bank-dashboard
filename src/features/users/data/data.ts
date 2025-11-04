@@ -38,3 +38,15 @@ export const userTypes = [
     icon: IconCash,
   },
 ] as const
+
+export const defaultNewUser = {
+  firstName: 'John',
+  lastName: 'Doe',
+  username: 'john.doe',
+  email: 'john.doe@example.com',
+  phoneNumber: '+213555000111',
+  role: 'admin',
+  password: 'S3cur3P@ss1',
+  confirmPassword: 'S3cur3P@ss1',
+  isEdit: false,
+}
