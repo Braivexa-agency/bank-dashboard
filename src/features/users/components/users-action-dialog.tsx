@@ -24,7 +24,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
 import { SelectDropdown } from '@/components/select-dropdown'
-import { userTypes } from '../data/data'
+import { defaultNewUser, userTypes } from '../data/data'
 import { User } from '../data/schema'
 
 const formSchema = z
@@ -105,14 +105,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
           isEdit,
         }
       : {
-          firstName: '',
-          lastName: '',
-          username: '',
-          email: '',
-          role: '',
-          phoneNumber: '',
-          password: '',
-          confirmPassword: '',
+          ...defaultNewUser,
           isEdit,
         },
   })
