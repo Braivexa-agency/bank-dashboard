@@ -623,6 +623,26 @@ export function PrintReportsDialog({ open, onOpenChange }: Props) {
           <Button type='submit' form='enquete-form'>
             Save Survey Info
           </Button>
+          <Button
+            type='button'
+            variant='secondary'
+            onClick={() => {
+              window.location.assign('/_authenticated/print-reports/?view=enquete-wilaya')
+              onOpenChange(false)
+            }}
+          >
+            Open Enquête Wilaya
+          </Button>
+          <Button
+            type='button'
+            variant='secondary'
+            onClick={() => {
+              window.location.assign('/_authenticated/print-reports/?view=enquete-daira')
+              onOpenChange(false)
+            }}
+          >
+            Open Enquête Daira
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
