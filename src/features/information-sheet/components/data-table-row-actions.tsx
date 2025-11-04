@@ -1,6 +1,6 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Row } from '@tanstack/react-table'
-import { IconEdit, IconTrash, IconFileCertificate, IconFileSpreadsheet } from '@tabler/icons-react'
+import { IconEdit, IconTrash, IconFileCertificate, IconFileSpreadsheet, IconFileText } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -107,6 +107,36 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             View Detailed Certificate
             <DropdownMenuShortcut>
               <IconFileSpreadsheet size={16} />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+
+          {/* Enquête Wilaya - Navigate to print reports page with query parameter */}
+          <DropdownMenuItem
+            onClick={() => {
+              // Store the current employee info for the Enquête Wilaya
+              setInformationSheetCurrentRow(row.original)
+              // Navigate to the print reports page with Enquête Wilaya view
+              navigate({ to: '/print-reports', search: { view: 'enquete-wilaya' } })
+            }}
+          >
+            View Enquête Wilaya
+            <DropdownMenuShortcut>
+              <IconFileText size={16} />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+
+          {/* Career Sheet - Navigate to print reports page with query parameter */}
+          <DropdownMenuItem
+            onClick={() => {
+              // Store the current employee info for the Career Sheet
+              setInformationSheetCurrentRow(row.original)
+              // Navigate to the print reports page with Career Sheet view
+              navigate({ to: '/print-reports', search: { view: 'career' } })
+            }}
+          >
+            View Career Sheet
+            <DropdownMenuShortcut>
+              <IconFileText size={16} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           
