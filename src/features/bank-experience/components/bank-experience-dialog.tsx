@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { showSubmittedData } from '@/utils/show-submitted-data'
+import { useCreateBankExperience, useUpdateBankExperience } from '@/hooks/use-bank-experiences'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -80,6 +81,8 @@ interface Props {
 
 export function BankExperienceDialog({ currentRow, open, onOpenChange }: Props) {
   const isEdit = !!currentRow
+  const createMutation = useCreateBankExperience()
+  const updateMutation = useUpdateBankExperience()
 
   const employeeForm = useForm<EmployeeForm>({
     resolver: zodResolver(employeeFormSchema),
@@ -134,11 +137,19 @@ export function BankExperienceDialog({ currentRow, open, onOpenChange }: Props) 
     // Here you would typically save the employee info to context or state
   }
 
-  const onSubmitExperience = (values: ExperienceForm) => {
-    showSubmittedData(values)
-    employeeForm.reset()
-    experienceForm.reset()
-    onOpenChange(false)
+  const onSubmitExperience = async (values: ExperienceForm) => {
+    try {
+      if (isEdit && currentRow) {
+        await updateMutation.mutateAsync({ id: currentRow.id, data: values })
+      } else {
+        await createMutation.mutateAsync(values)
+      }
+      employeeForm.reset()
+      experienceForm.reset()
+      onOpenChange(false)
+    } catch (error) {
+      console.error('Failed to save bank experience:', error)
+    }
   }
 
   return (
