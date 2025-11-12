@@ -1,20 +1,7 @@
 import React, { useState } from 'react'
 import useDialogState from '@/hooks/use-dialog-state'
-
-export interface BankExperience {
-  id: number
-  affectation: string
-  poste: string
-  activite: string
-  classe: string
-  echelon: string
-  pbi: number
-  natureDecision: string
-  refDecision: string
-  dateDecision: string
-  dateEffet: string
-  chargeInterim: string
-}
+import { useBankExperiences } from '@/hooks/use-bank-experiences'
+import type { BankExperience } from '@/stores/dataStore'
 
 export interface EmployeeInfo {
   employeeId: string
@@ -48,7 +35,7 @@ interface BankExperienceContextType {
   currentRow: BankExperience | null
   setCurrentRow: React.Dispatch<React.SetStateAction<BankExperience | null>>
   bankExperiences: BankExperience[]
-  setBankExperiences: React.Dispatch<React.SetStateAction<BankExperience[]>>
+  isLoading: boolean
   employeeInfo: EmployeeInfo | null
   setEmployeeInfo: React.Dispatch<React.SetStateAction<EmployeeInfo | null>>
 }
@@ -57,56 +44,16 @@ const BankExperienceContext = React.createContext<BankExperienceContextType | nu
 
 interface Props {
   children: React.ReactNode
+  informationSheetId?: number
 }
 
-export default function BankExperienceProvider({ children }: Props) {
+export default function BankExperienceProvider({ children, informationSheetId }: Props) {
   const [open, setOpen] = useDialogState<BankExperienceDialogType>(null)
   const [currentRow, setCurrentRow] = useState<BankExperience | null>(null)
   const [employeeInfo, setEmployeeInfo] = useState<EmployeeInfo | null>(null)
-  const [bankExperiences, setBankExperiences] = useState<BankExperience[]>([
-    {
-      id: 1,
-      affectation: "Regional Directorate Algiers",
-      poste: "Customer Advisor",
-      activite: "Customer portfolio management",
-      classe: "Executive",
-      echelon: "12",
-      pbi: 1,
-      natureDecision: "Appointment",
-      refDecision: "DR-2023-001",
-      dateDecision: "2023-01-15",
-      dateEffet: "2023-02-01",
-      chargeInterim: "No",
-    },
-    {
-      id: 2,
-      affectation: "Downtown Branch",
-      poste: "Credit Officer",
-      activite: "Credit analysis and approval",
-      classe: "Executive",
-      echelon: "10",
-      pbi: 1,
-      natureDecision: "Promotion",
-      refDecision: "DR-2022-045",
-      dateDecision: "2022-06-01",
-      dateEffet: "2022-07-01",
-      chargeInterim: "No",
-    },
-    {
-      id: 3,
-      affectation: "Hydra Branch",
-      poste: "Teller",
-      activite: "Daily banking operations",
-      classe: "Execution",
-      echelon: "8",
-      pbi: 0,
-      natureDecision: "Recruitment",
-      refDecision: "DR-2020-012",
-      dateDecision: "2020-03-01",
-      dateEffet: "2020-04-01",
-      chargeInterim: "No",
-    },
-  ])
+  
+  // Fetch bank experiences from API
+  const { data: bankExperiences = [], isLoading } = useBankExperiences(informationSheetId)
 
   return (
     <BankExperienceContext.Provider 
@@ -116,7 +63,7 @@ export default function BankExperienceProvider({ children }: Props) {
         currentRow, 
         setCurrentRow, 
         bankExperiences, 
-        setBankExperiences,
+        isLoading,
         employeeInfo,
         setEmployeeInfo
       }}
