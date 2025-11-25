@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosError } from 'axios'
+import { useAuthStore } from '@/stores/authStore'
 
 // Get API base URL from environment or use default
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api'
@@ -17,7 +18,7 @@ const apiClient: AxiosInstance = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     // Add auth token if available
-    const token = localStorage.getItem('auth_token')
+    const token = useAuthStore.getState().auth.accessToken
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -38,7 +39,7 @@ apiClient.interceptors.response.use(
       
       if (status === 401) {
         // Unauthorized - clear token and redirect to login
-        localStorage.removeItem('auth_token')
+        useAuthStore.getState().auth.reset()
       } else if (status === 403) {
         // Forbidden
         console.error('Access forbidden')
