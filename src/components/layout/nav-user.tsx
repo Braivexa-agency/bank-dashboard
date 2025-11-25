@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import {
   BadgeCheck,
   Bell,
@@ -23,6 +23,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
+import { useAuthStore } from '@/stores/authStore'
+import { authApi } from '@/lib/api/auth'
 
 export function NavUser({
   user,
@@ -34,6 +36,22 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const navigate = useNavigate()
+  const { reset } = useAuthStore((state) => state.auth)
+
+  const handleLogout = async () => {
+    try {
+      // Call backend to revoke token
+      await authApi.logout()
+    } catch (error) {
+      console.error('Logout error:', error)
+      // Continue with local logout even if API call fails
+    } finally {
+      // Clear local auth state
+      reset()
+      navigate({ to: '/sign-in' })
+    }
+  }
 
   return (
     <SidebarMenu>
@@ -102,7 +120,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>
