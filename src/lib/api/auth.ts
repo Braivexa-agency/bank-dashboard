@@ -11,6 +11,7 @@ export interface AuthResponse {
     accountNo: string
     email: string
     name: string
+    avatar: string | null
     role: string[]
   }
 }
@@ -20,6 +21,7 @@ export interface UserResponse {
     accountNo: string
     email: string
     name: string
+    avatar: string | null
     role: string[]
   }
 }
