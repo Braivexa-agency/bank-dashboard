@@ -2,8 +2,9 @@ import { HTMLAttributes, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate, useSearch } from '@tanstack/react-router'
 import { IconBrandFacebook, IconBrandGithub } from '@tabler/icons-react'
+import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
@@ -16,6 +17,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
+import { useAuthStore } from '@/stores/authStore'
+import { authApi } from '@/lib/api/auth'
 
 type UserAuthFormProps = HTMLAttributes<HTMLFormElement>
 
@@ -36,6 +39,9 @@ const formSchema = z.object({
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
+  const search = useSearch({ from: '/(auth)/sign-in' })
+  const { setAccessToken, setUser } = useAuthStore((state) => state.auth)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,14 +51,33 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
-    // eslint-disable-next-line no-console
-    console.log(data)
-
-    setTimeout(() => {
+    
+    try {
+      // Call the backend login API
+      const response = await authApi.login(data)
+      
+      // Set authentication state
+      setAccessToken(response.token)
+      setUser({
+        accountNo: response.user.accountNo,
+        email: response.user.email,
+        role: response.user.role,
+        exp: Date.now() + 3600000, // 1 hour from now
+      })
+      
+      toast.success('Login successful!')
+      
+      // Redirect to the original page or dashboard
+      const redirectTo = (search as { redirect?: string })?.redirect || '/'
+      navigate({ to: redirectTo })
+    } catch (error) {
+      toast.error('Login failed. Please check your credentials.')
+      console.error('Login error:', error)
+    } finally {
       setIsLoading(false)
-    }, 3000)
+    }
   }
 
   return (
