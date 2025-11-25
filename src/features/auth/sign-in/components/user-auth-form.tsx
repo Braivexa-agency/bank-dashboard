@@ -63,6 +63,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       setUser({
         accountNo: response.user.accountNo,
         email: response.user.email,
+        name: response.user.name,
+        avatar: response.user.avatar,
         role: response.user.role,
         exp: Date.now() + 3600000, // 1 hour from now
       })
