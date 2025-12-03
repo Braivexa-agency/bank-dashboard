@@ -46,18 +46,34 @@
         "recentActivity": "Recent Activity"
     },
     "sidebar": {
+        "groups": {
+            "general": "General",
+            "backoffice": "Backoffice",
+            "other": "Other"
+        },
         "dashboard": "Dashboard",
-        "users": "Users",
-        "settings": "Settings",
-        "help": "Help",
-        "apps": "Apps",
-        "chats": "Chats",
         "tasks": "Tasks",
+        "users": "Users",
+        "bank": "Bank",
         "informationSheet": "Information Sheet",
-        "bankExperience": "Bank Experience",
-        "nonBankExperience": "Non-Bank Experience",
-        "professionalTraining": "Professional Training",
-        "printReports": "Print Reports"
+        "errors": "Errors",
+        "unauthorized": "Unauthorized",
+        "forbidden": "Forbidden",
+        "notFound": "Not Found",
+        "internalServerError": "Internal Server Error",
+        "maintenanceError": "Maintenance Error",
+        "settings": "Settings",
+        "profile": "Profile",
+        "account": "Account",
+        "appearance": "Appearance",
+        "notifications": "Notifications",
+        "helpCenter": "Help Center"
+    },
+    "informationSheet": {
+        "title": "Employee Information Sheet",
+        "description": "Manage comprehensive employee information, records, banking experience, and disciplinary actions.",
+        "addEmployee": "Add Employee",
+        "addDisciplinaryAction": "Add Disciplinary Action"
     },
     "settings": {
         "title": "Settings",
