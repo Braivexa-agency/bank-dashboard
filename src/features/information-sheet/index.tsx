@@ -5,6 +5,7 @@ import { Search } from "@/components/search";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Button } from "@/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
+import { useTranslation } from "react-i18next";
 import { InformationSheetDialogs } from "./components/information-sheet-dialogs";
 import BankExperienceProvider from "@/features/bank-experience/context/bank-experience-context";
 import { BankExperienceDialogs } from "@/features/bank-experience/components/bank-experience-dialogs";
@@ -18,6 +19,7 @@ import { useDataStore } from "@/stores/useDataStore";
 function InformationSheetContent() {
   const informationSheets = useDataStore((state) => state.informationSheets);
   const { openInformationSheet, openDisciplinaryAction } = useUiActions();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -33,18 +35,18 @@ function InformationSheetContent() {
         <div className="mb-2 flex flex-wrap items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">
-              Employee Information Sheet
+              {t('informationSheet.title')}
             </h2>
             <p className="text-muted-foreground">
-              Manage comprehensive employee information, records, banking experience, and disciplinary actions.
+              {t('informationSheet.description')}
             </p>
           </div>
           <div className="flex gap-2">
             <Button className="space-x-1" onClick={() => openInformationSheet("add")}>
-              <span>Add Employee </span> <IconPlus size={18} />
+              <span>{t('informationSheet.addEmployee')} </span> <IconPlus size={18} />
             </Button>
             <Button variant="outline" className="space-x-1" onClick={() => openDisciplinaryAction("add")}>
-              <span>Add Disciplinary Action </span> <IconPlus size={18} />
+              <span>{t('informationSheet.addDisciplinaryAction')} </span> <IconPlus size={18} />
             </Button>
           </div>
         </div>
