@@ -44,65 +44,65 @@ export const sidebarData = {
   ],
   navGroups: [
     {
-      title: 'General',
+      title: 'sidebar.groups.general',
       items: [
         {
-          title: 'Dashboard',
+          title: 'sidebar.dashboard',
           url: '/',
           icon: IconLayoutDashboard,
         },
         {
-          title: 'Tasks',
+          title: 'sidebar.tasks',
           url: '/tasks',
           icon: IconChecklist,
         },
         {
-          title: 'Users',
+          title: 'sidebar.users',
           url: '/users',
           icon: IconUsers,
         },
       ],
     },
     {
-      title: 'Backoffice',
+      title: 'sidebar.groups.backoffice',
       items: [
         {
-          title: 'Bank',
+          title: 'sidebar.bank',
           icon: IconLockAccess,
           items: [
             {
-              title: 'Information Sheet',
+              title: 'sidebar.informationSheet',
               url: '/information-sheet',
               icon: IconFileDescription,
             },
           ],
         },
         {
-          title: 'Errors',
+          title: 'sidebar.errors',
           icon: IconBug,
           items: [
             {
-              title: 'Unauthorized',
+              title: 'sidebar.unauthorized',
               url: '/401',
               icon: IconLock,
             },
             {
-              title: 'Forbidden',
+              title: 'sidebar.forbidden',
               url: '/403',
               icon: IconUserOff,
             },
             {
-              title: 'Not Found',
+              title: 'sidebar.notFound',
               url: '/404',
               icon: IconError404,
             },
             {
-              title: 'Internal Server Error',
+              title: 'sidebar.internalServerError',
               url: '/500',
               icon: IconServerOff,
             },
             {
-              title: 'Maintenance Error',
+              title: 'sidebar.maintenanceError',
               url: '/503',
               icon: IconBarrierBlock,
             },
@@ -111,36 +111,36 @@ export const sidebarData = {
       ],
     },
     {
-      title: 'Other',
+      title: 'sidebar.groups.other',
       items: [
         {
-          title: 'Settings',
+          title: 'sidebar.settings',
           icon: IconSettings,
           items: [
             {
-              title: 'Profile',
+              title: 'sidebar.profile',
               url: '/settings',
               icon: IconUserCog,
             },
             {
-              title: 'Account',
+              title: 'sidebar.account',
               url: '/settings/account',
               icon: IconTool,
             },
             {
-              title: 'Appearance',
+              title: 'sidebar.appearance',
               url: '/settings/appearance',
               icon: IconPalette,
             },
             {
-              title: 'Notifications',
+              title: 'sidebar.notifications',
               url: '/settings/notifications',
               icon: IconNotification,
             },
           ],
         },
         {
-          title: 'Help Center',
+          title: 'sidebar.helpCenter',
           url: '/help-center',
           icon: IconHelp,
         },
