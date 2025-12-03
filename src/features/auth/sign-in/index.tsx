@@ -9,6 +9,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { useNavigate } from '@tanstack/react-router'
 import { useAuthStore } from '@/stores/authStore'
+import { useTranslation } from 'react-i18next'
 import { AlertTriangle } from 'lucide-react'
 import AuthLayout from '../auth-layout'
 import { UserAuthForm } from './components/user-auth-form'
@@ -16,6 +17,7 @@ import { UserAuthForm } from './components/user-auth-form'
 export default function SignIn() {
   const navigate = useNavigate()
   const setAccessToken = useAuthStore((state) => state.auth.setAccessToken)
+  const { t } = useTranslation()
 
   const handleSkipLogin = () => {
     // Set a temporary token to bypass authentication
@@ -27,10 +29,9 @@ export default function SignIn() {
     <AuthLayout>
       <Card className='gap-4'>
         <CardHeader>
-          <CardTitle className='text-lg tracking-tight'>Login</CardTitle>
+          <CardTitle className='text-lg tracking-tight'>{t('auth.loginTitle')}</CardTitle>
           <CardDescription>
-            Enter your email and password below to <br />
-            log into your account
+            {t('auth.loginDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -43,22 +44,22 @@ export default function SignIn() {
             onClick={handleSkipLogin}
           >
             <AlertTriangle className='mr-2 h-4 w-4' />
-            Skip Login (Temporary)
+            {t('auth.skipLoginTemporary')}
           </Button>
           <p className='text-muted-foreground px-8 text-center text-sm'>
-            By clicking login, you agree to our{' '}
+            {t('auth.termsAgreement')}{' '}
             <a
               href='/terms'
               className='hover:text-primary underline underline-offset-4'
             >
-              Terms of Service
+              {t('auth.termsOfService')}
             </a>{' '}
-            and{' '}
+            {t('auth.and')}{' '}
             <a
               href='/privacy'
               className='hover:text-primary underline underline-offset-4'
             >
-              Privacy Policy
+              {t('auth.privacyPolicy')}
             </a>
             .
           </p>
