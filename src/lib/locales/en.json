@@ -25,7 +25,8 @@
         "none": "None",
         "more": "more",
         "saveChanges": "Save changes",
-        "select": "Select"
+        "select": "Select",
+        "reset": "Reset"
     },
     "auth": {
         "signIn": "Sign In",
@@ -78,6 +79,9 @@
         "description": "Manage comprehensive employee information, records, banking experience, and disciplinary actions.",
         "addEmployee": "Add Employee",
         "addDisciplinaryAction": "Add Disciplinary Action"
+    },
+    "tableToolbar": {
+        "filterEmployees": "Filter employees..."
     },
     "employeeForm": {
         "dialog": {
@@ -201,6 +205,24 @@
             "seniorExecutive": "Senior Executive",
             "execution": "Execution",
             "management": "Management"
+        },
+        "validation": {
+            "employeeIdRequired": "Employee ID is required.",
+            "lastNameRequired": "Last Name is required.",
+            "firstNameRequired": "First Name is required.",
+            "nationalIdRequired": "National ID is required.",
+            "fatherNameRequired": "Father Name is required.",
+            "motherNameRequired": "Mother Name is required.",
+            "dateOfBirthRequired": "Date of Birth is required.",
+            "genderRequired": "Gender is required.",
+            "maritalStatusRequired": "Marital Status is required.",
+            "numberOfChildrenMin": "Number of children must be 0 or more.",
+            "hireDateRequired": "Hire Date is required.",
+            "contractTypeRequired": "Contract Type is required.",
+            "socialSecurityNumberRequired": "Social Security Number is required.",
+            "educationLevelRequired": "Education Level is required.",
+            "groupRequired": "Group is required.",
+            "pbiMin": "PBI must be a non-negative number."
         }
     },
     "disciplinaryForm": {
@@ -235,6 +257,14 @@
             "minor": "Minor",
             "major": "Major",
             "severe": "Severe"
+        },
+        "validation": {
+            "sanctionTypeRequired": "Sanction Type is required.",
+            "classificationRequired": "Classification is required.",
+            "decisionNumberRequired": "Decision Number is required.",
+            "decisionDateRequired": "Decision Date is required.",
+            "effectiveDateRequired": "Effective Date is required.",
+            "reasonRequired": "Reason is required."
         }
     },
     "tableColumns": {
