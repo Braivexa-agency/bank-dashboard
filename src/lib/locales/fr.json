@@ -297,5 +297,18 @@
         "unauthorized": "Non autorisé",
         "forbidden": "Interdit",
         "badRequest": "Mauvaise requête"
+    },
+    "rowActions": {
+        "viewWorkCertificate": "Voir le certificat de travail",
+        "viewDetailedCertificate": "Voir le certificat détaillé",
+        "viewEnqueteWilaya": "Voir l'enquête Wilaya",
+        "viewEnqueteDaira": "Voir l'enquête Daïra",
+        "viewCareerSheet": "Voir la fiche de carrière",
+        "editBankingExperience": "Modifier l'exp. bancaire",
+        "editNonBankingExperience": "Modifier l'exp. non bancaire",
+        "editDisciplinaryAction": "Modifier : {{action}} ({{classification}})",
+        "deleteDisciplinaryAction": "Supprimer : {{action}} ({{classification}})",
+        "confirmDeleteAction": "Êtes-vous sûr de vouloir supprimer l'action disciplinaire \"{{action}}\" ?",
+        "deleteActionSuccess": "Action disciplinaire \"{{action}}\" supprimée avec succès !"
     }
 }
