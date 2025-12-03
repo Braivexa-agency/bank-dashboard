@@ -8,6 +8,7 @@ import {
 import { NavGroup } from '@/components/layout/nav-group'
 import { NavUser } from '@/components/layout/nav-user'
 import { TeamSwitcher } from '@/components/layout/team-switcher'
+import { LanguageSwitcher } from '@/components/language-switcher'
 import { sidebarData } from './data/sidebar-data'
 import type { NavGroup as NavGroupType } from './types'
 import { useAuthStore } from '@/stores/authStore'
@@ -27,7 +28,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible='icon' variant='floating' {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={sidebarData.teams} />
+        <div className='flex items-center justify-between gap-2'>
+          <TeamSwitcher teams={sidebarData.teams} />
+          <LanguageSwitcher />
+        </div>
       </SidebarHeader>
       <SidebarContent>
         {sidebarData.navGroups.map((group) => (
