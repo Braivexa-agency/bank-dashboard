@@ -1,0 +1,77 @@
+{
+    "common": {
+        "welcome": "Bienvenue",
+        "login": "Connexion",
+        "logout": "Déconnexion",
+        "email": "Email",
+        "password": "Mot de passe",
+        "submit": "Soumettre",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "add": "Ajouter",
+        "search": "Rechercher",
+        "loading": "Chargement...",
+        "error": "Erreur",
+        "success": "Succès",
+        "confirm": "Confirmer",
+        "back": "Retour",
+        "next": "Suivant",
+        "previous": "Précédent",
+        "close": "Fermer",
+        "yes": "Oui",
+        "no": "Non"
+    },
+    "auth": {
+        "signIn": "Se connecter",
+        "signUp": "S'inscrire",
+        "signOut": "Se déconnecter",
+        "forgotPassword": "Mot de passe oublié",
+        "resetPassword": "Réinitialiser le mot de passe",
+        "loginTitle": "Connexion",
+        "loginDescription": "Entrez votre email et mot de passe ci-dessous pour vous connecter à votre compte",
+        "skipLoginTemporary": "Ignorer la connexion (Temporaire)",
+        "termsAgreement": "En cliquant sur connexion, vous acceptez nos",
+        "termsOfService": "Conditions d'utilisation",
+        "and": "et",
+        "privacyPolicy": "Politique de confidentialité",
+        "emailPlaceholder": "Entrez votre email",
+        "passwordPlaceholder": "Entrez votre mot de passe"
+    },
+    "dashboard": {
+        "title": "Tableau de bord",
+        "overview": "Aperçu",
+        "statistics": "Statistiques",
+        "recentActivity": "Activité récente"
+    },
+    "sidebar": {
+        "dashboard": "Tableau de bord",
+        "users": "Utilisateurs",
+        "settings": "Paramètres",
+        "help": "Aide",
+        "apps": "Applications",
+        "chats": "Discussions",
+        "tasks": "Tâches",
+        "informationSheet": "Fiche d'information",
+        "bankExperience": "Expérience bancaire",
+        "nonBankExperience": "Expérience non bancaire",
+        "professionalTraining": "Formation professionnelle",
+        "printReports": "Imprimer les rapports"
+    },
+    "settings": {
+        "title": "Paramètres",
+        "profile": "Profil",
+        "account": "Compte",
+        "preferences": "Préférences",
+        "language": "Langue",
+        "theme": "Thème"
+    },
+    "errors": {
+        "notFound": "Page non trouvée",
+        "serverError": "Erreur du serveur",
+        "unauthorized": "Non autorisé",
+        "forbidden": "Interdit",
+        "badRequest": "Mauvaise requête"
+    }
+}
