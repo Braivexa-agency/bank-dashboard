@@ -46,18 +46,34 @@
         "recentActivity": "Activité récente"
     },
     "sidebar": {
+        "groups": {
+            "general": "Général",
+            "backoffice": "Back-office",
+            "other": "Autre"
+        },
         "dashboard": "Tableau de bord",
-        "users": "Utilisateurs",
-        "settings": "Paramètres",
-        "help": "Aide",
-        "apps": "Applications",
-        "chats": "Discussions",
         "tasks": "Tâches",
+        "users": "Utilisateurs",
+        "bank": "Banque",
         "informationSheet": "Fiche d'information",
-        "bankExperience": "Expérience bancaire",
-        "nonBankExperience": "Expérience non bancaire",
-        "professionalTraining": "Formation professionnelle",
-        "printReports": "Imprimer les rapports"
+        "errors": "Erreurs",
+        "unauthorized": "Non autorisé",
+        "forbidden": "Interdit",
+        "notFound": "Non trouvé",
+        "internalServerError": "Erreur interne du serveur",
+        "maintenanceError": "Erreur de maintenance",
+        "settings": "Paramètres",
+        "profile": "Profil",
+        "account": "Compte",
+        "appearance": "Apparence",
+        "notifications": "Notifications",
+        "helpCenter": "Centre d'aide"
+    },
+    "informationSheet": {
+        "title": "Fiche d'information des employés",
+        "description": "Gérer les informations complètes des employés, les dossiers, l'expérience bancaire et les actions disciplinaires.",
+        "addEmployee": "Ajouter un employé",
+        "addDisciplinaryAction": "Ajouter une action disciplinaire"
     },
     "settings": {
         "title": "Paramètres",
