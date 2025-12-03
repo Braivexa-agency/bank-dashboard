@@ -32,17 +32,16 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { DisciplinaryAction } from '@/stores/dataStore'
 import { toast } from 'sonner'
-
-const disciplinaryActionFormSchema = z.object({
-  typeSanction: z.string().min(1, { message: 'Sanction Type is required.' }),
-  classification: z.string().min(1, { message: 'Classification is required.' }),
-  numeroDecision: z.string().min(1, { message: 'Decision Number is required.' }),
-  dateDecision: z.string().min(1, { message: 'Decision Date is required.' }),
-  dateEffet: z.string().min(1, { message: 'Effective Date is required.' }),
-  motifSanction: z.string().min(1, { message: 'Reason is required.' }),
+const baseSchema = z.object({
+  typeSanction: z.string().min(1),
+  classification: z.string().min(1),
+  numeroDecision: z.string().min(1),
+  dateDecision: z.string().min(1),
+  dateEffet: z.string().min(1),
+  motifSanction: z.string().min(1),
 })
 
-type DisciplinaryActionForm = z.infer<typeof disciplinaryActionFormSchema>
+type DisciplinaryActionForm = z.infer<typeof baseSchema>
 
 interface Props {
   currentRow?: DisciplinaryAction
@@ -54,6 +53,15 @@ interface Props {
 export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSave }: Props) {
   const isEdit = !!currentRow
   const { t } = useTranslation()
+
+  const disciplinaryActionFormSchema = z.object({
+    typeSanction: z.string().min(1, { message: t('disciplinaryForm.validation.sanctionTypeRequired') }),
+    classification: z.string().min(1, { message: t('disciplinaryForm.validation.classificationRequired') }),
+    numeroDecision: z.string().min(1, { message: t('disciplinaryForm.validation.decisionNumberRequired') }),
+    dateDecision: z.string().min(1, { message: t('disciplinaryForm.validation.decisionDateRequired') }),
+    dateEffet: z.string().min(1, { message: t('disciplinaryForm.validation.effectiveDateRequired') }),
+    motifSanction: z.string().min(1, { message: t('disciplinaryForm.validation.reasonRequired') }),
+  })
 
   const form = useForm<DisciplinaryActionForm>({
     resolver: zodResolver(disciplinaryActionFormSchema),
