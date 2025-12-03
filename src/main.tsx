@@ -14,6 +14,8 @@ import { handleServerError } from '@/utils/handle-server-error'
 import { FontProvider } from './context/font-context'
 import { ThemeProvider } from './context/theme-context'
 import './index.css'
+// i18n
+import './lib/i18n'
 // Generated Routes
 import { routeTree } from './routeTree.gen'
 
