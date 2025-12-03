@@ -17,6 +17,7 @@ import { useUiActions } from '@/stores/useUiStore'
 import { dataActions } from '@/stores/dataStore'
 import { toast } from 'sonner'
 import { useNavigate } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 
 interface DataTableRowActionsProps {
   row: Row<InformationSheet>
@@ -27,13 +28,14 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const { setOpen: setBankOpen, setCurrentRow: setBankCurrentRow } = useBankExperience()
   const { setOpen: setNonBankOpen, setCurrentRow: setNonBankCurrentRow } = useNonBankExperience()
   const navigate = useNavigate()
+  const { t } = useTranslation()
   
   const handleDeleteDisciplinaryAction = (actionId: number) => {
     // Find the action to get its details for the confirmation and toast message
     const actionToDelete = row.original.disciplinaryActions.find(action => action.id === actionId)
     
     // Show confirmation dialog
-    if (window.confirm(`Are you sure you want to delete the disciplinary action "${actionToDelete?.typeSanction}"?`)) {
+    if (window.confirm(t('rowActions.confirmDeleteAction', { action: actionToDelete?.typeSanction }))) {
       // Delete from global store
       dataActions.deleteDisciplinaryAction(actionId)
       
@@ -50,7 +52,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
       
       // Show success message
       toast.success(
-        `Disciplinary action "${actionToDelete?.typeSanction}" deleted successfully!`
+        t('rowActions.deleteActionSuccess', { action: actionToDelete?.typeSanction })
       )
     }
   }
@@ -64,7 +66,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             className='data-[state=open]:bg-muted flex h-8 w-8 p-0'
           >
             <DotsHorizontalIcon className='h-4 w-4' />
-            <span className='sr-only'>Open menu</span>
+            <span className='sr-only'>{t('common.openMenu')}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end' className='w-[200px]'>
@@ -74,7 +76,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               openInformationSheet('edit', row.original.id)
             }}
           >
-            Edit
+            {t('common.edit')}
             <DropdownMenuShortcut>
               <IconEdit size={16} />
             </DropdownMenuShortcut>
@@ -89,7 +91,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               navigate({ to: '/print-reports', search: { view: 'certificate' } })
             }}
           >
-            View Work Certificate
+            {t('rowActions.viewWorkCertificate')}
             <DropdownMenuShortcut>
               <IconFileCertificate size={16} />
             </DropdownMenuShortcut>
@@ -104,7 +106,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               navigate({ to: '/print-reports', search: { view: 'detailed' } })
             }}
           >
-            View Detailed Certificate
+            {t('rowActions.viewDetailedCertificate')}
             <DropdownMenuShortcut>
               <IconFileSpreadsheet size={16} />
             </DropdownMenuShortcut>
@@ -119,7 +121,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               navigate({ to: '/print-reports', search: { view: 'enquete-wilaya' } })
             }}
           >
-            View Enquête Wilaya
+            {t('rowActions.viewEnqueteWilaya')}
             <DropdownMenuShortcut>
               <IconFileText size={16} />
             </DropdownMenuShortcut>
@@ -134,7 +136,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               navigate({ to: '/print-reports', search: { view: 'enquete-daira' } })
             }}
           >
-            View Enquête Daira
+            {t('rowActions.viewEnqueteDaira')}
             <DropdownMenuShortcut>
               <IconFileText size={16} />
             </DropdownMenuShortcut>
@@ -149,7 +151,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
               navigate({ to: '/print-reports', search: { view: 'career' } })
             }}
           >
-            View Career Sheet
+            {t('rowActions.viewCareerSheet')}
             <DropdownMenuShortcut>
               <IconFileText size={16} />
             </DropdownMenuShortcut>
@@ -180,7 +182,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
                   setBankOpen('edit')
                 }}
               >
-                Edit Banking Exp.
+                {t('rowActions.editBankingExperience')}
                 <DropdownMenuShortcut>
                   <IconEdit size={16} />
                 </DropdownMenuShortcut>
@@ -207,7 +209,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
                   setNonBankOpen('edit')
                 }}
               >
-                Edit Non-Banking Exp.
+                {t('rowActions.editNonBankingExperience')}
                 <DropdownMenuShortcut>
                   <IconEdit size={16} />
                 </DropdownMenuShortcut>
@@ -226,7 +228,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
                     openDisciplinaryAction('add')
                   }}
                 >
-                  Add Disciplinary Action
+                  {t('rowActions.addDisciplinaryAction')}
                   <DropdownMenuShortcut>
                     <IconEdit size={16} />
                   </DropdownMenuShortcut>
@@ -240,7 +242,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
                       openDisciplinaryAction('edit', action)
                     }}
                   >
-                    Edit: {action.typeSanction} ({action.classification})
+                    {t('rowActions.editDisciplinaryAction', { action: action.typeSanction, classification: action.classification })}
                     <DropdownMenuShortcut>
                       <IconEdit size={16} />
                     </DropdownMenuShortcut>
@@ -252,7 +254,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
                     onClick={() => handleDeleteDisciplinaryAction(action.id)}
                     className='text-red-500'
                   >
-                    Delete: {action.typeSanction} ({action.classification})
+                    {t('rowActions.deleteDisciplinaryAction', { action: action.typeSanction, classification: action.classification })}
                     <DropdownMenuShortcut>
                       <IconTrash size={16} />
                     </DropdownMenuShortcut>
@@ -267,7 +269,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
                   openDisciplinaryAction('add')
                 }}
               >
-                Add Disciplinary Action
+                {t('rowActions.addDisciplinaryAction')}
                 <DropdownMenuShortcut>
                   <IconEdit size={16} />
                 </DropdownMenuShortcut>
@@ -282,7 +284,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
             }}
             className='text-red-500!'
           >
-            Delete
+            {t('common.delete')}
             <DropdownMenuShortcut>
               <IconTrash size={16} />
             </DropdownMenuShortcut>
