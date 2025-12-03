@@ -3,6 +3,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -111,6 +112,7 @@ interface Props {
 
 export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props) {
   const isEdit = !!currentRow
+  const { t } = useTranslation()
 
   const defaultNewInformationSheet: InformationSheetForm = {
     matricule: 'EMP-1201',
@@ -359,10 +361,9 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
     >
       <DialogContent className='sm:max-w-6xl max-h-[90vh] overflow-y-auto'>
         <DialogHeader className='text-left'>
-          <DialogTitle>{isEdit ? 'Edit Employee Information' : 'Add New Employee Information'}</DialogTitle>
+          <DialogTitle>{isEdit ? t('employeeForm.dialog.editTitle') : t('employeeForm.dialog.addTitle')}</DialogTitle>
           <DialogDescription>
-            {isEdit ? 'Update the employee information here. ' : 'Create new employee information here. '}
-            Click save when you&apos;re done.
+            {isEdit ? t('employeeForm.dialog.editDescription') : t('employeeForm.dialog.addDescription')}
           </DialogDescription>
         </DialogHeader>
         
@@ -373,7 +374,7 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
             onClick={fillWithSampleData}
             className="text-sm"
           >
-            Fill with Sample Data
+            {t('employeeForm.buttons.fillSampleData')}
           </Button>
         </div>
 
@@ -384,7 +385,7 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
               <CardHeader className="border-b">
                 <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
                   <div className="w-1 h-6 bg-primary rounded-full"></div>
-                  Identification
+                  {t('employeeForm.sections.identification')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -394,9 +395,9 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                     name='matricule'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Employee ID</FormLabel>
+                        <FormLabel>{t('employeeForm.fields.employeeId')}</FormLabel>
                         <FormControl>
-                          <Input placeholder='Enter employee ID' {...field} />
+                          <Input placeholder={t('employeeForm.placeholders.enterEmployeeId')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -407,9 +408,9 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                     name='nom'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Last Name</FormLabel>
+                        <FormLabel>{t('employeeForm.fields.lastName')}</FormLabel>
                         <FormControl>
-                          <Input placeholder='Enter last name' {...field} />
+                          <Input placeholder={t('employeeForm.placeholders.enterLastName')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -420,9 +421,9 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                     name='prenom'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>First Name</FormLabel>
+                        <FormLabel>{t('employeeForm.fields.firstName')}</FormLabel>
                         <FormControl>
-                          <Input placeholder='Enter first name' {...field} />
+                          <Input placeholder={t('employeeForm.placeholders.enterFirstName')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -433,9 +434,9 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                     name='nationalId'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>National ID</FormLabel>
+                        <FormLabel>{t('employeeForm.fields.nationalId')}</FormLabel>
                         <FormControl>
-                          <Input placeholder='Enter national ID' {...field} />
+                          <Input placeholder={t('employeeForm.placeholders.enterNationalId')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
