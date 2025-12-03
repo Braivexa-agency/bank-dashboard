@@ -25,7 +25,8 @@
         "none": "Aucun",
         "more": "de plus",
         "saveChanges": "Enregistrer les modifications",
-        "select": "Sélectionner"
+        "select": "Sélectionner",
+        "reset": "Réinitialiser"
     },
     "auth": {
         "signIn": "Se connecter",
@@ -78,6 +79,9 @@
         "description": "Gérer les informations complètes des employés, les dossiers, l'expérience bancaire et les actions disciplinaires.",
         "addEmployee": "Ajouter un employé",
         "addDisciplinaryAction": "Ajouter une action disciplinaire"
+    },
+    "tableToolbar": {
+        "filterEmployees": "Filtrer les employés..."
     },
     "employeeForm": {
         "dialog": {
@@ -201,6 +205,24 @@
             "seniorExecutive": "Cadre supérieur",
             "execution": "Exécution",
             "management": "Maîtrise"
+        },
+        "validation": {
+            "employeeIdRequired": "Le matricule est requis.",
+            "lastNameRequired": "Le nom est requis.",
+            "firstNameRequired": "Le prénom est requis.",
+            "nationalIdRequired": "Le numéro d'identification est requis.",
+            "fatherNameRequired": "Le nom du père est requis.",
+            "motherNameRequired": "Le nom de la mère est requis.",
+            "dateOfBirthRequired": "La date de naissance est requise.",
+            "genderRequired": "Le sexe est requis.",
+            "maritalStatusRequired": "L'état civil est requis.",
+            "numberOfChildrenMin": "Le nombre d'enfants doit être de 0 ou plus.",
+            "hireDateRequired": "La date d'embauche est requise.",
+            "contractTypeRequired": "Le type de contrat est requis.",
+            "socialSecurityNumberRequired": "Le numéro de sécurité sociale est requis.",
+            "educationLevelRequired": "Le niveau d'éducation est requis.",
+            "groupRequired": "Le groupe est requis.",
+            "pbiMin": "Le PBI doit être un nombre positif."
         }
     },
     "disciplinaryForm": {
@@ -235,6 +257,14 @@
             "minor": "Mineure",
             "major": "Majeure",
             "severe": "Grave"
+        },
+        "validation": {
+            "sanctionTypeRequired": "Le type de sanction est requis.",
+            "classificationRequired": "La classification est requise.",
+            "decisionNumberRequired": "Le numéro de décision est requis.",
+            "decisionDateRequired": "La date de décision est requise.",
+            "effectiveDateRequired": "La date d'effet est requise.",
+            "reasonRequired": "Le motif est requis."
         }
     },
     "tableColumns": {
