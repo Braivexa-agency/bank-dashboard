@@ -1,0 +1,77 @@
+{
+    "common": {
+        "welcome": "Welcome",
+        "login": "Login",
+        "logout": "Logout",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "search": "Search",
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "confirm": "Confirm",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "close": "Close",
+        "yes": "Yes",
+        "no": "No"
+    },
+    "auth": {
+        "signIn": "Sign In",
+        "signUp": "Sign Up",
+        "signOut": "Sign Out",
+        "forgotPassword": "Forgot Password",
+        "resetPassword": "Reset Password",
+        "loginTitle": "Login",
+        "loginDescription": "Enter your email and password below to log into your account",
+        "skipLoginTemporary": "Skip Login (Temporary)",
+        "termsAgreement": "By clicking login, you agree to our",
+        "termsOfService": "Terms of Service",
+        "and": "and",
+        "privacyPolicy": "Privacy Policy",
+        "emailPlaceholder": "Enter your email",
+        "passwordPlaceholder": "Enter your password"
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "overview": "Overview",
+        "statistics": "Statistics",
+        "recentActivity": "Recent Activity"
+    },
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "users": "Users",
+        "settings": "Settings",
+        "help": "Help",
+        "apps": "Apps",
+        "chats": "Chats",
+        "tasks": "Tasks",
+        "informationSheet": "Information Sheet",
+        "bankExperience": "Bank Experience",
+        "nonBankExperience": "Non-Bank Experience",
+        "professionalTraining": "Professional Training",
+        "printReports": "Print Reports"
+    },
+    "settings": {
+        "title": "Settings",
+        "profile": "Profile",
+        "account": "Account",
+        "preferences": "Preferences",
+        "language": "Language",
+        "theme": "Theme"
+    },
+    "errors": {
+        "notFound": "Page Not Found",
+        "serverError": "Server Error",
+        "unauthorized": "Unauthorized",
+        "forbidden": "Forbidden",
+        "badRequest": "Bad Request"
+    }
+}
