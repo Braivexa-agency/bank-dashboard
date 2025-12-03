@@ -3,6 +3,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -52,6 +53,7 @@ interface Props {
 
 export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSave }: Props) {
   const isEdit = !!currentRow
+  const { t } = useTranslation()
 
   const form = useForm<DisciplinaryActionForm>({
     resolver: zodResolver(disciplinaryActionFormSchema),
@@ -92,10 +94,9 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
     >
       <DialogContent className='sm:max-w-2xl max-h-[90vh] overflow-y-auto'>
         <DialogHeader className='text-left'>
-          <DialogTitle>{isEdit ? 'Edit Disciplinary Action' : 'Add New Disciplinary Action'}</DialogTitle>
+          <DialogTitle>{isEdit ? t('disciplinaryForm.dialog.editTitle') : t('disciplinaryForm.dialog.addTitle')}</DialogTitle>
           <DialogDescription>
-            {isEdit ? 'Update the disciplinary action here. ' : 'Create new disciplinary action here. '}
-            Click save when you&apos;re done.
+            {isEdit ? t('disciplinaryForm.dialog.editDescription') : t('disciplinaryForm.dialog.addDescription')}
           </DialogDescription>
         </DialogHeader>
         
@@ -103,7 +104,7 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
           <CardHeader className="border-b">
             <CardTitle className="text-xl font-semibold text-primary flex items-center gap-2">
               <div className="w-1 h-6 bg-primary rounded-full"></div>
-              Disciplinary Action Details
+              {t('disciplinaryForm.sections.details')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -119,18 +120,18 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
                     name='typeSanction'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Sanction Type</FormLabel>
+                        <FormLabel>{t('disciplinaryForm.fields.sanctionType')}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder='Select sanction type' />
+                              <SelectValue placeholder={t('disciplinaryForm.placeholders.selectSanctionType')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value='Warning'>Warning</SelectItem>
-                            <SelectItem value='Reprimand'>Reprimand</SelectItem>
-                            <SelectItem value='Suspension'>Suspension</SelectItem>
-                            <SelectItem value='Dismissal'>Dismissal</SelectItem>
+                            <SelectItem value='Warning'>{t('disciplinaryForm.options.warning')}</SelectItem>
+                            <SelectItem value='Reprimand'>{t('disciplinaryForm.options.reprimand')}</SelectItem>
+                            <SelectItem value='Suspension'>{t('disciplinaryForm.options.suspension')}</SelectItem>
+                            <SelectItem value='Dismissal'>{t('disciplinaryForm.options.dismissal')}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -142,17 +143,17 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
                     name='classification'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Classification</FormLabel>
+                        <FormLabel>{t('disciplinaryForm.fields.classification')}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder='Select classification' />
+                              <SelectValue placeholder={t('disciplinaryForm.placeholders.selectClassification')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value='Minor'>Minor</SelectItem>
-                            <SelectItem value='Major'>Major</SelectItem>
-                            <SelectItem value='Severe'>Severe</SelectItem>
+                            <SelectItem value='Minor'>{t('disciplinaryForm.options.minor')}</SelectItem>
+                            <SelectItem value='Major'>{t('disciplinaryForm.options.major')}</SelectItem>
+                            <SelectItem value='Severe'>{t('disciplinaryForm.options.severe')}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -164,9 +165,9 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
                     name='numeroDecision'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Decision Number</FormLabel>
+                        <FormLabel>{t('disciplinaryForm.fields.decisionNumber')}</FormLabel>
                         <FormControl>
-                          <Input placeholder='Decision number' {...field} />
+                          <Input placeholder={t('disciplinaryForm.placeholders.decisionNumber')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -177,7 +178,7 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
                     name='dateDecision'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Decision Date</FormLabel>
+                        <FormLabel>{t('disciplinaryForm.fields.decisionDate')}</FormLabel>
                         <FormControl>
                           <Input type='date' {...field} />
                         </FormControl>
@@ -190,7 +191,7 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
                     name='dateEffet'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Effective Date</FormLabel>
+                        <FormLabel>{t('disciplinaryForm.fields.effectiveDate')}</FormLabel>
                         <FormControl>
                           <Input type='date' {...field} />
                         </FormControl>
@@ -203,9 +204,9 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
                     name='motifSanction'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Reason for Sanction</FormLabel>
+                        <FormLabel>{t('disciplinaryForm.fields.reason')}</FormLabel>
                         <FormControl>
-                          <Input placeholder='Reason for disciplinary action' {...field} />
+                          <Input placeholder={t('disciplinaryForm.placeholders.reason')} {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -219,7 +220,7 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
 
         <DialogFooter className='flex gap-2'>
           <Button type='submit' form='disciplinary-action-form'>
-            Save changes
+            {t('common.saveChanges')}
           </Button>
         </DialogFooter>
       </DialogContent>
