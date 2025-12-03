@@ -3,6 +3,9 @@ import useDialogState from '@/hooks/use-dialog-state'
 import { useBankExperiences } from '@/hooks/use-bank-experiences'
 import type { BankExperience } from '@/stores/dataStore'
 
+// Re-export BankExperience type for components
+export type { BankExperience }
+
 export interface EmployeeInfo {
   employeeId: string
   lastName: string
