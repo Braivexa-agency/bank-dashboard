@@ -12,7 +12,7 @@ import { BankExperienceDialogs } from "@/features/bank-experience/components/ban
 import NonBankExperienceProvider from "@/features/non-bank-experience/context/non-bank-experience-context";
 import { NonBankExperienceDialogs } from "@/features/non-bank-experience/components/non-bank-experience-dialogs";
 import { InformationSheetTable } from "./components/information-sheet-table";
-import { columns } from "./components/information-sheet-columns";
+import { useInformationSheetColumns } from "./components/use-information-sheet-columns";
 import { useUiActions } from "@/stores/useUiStore";
 import { useDataStore } from "@/stores/useDataStore";
 
@@ -20,6 +20,7 @@ function InformationSheetContent() {
   const informationSheets = useDataStore((state) => state.informationSheets);
   const { openInformationSheet, openDisciplinaryAction } = useUiActions();
   const { t } = useTranslation();
+  const columns = useInformationSheetColumns();
 
   return (
     <>
