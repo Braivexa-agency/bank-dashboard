@@ -75,6 +75,14 @@ const baseSchema = z.object({
   suspensionFrom: z.string().optional(),
   suspensionTo: z.string().optional(),
   lastDecision: z.string().optional(),
+  prenomAr: z.string().optional(),
+  nomAr: z.string().optional(),
+  fatherNameAr: z.string().optional(),
+  motherNameAr: z.string().optional(),
+  motherLastNameAr: z.string().optional(),
+  wilayaNaissance: z.string().optional(),
+  dairaResidence: z.string().optional(),
+  adresseAr: z.string().optional(),
   experienceType: z.enum(['bank', 'non-bank']).optional(),
   affectation: z.string().optional(),
   poste: z.string().optional(),
@@ -151,6 +159,14 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
     suspensionFrom: z.string().optional(),
     suspensionTo: z.string().optional(),
     lastDecision: z.string().optional(),
+    prenomAr: z.string().optional(),
+    nomAr: z.string().optional(),
+    fatherNameAr: z.string().optional(),
+    motherNameAr: z.string().optional(),
+    motherLastNameAr: z.string().optional(),
+    wilayaNaissance: z.string().optional(),
+    dairaResidence: z.string().optional(),
+    adresseAr: z.string().optional(),
     experienceType: z.enum(['bank', 'non-bank']).optional(),
     affectation: z.string().optional(),
     poste: z.string().optional(),
@@ -236,6 +252,14 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
     diplome: 'Certificat en Gestion des Risques',
     autreDiplome: 'Atelier conformité',
     observations: 'Cycle certifiant 40h',
+    prenomAr: 'أحمد',
+    nomAr: 'بن علي',
+    fatherNameAr: 'محمد',
+    motherNameAr: 'عائشة',
+    motherLastNameAr: 'بن سعيد',
+    wilayaNaissance: 'الجزائر',
+    dairaResidence: 'سيدي امحمد',
+    adresseAr: '123 شارع الجمهورية، الجزائر',
   }
 
   const form = useForm<InformationSheetForm>({
@@ -323,6 +347,15 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
       diplome: values.diplome || '',
       autreDiplome: values.autreDiplome || '',
       observations: values.observations || '',
+      // Arabic and location fields
+      prenomAr: values.prenomAr || '',
+      nomAr: values.nomAr || '',
+      fatherNameAr: values.fatherNameAr || '',
+      motherNameAr: values.motherNameAr || '',
+      motherLastNameAr: values.motherLastNameAr || '',
+      wilayaNaissance: values.wilayaNaissance || '',
+      dairaResidence: values.dairaResidence || '',
+      adresseAr: values.adresseAr || '',
       // Initialize with empty disciplinary actions array
       disciplinaryActions: []
     }
@@ -408,6 +441,15 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
       diplome: 'Certificat en Gestion des Risques',
       autreDiplome: 'Atelier conformité',
       observations: 'Cycle certifiant 40h',
+      // Arabic fields
+      prenomAr: 'أحمد',
+      nomAr: 'بن علي',
+      fatherNameAr: 'محمد',
+      motherNameAr: 'عائشة',
+      motherLastNameAr: 'بن سعيد',
+      wilayaNaissance: 'الجزائر',
+      dairaResidence: 'سيدي امحمد',
+      adresseAr: '123 شارع الجمهورية، الجزائر',
     })
   }
 
@@ -624,6 +666,110 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
                             {...field}
                             onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                           />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='prenomAr'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>First Name (Arabic) - الاسم</FormLabel>
+                        <FormControl>
+                          <Input placeholder='الاسم' {...field} dir='rtl' />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='nomAr'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Last Name (Arabic) - اللقب</FormLabel>
+                        <FormControl>
+                          <Input placeholder='اللقب' {...field} dir='rtl' />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='fatherNameAr'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Father Name (Arabic) - اسم الأب</FormLabel>
+                        <FormControl>
+                          <Input placeholder='اسم الأب' {...field} dir='rtl' />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='motherNameAr'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mother Name (Arabic) - اسم الأم</FormLabel>
+                        <FormControl>
+                          <Input placeholder='اسم الأم' {...field} dir='rtl' />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='motherLastNameAr'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mother Last Name (Arabic) - لقب الأم</FormLabel>
+                        <FormControl>
+                          <Input placeholder='لقب الأم' {...field} dir='rtl' />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='wilayaNaissance'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Wilaya of Birth - ولاية الميلاد</FormLabel>
+                        <FormControl>
+                          <Input placeholder='ولاية الميلاد' {...field} dir='rtl' />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='dairaResidence'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Daira of Residence - دائرة الإقامة</FormLabel>
+                        <FormControl>
+                          <Input placeholder='دائرة الإقامة' {...field} dir='rtl' />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='adresseAr'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Address (Arabic) - العنوان</FormLabel>
+                        <FormControl>
+                          <Input placeholder='العنوان' {...field} dir='rtl' />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
