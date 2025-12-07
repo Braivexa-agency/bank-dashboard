@@ -52,6 +52,15 @@ export interface InformationSheet {
   suspensionFrom: string
   suspensionTo: string
   lastDecision: string
+  // Arabic and location fields for enquête reports
+  prenomAr?: string
+  nomAr?: string
+  fatherNameAr?: string
+  motherNameAr?: string
+  motherLastNameAr?: string
+  wilayaNaissance?: string
+  dairaResidence?: string
+  adresseAr?: string
   // Banking Experience specific fields
   affectation: string
   poste: string
