@@ -19,10 +19,14 @@ const EnqueteDaira: React.FC<EnqueteDairaProps> = ({ employee }) => {
   const rows = [
     {
       serial: '01',
-      name: `${employee.prenom || ''} ${employee.nom || ''}`.trim(),
-      birth: employee.dateOfBirth ? `${formatDate(employee.dateOfBirth)} - ${enqueteInfo?.wilayaNaissance || ''}` : '',
-      parents: `${employee.fatherName || ''} / ${employee.motherName || ''}`.trim(),
-      address: employee.address || '',
+      name: employee.prenomAr && employee.nomAr 
+        ? `${employee.prenomAr} ${employee.nomAr}`.trim()
+        : `${employee.prenom || ''} ${employee.nom || ''}`.trim(),
+      birth: employee.dateOfBirth ? `${formatDate(employee.dateOfBirth)} - ${employee.wilayaNaissance || enqueteInfo?.wilayaNaissance || ''}` : '',
+      parents: employee.fatherNameAr && employee.motherNameAr
+        ? `${employee.fatherNameAr} / ${employee.motherNameAr}${employee.motherLastNameAr ? ' ' + employee.motherLastNameAr : ''}`.trim()
+        : `${employee.fatherName || ''} / ${employee.motherName || ''}`.trim(),
+      address: employee.adresseAr || employee.address || '',
       phone: enqueteInfo?.numeroTelephone || '',
     },
     {
