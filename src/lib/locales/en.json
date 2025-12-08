@@ -26,7 +26,8 @@
         "more": "more",
         "saveChanges": "Save changes",
         "select": "Select",
-        "reset": "Reset"
+        "reset": "Reset",
+        "openMenu": "Open menu"
     },
     "auth": {
         "signIn": "Sign In",
@@ -341,6 +342,13 @@
         "badRequest": "Bad Request"
     },
     "rowActions": {
+        "employeeActions": "Employee Actions",
+        "mainActions": "Main Actions",
+        "certificates": "Certificates & Reports",
+        "experience": "Experience",
+        "disciplinaryActions": "Disciplinary Actions",
+        "dangerZone": "Danger Zone",
+        "addDisciplinaryAction": "Add Disciplinary Action",
         "viewWorkCertificate": "View Work Certificate",
         "viewDetailedCertificate": "View Detailed Certificate",
         "viewEnqueteWilaya": "View Enquête Wilaya",
