@@ -25,9 +25,9 @@ import {
 import { InformationSheet } from '@/stores/dataStore'
 import { DataTablePagination } from '@/features/bank-experience/components/data-table-pagination'
 import { DataTableToolbar } from './data-table-toolbar'
+import { useTranslation } from 'react-i18next'
 
 declare module '@tanstack/react-table' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
     className: string
   }
@@ -39,10 +39,14 @@ interface DataTableProps {
 }
 
 export function InformationSheetTable({ columns, data }: DataTableProps) {
+  const { t } = useTranslation()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
+  
+  // Check if the original data is empty (not just filtered)
+  const isEmpty = data.length === 0
 
   const table = useReactTable({
     data,
@@ -120,7 +124,10 @@ export function InformationSheetTable({ columns, data }: DataTableProps) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  {isEmpty 
+                    ? (t('informationSheet.noEmployees') || 'No employees found')
+                    : (t('informationSheet.noResults') || 'No results found')
+                  }
                 </TableCell>
               </TableRow>
             )}
