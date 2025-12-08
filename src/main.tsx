@@ -16,6 +16,8 @@ import { ThemeProvider } from './context/theme-context'
 import './index.css'
 // i18n
 import './lib/i18n'
+// Vercel Speed Insights
+import { SpeedInsights } from '@vercel/speed-insights/react'
 // Generated Routes
 import { routeTree } from './routeTree.gen'
 
@@ -98,6 +100,7 @@ if (!rootElement.innerHTML) {
           </FontProvider>
         </ThemeProvider>
         {import.meta.env.DEV ? <ReactQueryDevtools initialIsOpen={false} /> : null}
+        <SpeedInsights />
       </QueryClientProvider>
     </StrictMode>
   )
