@@ -14,13 +14,13 @@ import { NonBankExperienceDialogs } from "@/features/non-bank-experience/compone
 import { InformationSheetTable } from "./components/information-sheet-table";
 import { useInformationSheetColumns } from "./components/use-information-sheet-columns";
 import { useUiActions } from "@/stores/useUiStore";
-import { useDataStore } from "@/stores/useDataStore";
+import { useInformationSheets } from "@/hooks/use-information-sheets";
 
 function InformationSheetContent() {
-  const informationSheets = useDataStore((state) => state.informationSheets);
   const { openInformationSheet, openDisciplinaryAction } = useUiActions();
   const { t } = useTranslation();
   const columns = useInformationSheetColumns();
+  const { data: informationSheets = [], isLoading, error } = useInformationSheets();
 
   return (
     <>
@@ -53,7 +53,17 @@ function InformationSheetContent() {
         </div>
 
         <div className="-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12">
-          <InformationSheetTable data={informationSheets} columns={columns} />
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <p className="text-muted-foreground">{t('informationSheet.loading') || 'Loading employees...'}</p>
+            </div>
+          ) : error ? (
+            <div className="flex items-center justify-center py-12">
+              <p className="text-destructive">{t('informationSheet.error') || 'Error loading employees'}</p>
+            </div>
+          ) : (
+            <InformationSheetTable data={informationSheets} columns={columns} />
+          )}
         </div>
       </Main>
 
