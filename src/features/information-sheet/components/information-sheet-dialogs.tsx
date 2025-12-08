@@ -1,6 +1,7 @@
 import { useUiStore, useUiActions } from '@/stores/useUiStore'
 import { InformationSheetDialog } from './information-sheet-dialog'
 import { DisciplinaryActionsDialog } from './disciplinary-actions-dialog'
+import { InformationSheetDeleteDialog } from './information-sheet-delete-dialog'
 import { dataActions, dataStore, DisciplinaryAction, InformationSheet } from '@/stores/dataStore'
 
 export function InformationSheetDialogs() {
@@ -82,6 +83,20 @@ export function InformationSheetDialogs() {
             onOpenChange={(isOpen) => {
               if (isOpen) {
                 openInformationSheet('edit', currentRow.id)
+              } else {
+                closeInformationSheet()
+                setInformationSheetCurrentRow(null)
+              }
+            }}
+            currentRow={currentRow}
+          />
+
+          <InformationSheetDeleteDialog
+            key={`information-sheet-delete-${currentRow.id}`}
+            open={open === 'delete'}
+            onOpenChange={(isOpen) => {
+              if (isOpen) {
+                openInformationSheet('delete', currentRow.id)
               } else {
                 closeInformationSheet()
                 setInformationSheetCurrentRow(null)
