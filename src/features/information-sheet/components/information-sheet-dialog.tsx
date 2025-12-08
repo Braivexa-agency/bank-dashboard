@@ -4,7 +4,6 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -32,7 +31,7 @@ import {
 } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { InformationSheet } from '@/stores/dataStore'
-import { dataActions, dataStore } from '@/stores/dataStore'
+import { useCreateInformationSheet, useUpdateInformationSheet } from '@/hooks/use-information-sheets'
 
 const baseSchema = z.object({
   matricule: z.string().min(1),
@@ -273,105 +272,29 @@ export function InformationSheetDialog({ currentRow, open, onOpenChange }: Props
         },
   })
 
-  const onSubmit = (values: InformationSheetForm) => {
-    // Get the current max ID from the store to generate a new ID
-    const currentSheets = dataStore.state.informationSheets
-    const newId = currentSheets.length > 0 
-      ? Math.max(...currentSheets.map(sheet => sheet.id)) + 1 
-      : 1
 
-    // Create a new information sheet object with all the form values
-    const newSheet: InformationSheet = {
-      id: newId,
-      // Required fields
-      matricule: values.matricule,
-      nom: values.nom,
-      prenom: values.prenom,
-      nationalId: values.nationalId,
-      fatherName: values.fatherName,
-      motherName: values.motherName,
-      spouseName: values.spouseName || '',
-      dateOfBirth: values.dateOfBirth,
-      address: values.address || '',
-      gender: values.gender,
-      maritalStatus: values.maritalStatus,
-      numberOfChildren: Number(values.numberOfChildren) || 0,
-      hireDate: values.hireDate,
-      bankingExperience: values.bankingExperience || '',
-      contractType: values.contractType,
-      socialSecurityNumber: values.socialSecurityNumber,
-      educationLevel: values.educationLevel,
-      diplomaType: values.diplomaType || '',
-      academicDiploma: values.academicDiploma || '',
-      otherDiplomas: values.otherDiplomas || '',
-      currentPosition: values.currentPosition || '',
-      positionCode: values.positionCode || '',
-      group: values.group,
-      activity: values.activity || '',
-      classe: values.classe || '',
-      echelon: values.echelon || '',
-      indice: values.indice || '',
-      pbi: Number(values.pbi) || 0,
-      structure: values.structure || '',
-      reporting: values.reporting || '',
-      code: values.code || '',
-      structureType: values.structureType || '',
-      decisionType: values.decisionType || '',
-      decisionNumber: values.decisionNumber || '',
-      decisionDate: values.decisionDate || '',
-      effectiveDate: values.effectiveDate || '',
-      positioning: values.positioning || '',
-      suspensionFrom: values.suspensionFrom || '',
-      suspensionTo: values.suspensionTo || '',
-      lastDecision: values.lastDecision || '',
-      // Banking Experience specific fields
-      affectation: values.affectation || '',
-      poste: values.poste || '',
-      activite: values.activite || '',
-      natureDecision: values.natureDecision || '',
-      refDecision: values.refDecision || '',
-      dateDecision: values.dateDecision || '',
-      dateEffet: values.dateEffet || '',
-      chargeInterim: values.chargeInterim || '',
-      // Non-Banking Experience specific fields
-      entreprise: values.entreprise || '',
-      lieuTravail: values.lieuTravail || '',
-      posteOccupe: values.posteOccupe || '',
-      du: values.du || '',
-      au: values.au || '',
-      duree: values.duree || '',
-      // Professional Training fields
-      specialite: values.specialite || '',
-      autreSpecialite: values.autreSpecialite || '',
-      etablissement: values.etablissement || '',
-      diplome: values.diplome || '',
-      autreDiplome: values.autreDiplome || '',
-      observations: values.observations || '',
-      // Arabic and location fields
-      prenomAr: values.prenomAr || '',
-      nomAr: values.nomAr || '',
-      fatherNameAr: values.fatherNameAr || '',
-      motherNameAr: values.motherNameAr || '',
-      motherLastNameAr: values.motherLastNameAr || '',
-      wilayaNaissance: values.wilayaNaissance || '',
-      dairaResidence: values.dairaResidence || '',
-      adresseAr: values.adresseAr || '',
-      // Initialize with empty disciplinary actions array
-      disciplinaryActions: []
-    }
+  const createMutation = useCreateInformationSheet()
+  const updateMutation = useUpdateInformationSheet()
 
-    if (isEdit && currentRow) {
-      // Update existing sheet
-      dataActions.updateInformationSheet(currentRow.id, newSheet)
-      toast.success('Employee information updated successfully')
-    } else {
-      // Add new sheet
-      dataActions.addInformationSheet(newSheet)
-      toast.success('New employee added successfully')
+  const onSubmit = async (values: InformationSheetForm) => {
+    try {
+      if (isEdit && currentRow) {
+        // Update existing employee via API
+        await updateMutation.mutateAsync({
+          id: currentRow.id,
+          data: values as Partial<InformationSheet>
+        })
+      } else {
+        // Create new employee via API
+        await createMutation.mutateAsync(values as Partial<InformationSheet>)
+      }
+      
+      form.reset()
+      onOpenChange(false)
+    } catch (error) {
+      console.error('Error saving employee:', error)
+      // Toast errors are already handled in the hooks
     }
-    
-    form.reset()
-    onOpenChange(false)
   }
 
   // Function to populate form with predefined data
