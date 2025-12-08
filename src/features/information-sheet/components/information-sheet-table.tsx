@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   RowData,
   SortingState,
   VisibilityState,
@@ -25,6 +26,7 @@ import {
 import { InformationSheet } from '@/stores/dataStore'
 import { DataTablePagination } from '@/features/bank-experience/components/data-table-pagination'
 import { DataTableToolbar } from './data-table-toolbar'
+import { EmployeeActionsSheet } from './employee-actions-sheet'
 import { useTranslation } from 'react-i18next'
 
 declare module '@tanstack/react-table' {
@@ -44,6 +46,8 @@ export function InformationSheetTable({ columns, data }: DataTableProps) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
+  const [selectedRow, setSelectedRow] = useState<Row<InformationSheet> | null>(null)
+  const [sheetOpen, setSheetOpen] = useState(false)
   
   // Check if the original data is empty (not just filtered)
   const isEmpty = data.length === 0
@@ -103,12 +107,22 @@ export function InformationSheetTable({ columns, data }: DataTableProps) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  className='group/row'
+                  className='group/row cursor-pointer'
+                  onClick={() => {
+                    setSelectedRow(row)
+                    setSheetOpen(true)
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
                       className={cell.column.columnDef.meta?.className ?? ''}
+                      onClick={(e) => {
+                        // Prevent row click for checkbox and actions column
+                        if (cell.column.id === 'select' || cell.column.id === 'actions') {
+                          e.stopPropagation()
+                        }
+                      }}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
@@ -135,6 +149,11 @@ export function InformationSheetTable({ columns, data }: DataTableProps) {
         </Table>
       </div>
       <DataTablePagination table={table} />
+      <EmployeeActionsSheet
+        open={sheetOpen}
+        onOpenChange={setSheetOpen}
+        row={selectedRow}
+      />
     </div>
   )
 }
