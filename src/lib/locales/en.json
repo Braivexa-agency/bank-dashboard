@@ -78,7 +78,19 @@
         "title": "Employee Information Sheet",
         "description": "Manage comprehensive employee information, records, banking experience, and disciplinary actions.",
         "addEmployee": "Add Employee",
-        "addDisciplinaryAction": "Add Disciplinary Action"
+        "addDisciplinaryAction": "Add Disciplinary Action",
+        "loading": "Loading employees...",
+        "error": "Error loading employees",
+        "noEmployees": "No employees found",
+        "noResults": "No results found",
+        "employee": "Employee",
+        "deleteDialog": {
+            "title": "Delete Employee",
+            "message": "Are you sure you want to delete {{name}} ({{matricule}})?",
+            "warning": "This action will permanently remove the employee from the system. This cannot be undone.",
+            "alertTitle": "Warning!",
+            "alertDescription": "Please be careful, this operation cannot be rolled back."
+        }
     },
     "tableToolbar": {
         "filterEmployees": "Filter employees..."
