@@ -26,7 +26,8 @@
         "more": "de plus",
         "saveChanges": "Enregistrer les modifications",
         "select": "Sélectionner",
-        "reset": "Réinitialiser"
+        "reset": "Réinitialiser",
+        "openMenu": "Ouvrir le menu"
     },
     "auth": {
         "signIn": "Se connecter",
@@ -341,6 +342,13 @@
         "badRequest": "Mauvaise requête"
     },
     "rowActions": {
+        "employeeActions": "Actions d'employé",
+        "mainActions": "Actions principales",
+        "certificates": "Certificats et rapports",
+        "experience": "Expérience",
+        "disciplinaryActions": "Actions disciplinaires",
+        "dangerZone": "Zone de danger",
+        "addDisciplinaryAction": "Ajouter une action disciplinaire",
         "viewWorkCertificate": "Voir le certificat de travail",
         "viewDetailedCertificate": "Voir le certificat détaillé",
         "viewEnqueteWilaya": "Voir l'enquête Wilaya",
