@@ -132,6 +132,15 @@ function transformInformationSheet(data: any): InformationSheet {
     diplome: data.diplome || '',
     autreDiplome: data.autre_diplome || '',
     observations: data.observations || '',
+    // Arabic and location fields
+    prenomAr: data.prenom_ar || '',
+    nomAr: data.nom_ar || '',
+    fatherNameAr: data.father_name_ar || '',
+    motherNameAr: data.mother_name_ar || '',
+    motherLastNameAr: data.mother_last_name_ar || '',
+    wilayaNaissance: data.wilaya_naissance || '',
+    dairaResidence: data.daira_residence || '',
+    adresseAr: data.adresse_ar || '',
     // Related data
     disciplinaryActions: (data.disciplinary_actions || []).map((da: any) => ({
       id: da.id,
@@ -205,6 +214,15 @@ export const informationSheetsApi = {
       suspension_from: sheet.suspensionFrom,
       suspension_to: sheet.suspensionTo,
       last_decision: sheet.lastDecision,
+      // Arabic and location fields
+      prenom_ar: sheet.prenomAr,
+      nom_ar: sheet.nomAr,
+      father_name_ar: sheet.fatherNameAr,
+      mother_name_ar: sheet.motherNameAr,
+      mother_last_name_ar: sheet.motherLastNameAr,
+      wilaya_naissance: sheet.wilayaNaissance,
+      daira_residence: sheet.dairaResidence,
+      adresse_ar: sheet.adresseAr,
     }
 
     const response = await apiClient.post<InformationSheetResponse>('/information-sheets', apiData)
@@ -255,6 +273,15 @@ export const informationSheetsApi = {
     if (sheet.suspensionFrom !== undefined) apiData.suspension_from = sheet.suspensionFrom
     if (sheet.suspensionTo !== undefined) apiData.suspension_to = sheet.suspensionTo
     if (sheet.lastDecision !== undefined) apiData.last_decision = sheet.lastDecision
+    // Arabic and location fields
+    if (sheet.prenomAr !== undefined) apiData.prenom_ar = sheet.prenomAr
+    if (sheet.nomAr !== undefined) apiData.nom_ar = sheet.nomAr
+    if (sheet.fatherNameAr !== undefined) apiData.father_name_ar = sheet.fatherNameAr
+    if (sheet.motherNameAr !== undefined) apiData.mother_name_ar = sheet.motherNameAr
+    if (sheet.motherLastNameAr !== undefined) apiData.mother_last_name_ar = sheet.motherLastNameAr
+    if (sheet.wilayaNaissance !== undefined) apiData.wilaya_naissance = sheet.wilayaNaissance
+    if (sheet.dairaResidence !== undefined) apiData.daira_residence = sheet.dairaResidence
+    if (sheet.adresseAr !== undefined) apiData.adresse_ar = sheet.adresseAr
 
     const response = await apiClient.put<InformationSheetResponse>(`/information-sheets/${id}`, apiData)
     return transformInformationSheet(response.data)
