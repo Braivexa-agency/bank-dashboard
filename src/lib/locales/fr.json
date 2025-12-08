@@ -78,7 +78,19 @@
         "title": "Fiche d'information des employés",
         "description": "Gérer les informations complètes des employés, les dossiers, l'expérience bancaire et les actions disciplinaires.",
         "addEmployee": "Ajouter un employé",
-        "addDisciplinaryAction": "Ajouter une action disciplinaire"
+        "addDisciplinaryAction": "Ajouter une action disciplinaire",
+        "loading": "Chargement des employés...",
+        "error": "Erreur lors du chargement des employés",
+        "noEmployees": "Aucun employé trouvé",
+        "noResults": "Aucun résultat trouvé",
+        "employee": "Employé",
+        "deleteDialog": {
+            "title": "Supprimer l'employé",
+            "message": "Êtes-vous sûr de vouloir supprimer {{name}} ({{matricule}})?",
+            "warning": "Cette action supprimera définitivement l'employé du système. Cette opération ne peut pas être annulée.",
+            "alertTitle": "Attention!",
+            "alertDescription": "Veuillez être prudent, cette opération ne peut pas être annulée."
+        }
     },
     "tableToolbar": {
         "filterEmployees": "Filtrer les employés..."
