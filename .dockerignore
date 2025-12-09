@@ -43,5 +43,4 @@ coverage
 README.md
 .prettierrc
 .eslintrc*
-tsconfig.json
-vite.config.ts
+
