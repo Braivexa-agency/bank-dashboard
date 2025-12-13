@@ -2,9 +2,8 @@ import { useUiStore, useUiActions } from '@/stores/useUiStore'
 import { InformationSheetDialog } from './information-sheet-dialog'
 import { DisciplinaryActionsDialog } from './disciplinary-actions-dialog'
 import { InformationSheetDeleteDialog } from './information-sheet-delete-dialog'
-import { DisciplinaryAction, dataActions, dataStore, InformationSheet } from '@/stores/dataStore'
-import { toast } from 'sonner'
-import { disciplinaryActionsApi } from '@/lib/api/disciplinary-actions'
+import { DisciplinaryAction } from '@/stores/dataStore'
+import { useCreateDisciplinaryAction, useUpdateDisciplinaryAction } from '@/hooks/use-disciplinary-actions'
 
 export function InformationSheetDialogs() {
   const open = useUiStore((state) => state.informationSheetDialog)
@@ -13,59 +12,33 @@ export function InformationSheetDialogs() {
   const disciplinaryActionCurrentRow = useUiStore((state) => state.disciplinaryActionCurrentRow)
   const { openInformationSheet, closeInformationSheet, setInformationSheetCurrentRow, openDisciplinaryAction, closeDisciplinaryAction, setDisciplinaryActionCurrentRow } = useUiActions()
   
-  const handleDisciplinaryActionSave = async (data: Partial<DisciplinaryAction>) => {
-    try {
-      if (disciplinaryActionCurrentRow) {
-        // Edit existing disciplinary action
-        const updatedAction = await disciplinaryActionsApi.update(disciplinaryActionCurrentRow.id, data)
-        
-        // Update local store with the response from server
-        dataActions.updateDisciplinaryAction(disciplinaryActionCurrentRow.id, updatedAction)
-        
-        // Update the disciplinary action in all information sheets that have it
-        const informationSheets = dataStore.state.informationSheets
-        const updatedSheets = informationSheets.map((sheet: InformationSheet) => ({
-          ...sheet,
-          disciplinaryActions: sheet.disciplinaryActions.map((action: DisciplinaryAction) => 
-            action.id === disciplinaryActionCurrentRow.id 
-              ? updatedAction
-              : action
-          )
-        }))
-        dataActions.setInformationSheets(updatedSheets)
-        toast.success('Disciplinary action updated successfully')
-      } else {
-        // Add new disciplinary action
-        if (!currentRow) {
-          toast.error('No employee selected')
-          return
-        }
+  const createDisciplinaryAction = useCreateDisciplinaryAction()
+  const updateDisciplinaryAction = useUpdateDisciplinaryAction()
 
-        const newAction = await disciplinaryActionsApi.create({
-          ...data,
-          informationSheetId: currentRow.id
-        })
-        
-        // Add to global disciplinary actions store
-        dataActions.addDisciplinaryAction(newAction)
-        
-        // Add to the current employee
-        const informationSheets = dataStore.state.informationSheets
-        const updatedSheets = informationSheets.map((sheet: InformationSheet) => {
-          if (sheet.id === currentRow.id) {
-            return {
-              ...sheet,
-              disciplinaryActions: [...sheet.disciplinaryActions, newAction]
-            }
-          }
-          return sheet
-        })
-        dataActions.setInformationSheets(updatedSheets)
-        toast.success('Disciplinary action added successfully')
-      }
-    } catch (error) {
-      console.error('Failed to save disciplinary action:', error)
-      toast.error('Failed to save disciplinary action')
+  const handleDisciplinaryActionSave = (data: Partial<DisciplinaryAction>) => {
+    if (disciplinaryActionCurrentRow) {
+      // Edit existing disciplinary action
+      updateDisciplinaryAction.mutate({ 
+        id: disciplinaryActionCurrentRow.id, 
+        data 
+      }, {
+        onSuccess: () => {
+           closeDisciplinaryAction()
+           setDisciplinaryActionCurrentRow(null)
+        }
+      })
+    } else {
+      // Add new disciplinary action
+      if (!currentRow) return
+
+      createDisciplinaryAction.mutate({
+        ...data,
+        informationSheetId: currentRow.id
+      }, {
+        onSuccess: () => {
+           closeDisciplinaryAction()
+        }
+      })
     }
   }
   
