@@ -6,15 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Link, useNavigate } from '@tanstack/react-router'
-import { useAuthStore } from '@/stores/authStore'
+import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 import AuthLayout from '../auth-layout'
 import { UserAuthForm } from './components/user-auth-form'
 
 export default function SignIn() {
-  const navigate = useNavigate()
-  const setAccessToken = useAuthStore((state) => state.auth.setAccessToken)
   const { t } = useTranslation()
 
   return (
