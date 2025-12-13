@@ -36,6 +36,14 @@ export const authApi = {
   },
 
   /**
+   * Register with name, email and password
+   */
+  register: async (data: LoginCredentials & { name: string }): Promise<AuthResponse> => {
+    const response = await apiClient.post<AuthResponse>('/auth/register', data)
+    return response.data
+  },
+
+  /**
    * Logout and revoke current token
    */
   logout: async (): Promise<void> => {
