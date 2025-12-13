@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -78,6 +79,29 @@ export function DisciplinaryActionsDialog({ currentRow, open, onOpenChange, onSa
           motifSanction: '',
         },
   })
+
+  // Reset form when currentRow changes
+  useEffect(() => {
+    if (currentRow) {
+      form.reset({
+        typeSanction: currentRow.typeSanction,
+        classification: currentRow.classification,
+        numeroDecision: currentRow.numeroDecision,
+        dateDecision: currentRow.dateDecision,
+        dateEffet: currentRow.dateEffet,
+        motifSanction: currentRow.motifSanction,
+      })
+    } else {
+      form.reset({
+        typeSanction: '',
+        classification: '',
+        numeroDecision: '',
+        dateDecision: '',
+        dateEffet: '',
+        motifSanction: '',
+      })
+    }
+  }, [currentRow, form])
 
   const onSubmit = (values: DisciplinaryActionForm) => {
     onSave(values)
