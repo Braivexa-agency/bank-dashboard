@@ -17,7 +17,7 @@ import { useUiActions } from "@/stores/useUiStore";
 import { useInformationSheets } from "@/hooks/use-information-sheets";
 
 function InformationSheetContent() {
-  const { openInformationSheet, openDisciplinaryAction } = useUiActions();
+  const { openInformationSheet } = useUiActions();
   const { t } = useTranslation();
   const columns = useInformationSheetColumns();
   const { data: informationSheets = [], isLoading, error } = useInformationSheets();
@@ -45,9 +45,6 @@ function InformationSheetContent() {
           <div className="flex gap-2">
             <Button className="space-x-1" onClick={() => openInformationSheet("add")}>
               <span>{t('informationSheet.addEmployee')} </span> <IconPlus size={18} />
-            </Button>
-            <Button variant="outline" className="space-x-1" onClick={() => openDisciplinaryAction("add")}>
-              <span>{t('informationSheet.addDisciplinaryAction')} </span> <IconPlus size={18} />
             </Button>
           </div>
         </div>
