@@ -12,11 +12,10 @@ import { InformationSheet } from '@/stores/dataStore'
 import { useBankExperience } from '@/features/bank-experience/context/bank-experience-context'
 import { useNonBankExperience } from '@/features/non-bank-experience/context/non-bank-experience-context'
 import { useUiActions } from '@/stores/useUiStore'
-import { dataActions } from '@/stores/dataStore'
-import { toast } from 'sonner'
 import { useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { useDeleteDisciplinaryAction } from '@/hooks/use-disciplinary-actions'
 
 interface EmployeeActionsSheetProps {
   open: boolean
@@ -35,26 +34,15 @@ export function EmployeeActionsSheet({
   const navigate = useNavigate()
   const { t } = useTranslation()
 
+  const deleteDisciplinaryAction = useDeleteDisciplinaryAction()
+
   if (!row) return null
 
   const handleDeleteDisciplinaryAction = (actionId: number) => {
     const actionToDelete = row.original.disciplinaryActions.find(action => action.id === actionId)
     
     if (window.confirm(t('rowActions.confirmDeleteAction', { action: actionToDelete?.typeSanction }))) {
-      dataActions.deleteDisciplinaryAction(actionId)
-      
-      const updatedEmployee = {
-        ...row.original,
-        disciplinaryActions: row.original.disciplinaryActions.filter(action => action.id !== actionId)
-      }
-      
-      dataActions.updateInformationSheet(row.original.id, {
-        disciplinaryActions: updatedEmployee.disciplinaryActions
-      })
-      
-      toast.success(
-        t('rowActions.deleteActionSuccess', { action: actionToDelete?.typeSanction })
-      )
+      deleteDisciplinaryAction.mutate(actionId)
     }
   }
 
