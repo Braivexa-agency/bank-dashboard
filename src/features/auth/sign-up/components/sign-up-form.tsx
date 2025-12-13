@@ -15,11 +15,16 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
+import { authApi } from '@/lib/api/auth'
+import { useAuthStore } from '@/stores/authStore'
+import { toast } from 'sonner'
+import { useNavigate } from '@tanstack/react-router'
 
 type SignUpFormProps = HTMLAttributes<HTMLFormElement>
 
 const formSchema = z
   .object({
+    name: z.string().min(1, { message: 'Please enter your name' }),
     email: z
       .string()
       .min(1, { message: 'Please enter your email' })
@@ -41,24 +46,48 @@ const formSchema = z
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
+  const { setAccessToken, setUser } = useAuthStore((state) => state.auth)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: '',
       email: '',
       password: '',
       confirmPassword: '',
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
-    // eslint-disable-next-line no-console
-    console.log(data)
+    
+    try {
+      const response = await authApi.register({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      })
 
-    setTimeout(() => {
+      // Auto login
+      setAccessToken(response.token)
+      setUser({
+        accountNo: response.user.accountNo,
+        email: response.user.email,
+        name: response.user.name,
+        avatar: response.user.avatar,
+        role: response.user.role,
+        exp: Date.now() + 3600000,
+      })
+
+      toast.success('Account created successfully!')
+      navigate({ to: '/' })
+    } catch (error) {
+      console.error('Registration error:', error)
+      toast.error('Registration failed. Please try again.')
+    } finally {
       setIsLoading(false)
-    }, 3000)
+    }
   }
 
   return (
@@ -68,6 +97,19 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
         className={cn('grid gap-3', className)}
         {...props}
       >
+        <FormField
+          control={form.control}
+          name='name'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder='John Doe' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name='email'
