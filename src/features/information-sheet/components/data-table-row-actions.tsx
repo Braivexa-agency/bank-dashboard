@@ -14,10 +14,9 @@ import { InformationSheet } from '@/stores/dataStore'
 import { useBankExperience } from '@/features/bank-experience/context/bank-experience-context'
 import { useNonBankExperience } from '@/features/non-bank-experience/context/non-bank-experience-context'
 import { useUiActions } from '@/stores/useUiStore'
-import { dataActions } from '@/stores/dataStore'
-import { toast } from 'sonner'
 import { useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
+import { useDeleteDisciplinaryAction } from '@/hooks/use-disciplinary-actions'
 
 interface DataTableRowActionsProps {
   row: Row<InformationSheet>
@@ -29,6 +28,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
   const { setOpen: setNonBankOpen, setCurrentRow: setNonBankCurrentRow } = useNonBankExperience()
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const deleteDisciplinaryAction = useDeleteDisciplinaryAction()
   
   const handleDeleteDisciplinaryAction = (actionId: number) => {
     // Find the action to get its details for the confirmation and toast message
@@ -36,24 +36,7 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
     
     // Show confirmation dialog
     if (window.confirm(t('rowActions.confirmDeleteAction', { action: actionToDelete?.typeSanction }))) {
-      // Delete from global store
-      dataActions.deleteDisciplinaryAction(actionId)
-      
-      // Remove from the current employee's disciplinary actions
-      const updatedEmployee = {
-        ...row.original,
-        disciplinaryActions: row.original.disciplinaryActions.filter(action => action.id !== actionId)
-      }
-      
-      // Update the information sheets by updating the specific employee
-      dataActions.updateInformationSheet(row.original.id, {
-        disciplinaryActions: updatedEmployee.disciplinaryActions
-      })
-      
-      // Show success message
-      toast.success(
-        t('rowActions.deleteActionSuccess', { action: actionToDelete?.typeSanction })
-      )
+      deleteDisciplinaryAction.mutate(actionId)
     }
   }
   
