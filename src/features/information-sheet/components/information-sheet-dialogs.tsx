@@ -2,7 +2,9 @@ import { useUiStore, useUiActions } from '@/stores/useUiStore'
 import { InformationSheetDialog } from './information-sheet-dialog'
 import { DisciplinaryActionsDialog } from './disciplinary-actions-dialog'
 import { InformationSheetDeleteDialog } from './information-sheet-delete-dialog'
-import { dataActions, dataStore, DisciplinaryAction, InformationSheet } from '@/stores/dataStore'
+import { DisciplinaryAction, dataActions, dataStore, InformationSheet } from '@/stores/dataStore'
+import { toast } from 'sonner'
+import { disciplinaryActionsApi } from '@/lib/api/disciplinary-actions'
 
 export function InformationSheetDialogs() {
   const open = useUiStore((state) => state.informationSheetDialog)
@@ -11,59 +13,59 @@ export function InformationSheetDialogs() {
   const disciplinaryActionCurrentRow = useUiStore((state) => state.disciplinaryActionCurrentRow)
   const { openInformationSheet, closeInformationSheet, setInformationSheetCurrentRow, openDisciplinaryAction, closeDisciplinaryAction, setDisciplinaryActionCurrentRow } = useUiActions()
   
-  const handleDisciplinaryActionSave = (data: Partial<DisciplinaryAction>) => {
-    if (disciplinaryActionCurrentRow) {
-      // Edit existing disciplinary action
-      dataActions.updateDisciplinaryAction(disciplinaryActionCurrentRow.id, data)
-      
-      // Update the disciplinary action in all information sheets that have it
-      const informationSheets = dataStore.state.informationSheets
-      const updatedSheets = informationSheets.map((sheet: InformationSheet) => ({
-        ...sheet,
-        disciplinaryActions: sheet.disciplinaryActions.map((action: DisciplinaryAction) => 
-          action.id === disciplinaryActionCurrentRow.id 
-            ? { ...action, ...data }
-            : action
-        )
-      }))
-      dataActions.setInformationSheets(updatedSheets)
-    } else {
-      // Add new disciplinary action
-      const newId = Math.max(...dataStore.state.disciplinaryActions.map((a: DisciplinaryAction) => a.id)) + 1
-      const newDisciplinaryAction = { ...data, id: newId } as DisciplinaryAction
-      
-      // Add to global disciplinary actions store
-      dataActions.addDisciplinaryAction(newDisciplinaryAction)
-      
-      // Add to the current employee (if one is selected)
-      if (currentRow) {
+  const handleDisciplinaryActionSave = async (data: Partial<DisciplinaryAction>) => {
+    try {
+      if (disciplinaryActionCurrentRow) {
+        // Edit existing disciplinary action
+        const updatedAction = await disciplinaryActionsApi.update(disciplinaryActionCurrentRow.id, data)
+        
+        // Update local store with the response from server
+        dataActions.updateDisciplinaryAction(disciplinaryActionCurrentRow.id, updatedAction)
+        
+        // Update the disciplinary action in all information sheets that have it
+        const informationSheets = dataStore.state.informationSheets
+        const updatedSheets = informationSheets.map((sheet: InformationSheet) => ({
+          ...sheet,
+          disciplinaryActions: sheet.disciplinaryActions.map((action: DisciplinaryAction) => 
+            action.id === disciplinaryActionCurrentRow.id 
+              ? updatedAction
+              : action
+          )
+        }))
+        dataActions.setInformationSheets(updatedSheets)
+        toast.success('Disciplinary action updated successfully')
+      } else {
+        // Add new disciplinary action
+        if (!currentRow) {
+          toast.error('No employee selected')
+          return
+        }
+
+        const newAction = await disciplinaryActionsApi.create({
+          ...data,
+          informationSheetId: currentRow.id
+        })
+        
+        // Add to global disciplinary actions store
+        dataActions.addDisciplinaryAction(newAction)
+        
+        // Add to the current employee
         const informationSheets = dataStore.state.informationSheets
         const updatedSheets = informationSheets.map((sheet: InformationSheet) => {
           if (sheet.id === currentRow.id) {
             return {
               ...sheet,
-              disciplinaryActions: [...sheet.disciplinaryActions, newDisciplinaryAction]
+              disciplinaryActions: [...sheet.disciplinaryActions, newAction]
             }
           }
           return sheet
         })
         dataActions.setInformationSheets(updatedSheets)
-      } else {
-        // If no specific employee is selected, add to the first employee as fallback
-        const informationSheets = dataStore.state.informationSheets
-        if (informationSheets.length > 0) {
-          const updatedSheets = informationSheets.map((sheet: InformationSheet, index: number) => {
-            if (index === 0) {
-              return {
-                ...sheet,
-                disciplinaryActions: [...sheet.disciplinaryActions, newDisciplinaryAction]
-              }
-            }
-            return sheet
-          })
-          dataActions.setInformationSheets(updatedSheets)
-        }
+        toast.success('Disciplinary action added successfully')
       }
+    } catch (error) {
+      console.error('Failed to save disciplinary action:', error)
+      toast.error('Failed to save disciplinary action')
     }
   }
   
