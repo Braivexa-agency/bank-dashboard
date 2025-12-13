@@ -19,6 +19,8 @@ import { authApi } from '@/lib/api/auth'
 import { useAuthStore } from '@/stores/authStore'
 import { toast } from 'sonner'
 import { useNavigate } from '@tanstack/react-router'
+import { Loader2 } from 'lucide-react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type SignUpFormProps = HTMLAttributes<HTMLFormElement>
 
@@ -81,13 +83,40 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
       })
 
       toast.success('Account created successfully!')
-      navigate({ to: '/' })
+      
+      // Delay navigation slightly to show success state/skeleton if desired
+      setTimeout(() => {
+        navigate({ to: '/' })
+      }, 500)
     } catch (error) {
       console.error('Registration error:', error)
       toast.error('Registration failed. Please try again.')
-    } finally {
       setIsLoading(false)
     }
+  }
+
+  if (isLoading) {
+    return (
+      <div className={cn('grid gap-4', className)} {...(props as HTMLAttributes<HTMLDivElement>)}>
+        <div className='space-y-2'>
+          <Skeleton className='h-4 w-[100px]' />
+          <Skeleton className='h-10 w-full' />
+        </div>
+        <div className='space-y-2'>
+          <Skeleton className='h-4 w-[100px]' />
+          <Skeleton className='h-10 w-full' />
+        </div>
+        <div className='space-y-2'>
+          <Skeleton className='h-4 w-[100px]' />
+          <Skeleton className='h-10 w-full' />
+        </div>
+        <div className='space-y-2'>
+          <Skeleton className='h-4 w-[150px]' />
+          <Skeleton className='h-10 w-full' />
+        </div>
+        <Skeleton className='h-10 w-full mt-2' />
+      </div>
+    )
   }
 
   return (
@@ -150,6 +179,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
           )}
         />
         <Button className='mt-2' disabled={isLoading}>
+          {isLoading && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
           Create Account
         </Button>
 
